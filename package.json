@@ -1,0 +1,60 @@
+{
+  "name": "babel-timing",
+  "version": "0.0.0",
+  "description": "Measure Babel compilation time",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "cli.js",
+    "!__tests__"
+  ],
+  "cli": "./cli.js",
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "preversion": "npm run prepublish",
+    "version": "git add package.json",
+    "postversion": "git push && git push --tags",
+    "prepublish": "npm t",
+    "format": "prettier --write \"**/*.{js,json,md}\""
+  },
+  "keywords": [
+    "babel",
+    "performance",
+    "compilation",
+    "performance",
+    "measurement",
+    "time"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toomuchdesign/babel-timing.git"
+  },
+  "author": "Andrea Carraro <me@andreacarraro.it>",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "cli-table": "^0.3.1",
+    "commander": "^2.20.0",
+    "glob": "^7.1.3"
+  },
+  "devDependencies": {
+    "husky": "^1.0.0",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
