@@ -60,6 +60,8 @@ function babelTiming(file) {
     ]);
 
   table.push(...results);
+
+  console.log(`File name: ${file}: ${b.totalTime.toFixed(3)} s`);
   console.log(table.toString());
 }
 

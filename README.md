@@ -35,7 +35,6 @@ node cli.js __fixtures__/*.js
 
 ## Todo
 
-- Add file names
 - Custom benchmark implementation
 - Provide babel config
 - Expose `wrapPluginVisitorMethod`

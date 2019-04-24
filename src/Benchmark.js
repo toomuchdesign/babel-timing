@@ -11,6 +11,7 @@ class Benchmark {
     this.events = {};
     this.visits = {};
     this.results = {};
+    this.totalTime = 0;
     this.now = now;
     this.diff = diff;
   }
@@ -35,6 +36,7 @@ class Benchmark {
       }
 
       this.results[name].aggregate += delta;
+      this.totalTime += delta;
       this.results[name].values.push(delta);
     }
   }
