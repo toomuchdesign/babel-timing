@@ -7,8 +7,8 @@ const pkg = require('./package.json');
 
 program
   .version(pkg.version)
-  .arguments('<list-of-files>')
   .usage('<list-of-files>')
+  .option('--babel-config <path>', 'babel configuration file')
   .parse(process.argv);
 
 const filesStack = [];
@@ -23,5 +23,5 @@ program.args.forEach(entry => {
 });
 
 filesStack.forEach(entry => {
-  babelTiming(entry);
+  babelTiming(entry, ({babelConfig} = program));
 });

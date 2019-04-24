@@ -1,13 +1,16 @@
 const fs = require('fs');
+const path = require('path');
 const babel = require('@babel/core');
 const Table = require('cli-table');
 const Benchmark = require('./Benchmark');
 
-function babelTiming(file) {
+function babelTiming(file, {babelConfig = false} = {}) {
   const b = new Benchmark();
+
+  // https://babeljs.io/docs/en/options#configfile
   babel.transformSync(fs.readFileSync(file).toString(), {
-    babelrc: false,
-    configFile: false,
+    filename: file,
+    configFile: babelConfig ? path.join(process.cwd(), babelConfig) : false,
     minified: true,
     compact: true,
     wrapPluginVisitorMethod(pluginAlias, visitorType, callback) {
