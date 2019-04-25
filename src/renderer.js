@@ -1,4 +1,5 @@
 const Table = require('cli-table');
+var colors = require('colors/safe');
 
 function renderer({name, data}) {
   const dataArray = Object.keys(data)
@@ -19,7 +20,7 @@ function renderer({name, data}) {
   const totalTime = dataArray.reduce((total, entry) => total + entry.time, 0);
 
   const table = new Table({
-    head: ['pluginAlias', 'time(ms)', '# visits', 'time/visit(ms)'],
+    head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
     chars: {
       top: '',
       'top-mid': '',
@@ -53,7 +54,8 @@ function renderer({name, data}) {
 
   table.push(...tableData);
 
-  console.log(`File name: ${name}: ${totalTime.toFixed(3)} s`);
+  console.log(colors.bold.inverse(` File name: ${name} `));
+  console.log(colors.bold.inverse(` Total time(ms): ${totalTime.toFixed(3)} `));
   console.log(table.toString());
 }
 

@@ -34,6 +34,7 @@
   "dependencies": {
     "@babel/core": "^7.4.3",
     "cli-table": "^0.3.1",
+    "colors": "^1.3.3",
     "commander": "^2.20.0",
     "glob": "^7.1.3"
   },
