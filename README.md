@@ -44,7 +44,6 @@ node cli.js __fixtures__/*.js
 
 ## Todo
 
-- Custom benchmark implementation
 - Custom renderer implementation (maybe also `stats` file or a webapp like `Webpack Bundle Analyzer` does)
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
