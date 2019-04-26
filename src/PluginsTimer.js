@@ -1,3 +1,11 @@
+// interface results {
+//   [key: string]: {
+//     time: Number,
+//     visits: Number,
+//     timePerVisit: Number,
+//   }
+// }
+
 class PluginsTimer {
   constructor() {
     this._events = {};
@@ -36,12 +44,27 @@ class PluginsTimer {
   }
 
   getResults() {
-    return this._results;
+    const results = {};
+    Object.keys(this._results).forEach(pluginAlias => {
+      const entry = this._results[pluginAlias];
+      results[pluginAlias] = {
+        timePerVisit: entry.time / entry.visits,
+        ...entry,
+      };
+    });
+    return results;
   }
 
   static getDeltaInMS(start) {
     const delta = process.hrtime(start);
     return delta[0] * 1e3 + delta[1] / 1e6;
+  }
+
+  static getTotalTime(results) {
+    return Object.keys(results).reduce(
+      (total, pluginAlias) => total + results[pluginAlias].time,
+      0
+    );
   }
 }
 

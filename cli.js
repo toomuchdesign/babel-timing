@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const glob = require('glob');
 const babelTiming = require('./src').babelTiming;
 const pkg = require('./package.json');
 
@@ -17,24 +16,11 @@ program
   )
   .parse(process.argv);
 
-const filesStack = [];
-program.args.forEach(entry => {
-  if (glob.hasMagic(entry)) {
-    glob(entry, (er, files) => {
-      filesStack.push(...files);
-    });
-  } else {
-    filesStack.push(entry);
-  }
-});
-
-filesStack.forEach(entry => {
-  babelTiming(entry, {
-    babelConfig: program.babelConfig,
-    followImports: program.followImports,
-    // followAbsoluteImports: program.followAbsoluteImports,
-    importPatterns: program.importPatterns
-      ? program.importPatterns.split(',')
-      : undefined,
-  });
+babelTiming(program.args, {
+  babelConfig: program.babelConfig,
+  followImports: program.followImports,
+  // followAbsoluteImports: program.followAbsoluteImports,
+  importPatterns: program.importPatterns
+    ? program.importPatterns.split(',')
+    : undefined,
 });

@@ -23,7 +23,7 @@ babel-timing path/to/entrypoint.js --follow-imports
 
 ```js
 const babelTiming = require('babel-timing').babelTiming;
-babelTiming('path/to/file.js', options);
+babelTiming(['path/to/file.js'], options);
 ```
 
 ## Options
@@ -68,5 +68,4 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
 - Find a testing strategy
 - Unwrap and compile `node_modules` packages (absolute paths)
-- Render results all together
 - Prevent nested import discovery
