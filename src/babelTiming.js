@@ -14,6 +14,7 @@ function babelTiming(
 ) {
   let files = globPatternsToPaths(filePatterns);
 
+  // Follow and recursively resolve all relative imports
   if (followImports) {
     let importedFiles = files
       .map(file => {
@@ -33,7 +34,11 @@ function babelTiming(
     .map(file => {
       const timer = new PluginsTimer();
 
-      // https://babeljs.io/docs/en/options#configfile
+      /*
+       * Transform all gathered files one by one and collect
+       * transform meta data using `wrapPluginVisitorMethod`
+       * https://babeljs.io/docs/en/options#configfile
+       */
       babel.transformSync(fs.readFileSync(file).toString(), {
         filename: file,
         configFile: babelConfig ? path.join(process.cwd(), babelConfig) : false,

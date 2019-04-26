@@ -8,17 +8,6 @@ function renderer(results = []) {
 }
 
 function renderEntry({name, totalTime, data}) {
-  const dataArray = Object.keys(data)
-    .map(pluginAlias => ({
-      name: pluginAlias,
-      ...data[pluginAlias],
-    }))
-    .sort((a, b) => {
-      if (a.time < b.time) return 1;
-      if (a.time > b.time) return -1;
-      return 0;
-    });
-
   const table = new Table({
     head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
     chars: {
@@ -45,12 +34,18 @@ function renderEntry({name, totalTime, data}) {
     },
   });
 
-  const tableData = dataArray.map(entry => [
-    entry.name,
-    entry.time.toFixed(3),
-    entry.visits,
-    entry.timePerVisit.toFixed(3),
-  ]);
+  const tableData = data
+    .sort((a, b) => {
+      if (a.time < b.time) return 1;
+      if (a.time > b.time) return -1;
+      return 0;
+    })
+    .map(entry => [
+      entry.name,
+      entry.time.toFixed(3),
+      entry.visits,
+      entry.timePerVisit.toFixed(3),
+    ]);
 
   table.push(...tableData);
 

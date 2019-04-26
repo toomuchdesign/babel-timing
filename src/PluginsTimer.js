@@ -1,10 +1,9 @@
 // interface results {
-//   [key: string]: {
-//     time: Number,
-//     visits: Number,
-//     timePerVisit: Number,
-//   }
-// }
+//   name: string
+//   time: number,
+//   visits: number,
+//   timePerVisit: number,
+// }[]
 
 class PluginsTimer {
   constructor() {
@@ -44,15 +43,14 @@ class PluginsTimer {
   }
 
   getResults() {
-    const results = {};
-    Object.keys(this._results).forEach(pluginAlias => {
+    return Object.keys(this._results).map(pluginAlias => {
       const entry = this._results[pluginAlias];
-      results[pluginAlias] = {
+      return {
+        name: pluginAlias,
         timePerVisit: entry.time / entry.visits,
         ...entry,
       };
     });
-    return results;
   }
 
   static getDeltaInMS(start) {
@@ -61,10 +59,7 @@ class PluginsTimer {
   }
 
   static getTotalTime(results) {
-    return Object.keys(results).reduce(
-      (total, pluginAlias) => total + results[pluginAlias].time,
-      0
-    );
+    return results.reduce((total, entry) => total + entry.time, 0);
   }
 }
 
