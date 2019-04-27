@@ -10,7 +10,7 @@
   ],
   "cli": "./cli.js",
   "scripts": {
-    "test": "echo \"No test specified\"",
+    "test": "jest",
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
     "husky": "^1.0.0",
+    "jest": "^24.7.1",
     "lint-staged": "^7.0.0",
     "prettier": "^1.0.0"
   },
@@ -55,6 +56,7 @@
   "lint-staged": {
     "**/*.{js,json}": [
       "prettier --write",
+      "npm t -- .",
       "git add"
     ],
     "**/*.{md}": [

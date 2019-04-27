@@ -77,6 +77,5 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
-- Find a testing strategy
 - Unwrap and compile `node_modules` packages (absolute paths)
 - Prevent nested import discovery

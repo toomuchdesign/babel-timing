@@ -4,9 +4,7 @@ function globPatternsToPaths(patterns) {
   const paths = [];
   patterns.forEach(pattern => {
     if (glob.hasMagic(pattern)) {
-      glob(pattern, (er, paths) => {
-        paths.push(...paths);
-      });
+      paths.push(...glob.sync(pattern));
     } else {
       paths.push(pattern);
     }
