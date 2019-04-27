@@ -41,7 +41,7 @@ function renderEntry({name, totalTime, data}) {
       return 0;
     })
     .map(entry => [
-      entry.name,
+      entry.plugin,
       entry.time.toFixed(3),
       entry.visits,
       entry.timePerVisit.toFixed(3),

@@ -1,5 +1,5 @@
 // interface results {
-//   name: string
+//   plugin: string
 //   time: number,
 //   visits: number,
 //   timePerVisit: number,
@@ -46,7 +46,7 @@ class PluginsTimer {
     return Object.keys(this._results).map(pluginAlias => {
       const entry = this._results[pluginAlias];
       return {
-        name: pluginAlias,
+        plugin: pluginAlias,
         timePerVisit: entry.time / entry.visits,
         ...entry,
       };

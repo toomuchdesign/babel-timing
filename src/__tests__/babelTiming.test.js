@@ -9,7 +9,7 @@ const expectedResultsEntry = {
 };
 
 const expectedResultsDataEntry = {
-  name: expect.any(String),
+  plugin: expect.any(String),
   timePerVisit: expect.any(Number),
   time: expect.any(Number),
   visits: expect.any(Number),
