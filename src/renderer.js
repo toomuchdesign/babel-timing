@@ -34,18 +34,12 @@ function renderEntry({name, totalTime, data}) {
     },
   });
 
-  const tableData = data
-    .sort((a, b) => {
-      if (a.time < b.time) return 1;
-      if (a.time > b.time) return -1;
-      return 0;
-    })
-    .map(entry => [
-      entry.plugin,
-      entry.time.toFixed(3),
-      entry.visits,
-      entry.timePerVisit.toFixed(3),
-    ]);
+  const tableData = data.map(entry => [
+    entry.plugin,
+    entry.time.toFixed(3),
+    entry.visits,
+    entry.timePerVisit.toFixed(3),
+  ]);
 
   table.push(...tableData);
 

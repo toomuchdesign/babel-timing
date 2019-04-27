@@ -43,14 +43,20 @@ class PluginsTimer {
   }
 
   getResults() {
-    return Object.keys(this._results).map(pluginAlias => {
-      const entry = this._results[pluginAlias];
-      return {
-        plugin: pluginAlias,
-        timePerVisit: entry.time / entry.visits,
-        ...entry,
-      };
-    });
+    return Object.keys(this._results)
+      .map(pluginAlias => {
+        const entry = this._results[pluginAlias];
+        return {
+          plugin: pluginAlias,
+          timePerVisit: entry.time / entry.visits,
+          ...entry,
+        };
+      })
+      .sort((a, b) => {
+        if (a.time < b.time) return 1;
+        if (a.time > b.time) return -1;
+        return 0;
+      });
   }
 
   static getDeltaInMS(start) {

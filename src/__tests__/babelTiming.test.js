@@ -16,15 +16,38 @@ const expectedResultsDataEntry = {
 };
 
 describe('babelTiming', () => {
-  it('returns "results" of with expected shape', () => {
-    const results = babelTiming([path.join(FIXTURES, 'file-1.js')]);
-    expect(Array.isArray(results)).toBe(true);
+  describe('results', () => {
+    it('has expected shape', () => {
+      const results = babelTiming([path.join(FIXTURES, 'file-1.js')]);
+      expect(Array.isArray(results)).toBe(true);
 
-    const resultsEntry = results[0];
-    expect(resultsEntry).toEqual(expectedResultsEntry);
+      const resultsEntry = results[0];
+      expect(resultsEntry).toEqual(expectedResultsEntry);
 
-    const resultDataEntry = resultsEntry.data[0];
-    expect(resultDataEntry).toEqual(expectedResultsDataEntry);
+      const resultDataEntry = resultsEntry.data[0];
+      expect(resultDataEntry).toEqual(expectedResultsDataEntry);
+    });
+
+    it('entries are sorted by decreasing "totalTime"', () => {
+      const results = babelTiming([path.join(FIXTURES, 'file-*.js')]);
+      let previous = Infinity;
+
+      results.forEach(entry => {
+        expect(previous >= entry.totalTime).toBe(true);
+        previous = entry.totalTime;
+      });
+    });
+
+    it('plugins data entries are sorted by decreasing "time"', () => {
+      const results = babelTiming([path.join(FIXTURES, 'file-*.js')]);
+      const resultsEntry = results[0];
+      let previous = Infinity;
+
+      resultsEntry.data.forEach(entry => {
+        expect(previous >= entry.time).toBe(true);
+        previous = entry.time;
+      });
+    });
   });
 
   describe('glob patterns', () => {
