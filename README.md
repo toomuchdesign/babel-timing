@@ -51,6 +51,18 @@ Default: `undefined`
 
 Include/exclude import paths according to the [provided patterns](https://github.com/sindresorhus/multimatch#readme).
 
+### `output` / `--output`
+
+Type: `string`<br />
+Default: `"return"` (`"console"` when called via CLI)<br />
+Options: `"return"`, `"console"`, `"json"`
+
+Make `babel-timing` results available as:
+
+- `"return"` return results' object
+- `"console"` render results in console
+- `"json"` save results as `babel-timing-results.json`
+
 ## Manual tests :)
 
 ```bash
@@ -62,8 +74,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 ## Todo
 
-- Custom renderer implementation (maybe also `stats` file or a webapp like `Webpack Bundle Analyzer` does)
-- Add a `.csv` or `.json` renderer
+- Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
 - Find a testing strategy

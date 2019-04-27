@@ -14,6 +14,7 @@ program
     '--import-patterns <comma-separated-list-of-glob-patterns>',
     'configure which imports to follow'
   )
+  .option('--output <return|console|json>', 'make results available as')
   .parse(process.argv);
 
 babelTiming(program.args, {
@@ -23,4 +24,5 @@ babelTiming(program.args, {
   importPatterns: program.importPatterns
     ? program.importPatterns.split(',')
     : undefined,
+  output: program.output || 'console',
 });

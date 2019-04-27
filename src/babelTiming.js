@@ -10,7 +10,12 @@ const renderer = require('./renderer');
 
 function babelTiming(
   filePatterns = [],
-  {babelConfig = false, followImports = false, importPatterns} = {}
+  {
+    babelConfig = false,
+    followImports = false,
+    importPatterns,
+    output = 'return',
+  } = {}
 ) {
   let files = globPatternsToPaths(filePatterns);
 
@@ -61,7 +66,22 @@ function babelTiming(
       return 0;
     });
 
-  renderer(results);
+  switch (output) {
+    case 'return': {
+      return results;
+    }
+    case 'console': {
+      renderer(results);
+      return;
+    }
+    case 'json': {
+      fs.writeFileSync(
+        path.join(process.cwd(), 'babel-timing-results.json'),
+        JSON.stringify(results)
+      );
+      return;
+    }
+  }
 }
 
 module.exports = babelTiming;
