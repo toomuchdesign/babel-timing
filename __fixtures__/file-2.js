@@ -7,3 +7,5 @@ class Hello {
 }
 
 Hello.world();
+
+export default Hello;

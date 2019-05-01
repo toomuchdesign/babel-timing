@@ -64,5 +64,21 @@ describe('babelTiming', () => {
       });
       expect(results.length).toBe(4);
     });
+
+    describe('with "importPatterns" option set to **', () => {
+      it('returns both relative and absolute "node_modules" imports', async () => {
+        const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
+          followImports: true,
+          importPatterns: ['**'],
+        });
+
+        const nodeModulesImports = results.filter(entry =>
+          entry.name.includes('node_modules')
+        ).length;
+        const relativeImports = 4;
+
+        expect(nodeModulesImports).toBe(results.length - relativeImports);
+      });
+    });
   });
 });

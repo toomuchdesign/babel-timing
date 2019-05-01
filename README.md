@@ -44,14 +44,12 @@ Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#c
 Type: `bool`<br />
 Default: `false`
 
-Follow imported files/modules (using [babel-collect-imports](https://github.com/babel-utils/babel-collect-imports)) and run `babel-timing` against them.
-
-Currently only relative paths are considered.
+Follow imported files/modules and run `babel-timing` against them.
 
 ### `importPatterns` / `--import-patterns`
 
 Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
-Default: `undefined`
+Default: `['**', '!**/node_modules/**']`
 
 Include/exclude import paths according to the [provided patterns](https://github.com/sindresorhus/multimatch#readme).
 
@@ -70,8 +68,6 @@ Make `babel-timing` results available as:
 ## How it works
 
 Compile files with **Babel 7** and get **collect compilation info** through [`wrapPluginVisitorMethod`](https://babeljs.io/docs/en/options#wrappluginvisitormethod) Babel config option.
-
-Optionally follow imports using [babel-collect-imports][babel-collect-imports].
 
 ### Results
 
@@ -119,9 +115,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
-- Unwrap and compile `node_modules` packages (absolute paths)
 - Prevent nested import discovery
-- Find a more stable solution for making available pending [`babel-collect-imports` Babel v7 update](https://github.com/babel-utils/babel-collect-imports/pull/2)
-- Consider using a bundler instead of `babel-collect-import`
-
-[babel-collect-imports]: https://github.com/babel-utils/babel-collect-imports
+- Consider replacing `importPatterns` option with Rollup's `include`/`exclude` options
+- Provide `mainFields` resolution options for external packages
+- Consider providing option to silent/intercapt Rollup's warnings through `onwarn` option

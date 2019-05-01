@@ -3,17 +3,17 @@ const path = require('path');
 const babel = require('@babel/core');
 const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
-const {collectImportsSync} = require('babel-collect-imports');
 const {globPatternsToPaths, onlyUnique} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
 const renderer = require('./renderer');
+const getImports = require('./getImports');
 
 async function babelTiming(
   filePatterns = [],
   {
     babelConfig = false,
     followImports = false,
-    importPatterns,
+    importPatterns = ['**', '!**/node_modules/**'],
     output = 'return',
   } = {}
 ) {
@@ -21,13 +21,9 @@ async function babelTiming(
 
   // Follow and recursively resolve all relative imports
   if (followImports) {
-    let importedFiles = files
-      .map(file => {
-        const {internal, external} = collectImportsSync(file);
-        return internal;
-      })
-      .reduce(flatten, [])
-      .filter(onlyUnique);
+    let importedFiles = await Promise.all(files.map(file => getImports(file)));
+
+    importedFiles = importedFiles.reduce(flatten, []).filter(onlyUnique);
 
     if (importPatterns) {
       importedFiles = multimatch(importedFiles, importPatterns);
