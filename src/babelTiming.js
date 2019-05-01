@@ -13,7 +13,8 @@ async function babelTiming(
   {
     babelConfig = false,
     followImports = false,
-    importPatterns = ['**', '!**/node_modules/**'],
+    include = ['**'],
+    exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
     output = 'return',
   } = {}
@@ -23,15 +24,20 @@ async function babelTiming(
   // Follow and recursively resolve all relative imports
   if (followImports) {
     let importedFiles = await Promise.all(
-      files.map(file => getImports(file, {resolveMainFields}))
+      files.map(file => getImports(file, {resolveMainFields, include, exclude}))
     );
 
     importedFiles = importedFiles.reduce(flatten, []).filter(onlyUnique);
-
-    if (importPatterns) {
-      importedFiles = multimatch(importedFiles, importPatterns);
-    }
     files = importedFiles;
+  }
+
+  if (Array.isArray(include)) {
+    files = multimatch(files, include);
+  }
+
+  if (Array.isArray(exclude)) {
+    const negatedExclude = exclude.map(pattern => `!${pattern}`);
+    files = multimatch(files, ['**', ...negatedExclude]);
   }
 
   const results = files

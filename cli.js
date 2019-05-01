@@ -14,8 +14,13 @@ program
   .option('--babel-config <path>', 'babel configuration file')
   .option('--follow-imports', 'follow and compile imported files')
   .option(
-    '--import-patterns <comma-separated-list-of-glob-patterns>',
-    'configure which imports to follow',
+    '--include <comma-separated-list-of-glob-patterns>',
+    'include provided import paths',
+    list
+  )
+  .option(
+    '--exclude <comma-separated-list-of-glob-patterns>',
+    'exclude provided import paths',
     list
   )
   .option(
@@ -36,6 +41,8 @@ babelTiming(
     babelConfig,
     followImports,
     importPatterns,
+    include,
+    exclude,
     resolveMainFields,
     output,
   } = program)

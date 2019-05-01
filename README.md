@@ -34,35 +34,40 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 ## Options
 
-### `babelConfig` / `--babel-config`
+#### `babelConfig` / `--babel-config`
 
 Type: `string | false`<br />
 Default: `false`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
-### `followImports` / `--follow-imports`
+#### `followImports` / `--follow-imports`
 
 Type: `bool`<br />
 Default: `false`
 
 Follow imported files/modules and run `babel-timing` against them.
 
-### `importPatterns` / `--import-patterns`
-
+#### `include` / `--include`
 Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
-Default: `['**', '!**/node_modules/**']`
+Default: `['**']`
 
-Include/exclude import paths according to the [provided patterns](https://github.com/sindresorhus/multimatch#readme).
+Include paths (imported ones also) according to the [provided glob patterns](https://www.npmjs.com/package/glob#glob-primer).
 
-### `resolveMainFields` / `--resolve-main-fields`
+#### `exclude` / `--exclude`
+Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
+Default: `['**/modules/**']`
+
+Exclude paths (imported ones also) according to the [provided glob patterns](https://www.npmjs.com/package/glob#glob-primer).
+
+#### `resolveMainFields` / `--resolve-main-fields`
 
 Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
 Default: `['browser', 'module', 'main']`
 
 Determine which fields in imported modules's `package.json` are checked.
 
-### `output` / `--output`
+#### `output` / `--output`
 
 Type: `string`<br />
 Default: `"return"` (`"console"` when called via CLI)<br />
@@ -124,9 +129,8 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
-- Prevent nested import discovery
-- Consider replacing `importPatterns` option with Rollup's `include`/`exclude` options
 - Consider providing option to silent/intercept Rollup's warnings through `onwarn` option
+- Provide option to join results of same external package
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing

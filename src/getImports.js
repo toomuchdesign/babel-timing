@@ -14,8 +14,8 @@ async function getImports(file, options) {
         mainFields: options.resolveMainFields,
       }),
       commonjs({
-        include: '**',
-        // exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
+        include: options.include,
+        exclude: options.exclude,
         extensions: ['.js', '.jsx', '.mjs', '.ts', '.json'],
         sourceMap: false,
       }),

@@ -15,6 +15,10 @@ const expectedResultsDataEntry = {
   visits: expect.any(Number),
 };
 
+function getFileList(results) {
+  return results.map(entry => entry.name);
+}
+
 describe('babelTiming', () => {
   describe('results', () => {
     it('has expected shape', async () => {
@@ -62,22 +66,60 @@ describe('babelTiming', () => {
       const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
         followImports: true,
       });
-      expect(results.length).toBe(4);
+      const files = getFileList(results);
+
+      expect(files.length).toBe(4);
+      expect(files).toEqual(
+        expect.arrayContaining([
+          expect.stringContaining('/entry.js'),
+          expect.stringContaining('/file-1.js'),
+          expect.stringContaining('/file-2.js'),
+          expect.stringContaining('/file-3.js'),
+        ])
+      );
     });
 
-    describe('with "importPatterns" option set to **', () => {
+    describe('with "exclude" option set to []', () => {
       it('returns both relative and absolute "node_modules" imports', async () => {
         const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
           followImports: true,
-          importPatterns: ['**'],
+          exclude: [],
         });
+        const files = getFileList(results);
 
-        const nodeModulesImports = results.filter(entry =>
-          entry.name.includes('node_modules')
-        ).length;
-        const relativeImports = 4;
+        expect(files.length).toBe(8);
+        expect(files).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining('/entry.js'),
+            expect.stringContaining('/file-1.js'),
+            expect.stringContaining('/file-2.js'),
+            expect.stringContaining('/file-3.js'),
+            expect.stringContaining('/node_modules/minimatch/'),
+            expect.stringContaining('/node_modules/brace-expansion/'),
+            expect.stringContaining('/node_modules/balanced-match/'),
+            expect.stringContaining('/node_modules/concat-map/'),
+          ])
+        );
+      });
+    });
 
-        expect(nodeModulesImports).toBe(results.length - relativeImports);
+    describe('with "exclude" targeting specific package', () => {
+      it("does not include package's sub dependencies", async () => {
+        const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
+          followImports: true,
+          exclude: ['**/node_modules/minimatch/**'],
+        });
+        const files = getFileList(results);
+
+        expect(files.length).toBe(4);
+        expect(files).toEqual(
+          expect.arrayContaining([
+            expect.stringContaining('/entry.js'),
+            expect.stringContaining('/file-1.js'),
+            expect.stringContaining('/file-2.js'),
+            expect.stringContaining('/file-3.js'),
+          ])
+        );
       });
     });
   });
