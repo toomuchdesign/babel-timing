@@ -1,5 +1,7 @@
 # Babel timing
 
+[![Build status][ci-badge]][ci]
+
 Measure Babel compilation time file by file, plugin by plugin. [See screenshot](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot.png).
 
 **Note:** this tool is in **version 0**, any minor release might introduce breaking changes.
@@ -119,3 +121,6 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Consider replacing `importPatterns` option with Rollup's `include`/`exclude` options
 - Provide `mainFields` resolution options for external packages
 - Consider providing option to silent/intercapt Rollup's warnings through `onwarn` option
+
+[ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
+[ci]: https://travis-ci.org/toomuchdesign/babel-timing
