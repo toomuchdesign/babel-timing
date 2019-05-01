@@ -27,7 +27,7 @@ babel-timing path/to/entrypoint.js --follow-imports
 
 ```js
 const babelTiming = require('babel-timing').babelTiming;
-babelTiming(['path/to/file.js'], options);
+const results = await babelTiming(['path/to/file.js'], options);
 ```
 
 ## Options
