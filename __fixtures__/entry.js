@@ -1,3 +1,3 @@
 import file1 from './file-1';
 import file2 from './file-2';
-import glob from 'glob';
+import minimatch from 'minimatch';
