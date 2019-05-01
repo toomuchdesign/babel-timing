@@ -8,7 +8,7 @@ const {globPatternsToPaths, onlyUnique} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
 const renderer = require('./renderer');
 
-function babelTiming(
+async function babelTiming(
   filePatterns = [],
   {
     babelConfig = false,

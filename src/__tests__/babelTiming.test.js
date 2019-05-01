@@ -17,8 +17,8 @@ const expectedResultsDataEntry = {
 
 describe('babelTiming', () => {
   describe('results', () => {
-    it('has expected shape', () => {
-      const results = babelTiming([path.join(FIXTURES, 'file-1.js')]);
+    it('has expected shape', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-1.js')]);
       expect(Array.isArray(results)).toBe(true);
 
       const resultsEntry = results[0];
@@ -28,8 +28,8 @@ describe('babelTiming', () => {
       expect(resultDataEntry).toEqual(expectedResultsDataEntry);
     });
 
-    it('entries are sorted by decreasing "totalTime"', () => {
-      const results = babelTiming([path.join(FIXTURES, 'file-*.js')]);
+    it('entries are sorted by decreasing "totalTime"', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
       let previous = Infinity;
 
       results.forEach(entry => {
@@ -38,8 +38,8 @@ describe('babelTiming', () => {
       });
     });
 
-    it('plugins data entries are sorted by decreasing "time"', () => {
-      const results = babelTiming([path.join(FIXTURES, 'file-*.js')]);
+    it('plugins data entries are sorted by decreasing "time"', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
       const resultsEntry = results[0];
       let previous = Infinity;
 
@@ -51,15 +51,15 @@ describe('babelTiming', () => {
   });
 
   describe('glob patterns', () => {
-    it('returns results matching expected pattern', () => {
-      const results = babelTiming([path.join(FIXTURES, 'file-*.js')]);
+    it('returns results matching expected pattern', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
       expect(results.length).toBe(3);
     });
   });
 
   describe('"followImports" option', () => {
-    it('returns 4 relative import results', () => {
-      const results = babelTiming([path.join(FIXTURES, 'entry.js')], {
+    it('returns 4 relative import results', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
         followImports: true,
       });
       expect(results.length).toBe(4);
