@@ -55,6 +55,13 @@ Default: `['**', '!**/node_modules/**']`
 
 Include/exclude import paths according to the [provided patterns](https://github.com/sindresorhus/multimatch#readme).
 
+### `resolveMainFields` / `--resolve-main-fields`
+
+Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
+Default: `['browser', 'module', 'main']`
+
+Determine which fields in imported modules's `package.json` are checked.
+
 ### `output` / `--output`
 
 Type: `string`<br />
@@ -119,8 +126,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
 - Prevent nested import discovery
 - Consider replacing `importPatterns` option with Rollup's `include`/`exclude` options
-- Provide `mainFields` resolution options for external packages
-- Consider providing option to silent/intercapt Rollup's warnings through `onwarn` option
+- Consider providing option to silent/intercept Rollup's warnings through `onwarn` option
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing

@@ -4,6 +4,10 @@ const program = require('commander');
 const babelTiming = require('./src').babelTiming;
 const pkg = require('./package.json');
 
+function commaSeparatedListToArray(list) {
+  return list ? list.split(',') : undefined;
+}
+
 program
   .version(pkg.version)
   .usage('<list-of-files>')
@@ -14,6 +18,10 @@ program
     '--import-patterns <comma-separated-list-of-glob-patterns>',
     'configure which imports to follow'
   )
+  .option(
+    '--resolve-main-fields <comma-separated-list-of-fields>',
+    'determine which fields in imported package.json are checked'
+  )
   .option('--output <return|console|json>', 'make results available as')
   .parse(process.argv);
 
@@ -21,8 +29,7 @@ babelTiming(program.args, {
   babelConfig: program.babelConfig,
   followImports: program.followImports,
   // followAbsoluteImports: program.followAbsoluteImports,
-  importPatterns: program.importPatterns
-    ? program.importPatterns.split(',')
-    : undefined,
+  importPatterns: commaSeparatedListToArray(program.importPatterns),
+  resolveMainFields: commaSeparatedListToArray(program.resolveMainFields),
   output: program.output || 'console',
 });
