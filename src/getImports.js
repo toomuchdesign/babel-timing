@@ -20,6 +20,7 @@ async function getImports(file, options) {
         sourceMap: false,
       }),
     ],
+    onwarn: options.verbose ? undefined : () => {},
   };
 
   const bundle = await rollup.rollup(inputOptions);

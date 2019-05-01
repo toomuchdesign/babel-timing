@@ -79,6 +79,12 @@ Make `babel-timing` results available as:
 - `"console"` render results in console
 - `"json"` save results as `babel-timing-results.json`
 
+#### `verbose` / `--verbose`
+Type: `bool`<br />
+Default: `false`
+
+Log warnings.
+
 ## How it works
 
 Compile files with **Babel 7** and get **collect compilation info** through [`wrapPluginVisitorMethod`](https://babeljs.io/docs/en/options#wrappluginvisitormethod) Babel config option.
@@ -129,7 +135,6 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
-- Consider providing option to silent/intercept Rollup's warnings through `onwarn` option
 - Provide option to join results of same external package
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master

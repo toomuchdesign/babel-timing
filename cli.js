@@ -33,6 +33,7 @@ program
     'make results available as',
     'console'
   )
+  .option('--verbose', 'log warnings')
   .parse(process.argv);
 
 babelTiming(
@@ -45,5 +46,6 @@ babelTiming(
     exclude,
     resolveMainFields,
     output,
+    verbose,
   } = program)
 );

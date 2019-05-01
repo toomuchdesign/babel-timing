@@ -17,6 +17,7 @@ async function babelTiming(
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
     output = 'return',
+    verbose = false,
   } = {}
 ) {
   let files = globPatternsToPaths(filePatterns);
@@ -24,7 +25,9 @@ async function babelTiming(
   // Follow and recursively resolve all relative imports
   if (followImports) {
     let importedFiles = await Promise.all(
-      files.map(file => getImports(file, {resolveMainFields, include, exclude}))
+      files.map(file =>
+        getImports(file, {resolveMainFields, include, exclude, verbose})
+      )
     );
 
     importedFiles = importedFiles.reduce(flatten, []).filter(onlyUnique);
