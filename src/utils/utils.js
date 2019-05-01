@@ -16,5 +16,16 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function hasEntryWithProperty(propName, value, arr) {
+  let i;
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i][propName] === value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+exports.hasEntryWithProperty = hasEntryWithProperty;
 exports.globPatternsToPaths = globPatternsToPaths;
 exports.onlyUnique = onlyUnique;
