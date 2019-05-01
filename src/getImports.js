@@ -11,11 +11,12 @@ async function getImports(file) {
     plugins: [
       nodeResolve({
         mainFields: ['browser', 'module', 'main'],
+        extensions: ['.js', '.jsx', '.mjs', '.ts', '.json'],
       }),
       commonjs({
         include: '**',
         // exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
-        extensions: ['.js'],
+        extensions: ['.js', '.jsx', '.mjs', '.ts', '.json'],
         sourceMap: false,
       }),
     ],
