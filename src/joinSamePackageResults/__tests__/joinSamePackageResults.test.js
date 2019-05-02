@@ -1,4 +1,4 @@
-const {joinSamePackageResults} = require('../../utils');
+const joinSamePackageResults = require('../index');
 const resultsMock = require('../__mocks__/results');
 
 // @TODO: rewrite as integration test

@@ -16,6 +16,14 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function sortByProperty(prop) {
+  return (a, b) => {
+    if (a[prop] < b[prop]) return 1;
+    if (a[prop] > b[prop]) return -1;
+    return 0;
+  };
+}
+
 function hasEntryWithProperty(propName, value, arr) {
   let i;
   for (i = 0; i < arr.length; i++) {
@@ -29,3 +37,4 @@ function hasEntryWithProperty(propName, value, arr) {
 exports.hasEntryWithProperty = hasEntryWithProperty;
 exports.globPatternsToPaths = globPatternsToPaths;
 exports.onlyUnique = onlyUnique;
+exports.sortByProperty = sortByProperty;

@@ -3,10 +3,11 @@ const path = require('path');
 const babel = require('@babel/core');
 const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
-const {globPatternsToPaths, onlyUnique} = require('./utils');
+const {globPatternsToPaths, onlyUnique, sortByProperty} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
 const renderer = require('./renderer');
 const getImports = require('./getImports');
+const joinSamePackageResults = require('./joinSamePackageResults');
 
 async function babelTiming(
   filePatterns = [],
@@ -43,36 +44,38 @@ async function babelTiming(
     files = multimatch(files, ['**', ...negatedExclude]);
   }
 
-  const results = files
-    .map(file => {
-      const timer = new PluginsTimer();
+  let results = files.map(file => {
+    const timer = new PluginsTimer();
 
-      /*
-       * Transform all gathered files one by one and collect
-       * transform meta data using `wrapPluginVisitorMethod`
-       * https://babeljs.io/docs/en/options#configfile
-       */
-      babel.transformSync(fs.readFileSync(file).toString(), {
-        filename: file,
-        configFile: babelConfig ? path.join(process.cwd(), babelConfig) : false,
-        minified: true,
-        compact: true,
-        wrapPluginVisitorMethod: timer.wrapPluginVisitorMethod,
-      });
-
-      const data = timer.getResults();
-
-      return {
-        name: file,
-        totalTime: PluginsTimer.getTotalTime(data),
-        data,
-      };
-    })
-    .sort((a, b) => {
-      if (a.totalTime < b.totalTime) return 1;
-      if (a.totalTime > b.totalTime) return -1;
-      return 0;
+    /*
+     * Transform all gathered files one by one and collect
+     * transform meta data using `wrapPluginVisitorMethod`
+     * https://babeljs.io/docs/en/options#configfile
+     */
+    babel.transformSync(fs.readFileSync(file).toString(), {
+      filename: file,
+      configFile: babelConfig ? path.join(process.cwd(), babelConfig) : false,
+      minified: true,
+      compact: true,
+      wrapPluginVisitorMethod: timer.wrapPluginVisitorMethod,
     });
+
+    const data = timer.getResults();
+
+    return {
+      name: file,
+      data,
+    };
+  });
+
+  // @TODO: disable join via option
+  results = joinSamePackageResults(results);
+  results = results
+    .map(entry => ({
+      ...entry,
+      totalTime: PluginsTimer.getTotalTime(entry.data),
+    }))
+    .sort(sortByProperty('totalTime'));
 
   switch (output) {
     case 'return': {
