@@ -1,3 +1,7 @@
+const mergeWith = require('lodash.mergewith');
+const flatten = require('reduce-flatten');
+const {onlyUnique, sortByProperty} = require('./utils');
+
 // interface results {
 //   plugin: string
 //   time: number,
@@ -48,15 +52,11 @@ class PluginsTimer {
         const entry = this._results[pluginAlias];
         return {
           plugin: pluginAlias,
-          timePerVisit: entry.time / entry.visits,
           ...entry,
         };
       })
-      .sort((a, b) => {
-        if (a.time < b.time) return 1;
-        if (a.time > b.time) return -1;
-        return 0;
-      });
+      .map(PluginsTimer.addTimePerVisitProperty)
+      .sort(sortByProperty('time'));
   }
 
   static getDeltaInMS(start) {
@@ -66,6 +66,40 @@ class PluginsTimer {
 
   static getTotalTime(results) {
     return results.reduce((total, entry) => total + entry.time, 0);
+  }
+
+  // To be used in .map
+  static addTimePerVisitProperty(entry) {
+    return {
+      ...entry,
+      timePerVisit: entry.time / entry.visits,
+    };
+  }
+
+  static mergeResults(...resultArrays) {
+    function mergeStrategy(objValue, srcValue, key) {
+      if (typeof objValue === 'string') {
+        return objValue;
+      }
+      if (typeof objValue === 'number') {
+        return objValue + srcValue;
+      }
+    }
+
+    const results = resultArrays.reduce(flatten, []);
+    return (
+      results
+        // Get list of plugin names
+        .map(entry => entry.plugin)
+        .filter(onlyUnique)
+        // Merge data entries with same plugin name
+        .map(pluginName => {
+          const samePlugin = results.filter(data => data.plugin === pluginName);
+          return mergeWith(...samePlugin, mergeStrategy);
+        })
+        .map(PluginsTimer.addTimePerVisitProperty)
+        .sort(sortByProperty('time'))
+    );
   }
 }
 
