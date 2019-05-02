@@ -28,6 +28,8 @@ program
     'determine which fields in imported package.json are checked',
     list
   )
+  .option('--expand-packages', 'expand node_modules packages results')
+  .option('--expand-plugins', 'expand babel plugins results')
   .option(
     '--output <return|console|json>',
     'make results available as',
@@ -45,6 +47,8 @@ babelTiming(
     include,
     exclude,
     resolveMainFields,
+    expandPackages,
+    expandPlugins,
     output,
     verbose,
   } = program)

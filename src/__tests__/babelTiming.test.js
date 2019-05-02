@@ -5,7 +5,6 @@ const FIXTURES = '__fixtures__';
 const expectedResultsEntry = {
   name: expect.any(String),
   totalTime: expect.any(Number),
-  plugins: expect.any(Array),
 };
 
 const expectedPluginsEntry = {
@@ -15,35 +14,45 @@ const expectedPluginsEntry = {
   visits: expect.any(Number),
 };
 
+const expectedResultsEntryWithPlugins = {
+  ...expectedResultsEntry,
+  plugins: expect.arrayContaining([expectedPluginsEntry]),
+};
+
 function getFileList(results) {
   return results.map(entry => entry.name);
 }
 
 describe('babelTiming', () => {
-  describe('results', () => {
-    it('has expected shape', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-1.js')]);
-      expect(Array.isArray(results)).toBe(true);
+  it('results have expected shape', async () => {
+    const results = await babelTiming([path.join(FIXTURES, 'file-1.js')]);
+    const resultsEntry = results[0];
+    expect(resultsEntry).toEqual(expectedResultsEntry);
+  });
 
-      const resultsEntry = results[0];
-      expect(resultsEntry).toEqual(expectedResultsEntry);
+  it('entries are sorted by decreasing "totalTime"', async () => {
+    const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
+    let previous = Infinity;
 
-      const resultPluginsEntry = resultsEntry.plugins[0];
-      expect(resultPluginsEntry).toEqual(expectedPluginsEntry);
+    results.forEach(entry => {
+      expect(previous >= entry.totalTime).toBe(true);
+      previous = entry.totalTime;
     });
+  });
 
-    it('entries are sorted by decreasing "totalTime"', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
-      let previous = Infinity;
-
-      results.forEach(entry => {
-        expect(previous >= entry.totalTime).toBe(true);
-        previous = entry.totalTime;
+  describe('"expandPlugins" option', () => {
+    it('results have expected shape', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')], {
+        expandPlugins: true,
       });
+      const resultsEntry = results[0];
+      expect(resultsEntry).toEqual(expectedResultsEntryWithPlugins);
     });
 
     it('plugins data entries are sorted by decreasing "time"', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')], {
+        expandPlugins: true,
+      });
       const resultsEntry = results[0];
       let previous = Infinity;
 
@@ -62,7 +71,7 @@ describe('babelTiming', () => {
   });
 
   describe('"followImports" option', () => {
-    it('returns 4 relative import results', async () => {
+    it('returns result with 4 relative imports', async () => {
       const results = await babelTiming([path.join(FIXTURES, 'entry.js')], {
         followImports: true,
       });

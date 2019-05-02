@@ -17,6 +17,8 @@ async function babelTiming(
     include = ['**'],
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
+    expandPackages = false,
+    expandPlugins = false,
     output = 'return',
     verbose = false,
   } = {}
@@ -66,14 +68,26 @@ async function babelTiming(
     };
   });
 
-  // @TODO: disable join via option
-  results = joinSamePackageResults(results);
+  if (!expandPackages) {
+    results = joinSamePackageResults(results);
+  }
+
   results = results
     .map(entry => ({
       ...entry,
       totalTime: PluginsTimer.getTotalTime(entry.plugins),
     }))
     .sort(sortByProperty('totalTime'));
+
+  if (!expandPlugins) {
+    results = results.map(entry => {
+      const result = {
+        ...entry,
+      };
+      delete result.plugins;
+      return result;
+    });
+  }
 
   switch (output) {
     case 'return': {
