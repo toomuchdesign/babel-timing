@@ -7,7 +7,7 @@ function renderer(results = []) {
   });
 }
 
-function renderEntry({name, totalTime, data}) {
+function renderEntry({name, totalTime, plugins = []}) {
   const table = new Table({
     head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
     chars: {
@@ -34,7 +34,7 @@ function renderEntry({name, totalTime, data}) {
     },
   });
 
-  const tableData = data.map(entry => [
+  const tableData = plugins.map(entry => [
     entry.plugin,
     entry.time.toFixed(3),
     entry.visits,

@@ -9,7 +9,7 @@ describe('joinSamePackageResults', () => {
       {
         name: '/foo/node_modules/package-name/',
         totalTime: 2,
-        data: [
+        plugins: [
           {
             plugin: 'due',
             timePerVisit: 1,
@@ -27,7 +27,7 @@ describe('joinSamePackageResults', () => {
       {
         name: './relative.js',
         totalTime: 1,
-        data: [
+        plugins: [
           {
             plugin: 'uno',
             timePerVisit: 1,

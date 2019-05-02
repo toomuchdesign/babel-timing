@@ -60,11 +60,9 @@ async function babelTiming(
       wrapPluginVisitorMethod: timer.wrapPluginVisitorMethod,
     });
 
-    const data = timer.getResults();
-
     return {
       name: file,
-      data,
+      plugins: timer.getResults(),
     };
   });
 
@@ -73,7 +71,7 @@ async function babelTiming(
   results = results
     .map(entry => ({
       ...entry,
-      totalTime: PluginsTimer.getTotalTime(entry.data),
+      totalTime: PluginsTimer.getTotalTime(entry.plugins),
     }))
     .sort(sortByProperty('totalTime'));
 

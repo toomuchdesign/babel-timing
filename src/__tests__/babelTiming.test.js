@@ -5,10 +5,10 @@ const FIXTURES = '__fixtures__';
 const expectedResultsEntry = {
   name: expect.any(String),
   totalTime: expect.any(Number),
-  data: expect.any(Array),
+  plugins: expect.any(Array),
 };
 
-const expectedResultsDataEntry = {
+const expectedPluginsEntry = {
   plugin: expect.any(String),
   timePerVisit: expect.any(Number),
   time: expect.any(Number),
@@ -28,8 +28,8 @@ describe('babelTiming', () => {
       const resultsEntry = results[0];
       expect(resultsEntry).toEqual(expectedResultsEntry);
 
-      const resultDataEntry = resultsEntry.data[0];
-      expect(resultDataEntry).toEqual(expectedResultsDataEntry);
+      const resultPluginsEntry = resultsEntry.plugins[0];
+      expect(resultPluginsEntry).toEqual(expectedPluginsEntry);
     });
 
     it('entries are sorted by decreasing "totalTime"', async () => {
@@ -47,7 +47,7 @@ describe('babelTiming', () => {
       const resultsEntry = results[0];
       let previous = Infinity;
 
-      resultsEntry.data.forEach(entry => {
+      resultsEntry.plugins.forEach(entry => {
         expect(previous >= entry.time).toBe(true);
         previous = entry.time;
       });

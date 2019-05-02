@@ -2,7 +2,7 @@ const resultsMock = [
   {
     name: '/foo/node_modules/package-name/index.js',
     totalTime: 1,
-    data: [
+    plugins: [
       {
         plugin: 'uno',
         timePerVisit: 1,
@@ -20,7 +20,7 @@ const resultsMock = [
   {
     name: '/foo/node_modules/package-name/src/nested.js',
     totalTime: 1,
-    data: [
+    plugins: [
       {
         plugin: 'uno',
         timePerVisit: 1,
@@ -38,7 +38,7 @@ const resultsMock = [
   {
     name: './relative.js',
     totalTime: 1,
-    data: [
+    plugins: [
       {
         plugin: 'uno',
         timePerVisit: 1,

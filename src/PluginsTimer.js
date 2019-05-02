@@ -77,7 +77,7 @@ class PluginsTimer {
   }
 
   static mergeResults(...resultArrays) {
-    function mergeStrategy(objValue, srcValue, key) {
+    function mergeStrategy(objValue, srcValue) {
       if (typeof objValue === 'string') {
         return objValue;
       }

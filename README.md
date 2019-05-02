@@ -97,7 +97,7 @@ Compile files with **Babel 7** and get **collect compilation info** through [`wr
 type Results = {
   name: string,
   totalTime: number,
-  data: {
+  plugins: {
     plugin: string,
     timePerVisit: number,
     time: number,
