@@ -148,6 +148,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
 - Improve CLI renderer output
+- Deal with files that `rollup-plugin-commonjs` can't parse
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing

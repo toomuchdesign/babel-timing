@@ -37,6 +37,8 @@ async function babelTiming(
     files = importedFiles;
   }
 
+  files = files.map(file => path.resolve(file));
+
   if (Array.isArray(include)) {
     files = multimatch(files, include);
   }
