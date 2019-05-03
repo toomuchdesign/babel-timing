@@ -2,6 +2,10 @@ const Table = require('cli-table');
 var colors = require('colors/safe');
 
 function renderer(results = []) {
+  if (!results.length) {
+    console.log('No files found');
+    return;
+  }
   const hasPlugins = Array.isArray(results[0].plugins);
 
   if (hasPlugins) {

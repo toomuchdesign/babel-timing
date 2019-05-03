@@ -49,6 +49,7 @@ async function babelTiming(
   }
 
   let results = files.map(file => {
+    console.log('file', file);
     const timer = new PluginsTimer();
 
     /*

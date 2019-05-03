@@ -30,6 +30,11 @@ describe('babelTiming', () => {
     expect(resultsEntry).toEqual(expectedResultsEntry);
   });
 
+  it('return empty array when no files are found', async () => {
+    const results = await babelTiming([path.join(FIXTURES, 'not-existing.js')]);
+    expect(results).toEqual([]);
+  });
+
   it('entries are sorted by decreasing "totalTime"', async () => {
     const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
     let previous = Infinity;

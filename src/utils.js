@@ -1,11 +1,12 @@
 const glob = require('glob');
+const fs = require('fs');
 
 function globPatternsToPaths(patterns) {
   const paths = [];
   patterns.forEach(pattern => {
     if (glob.hasMagic(pattern)) {
       paths.push(...glob.sync(pattern));
-    } else {
+    } else if (fs.existsSync(pattern)) {
       paths.push(pattern);
     }
   });
