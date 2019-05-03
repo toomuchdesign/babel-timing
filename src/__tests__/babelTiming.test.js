@@ -31,7 +31,7 @@ describe('babelTiming', () => {
   });
 
   it('entries are sorted by decreasing "totalTime"', async () => {
-    const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
+    const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
     let previous = Infinity;
 
     results.forEach(entry => {
@@ -42,7 +42,7 @@ describe('babelTiming', () => {
 
   describe('"expandPlugins" option', () => {
     it('results have expected shape', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')], {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
         expandPlugins: true,
       });
       const resultsEntry = results[0];
@@ -50,7 +50,7 @@ describe('babelTiming', () => {
     });
 
     it('plugins data entries are sorted by decreasing "time"', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')], {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
         expandPlugins: true,
       });
       const resultsEntry = results[0];
@@ -65,7 +65,7 @@ describe('babelTiming', () => {
 
   describe('glob patterns', () => {
     it('returns results matching expected pattern', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js')]);
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
       expect(results.length).toBe(3);
     });
   });

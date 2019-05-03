@@ -12,7 +12,7 @@ const joinSamePackageResults = require('./joinSamePackageResults');
 async function babelTiming(
   filePatterns = [],
   {
-    babelConfig = false,
+    babelConfig,
     followImports = false,
     include = ['**'],
     exclude = ['**/node_modules/**'],
@@ -29,7 +29,13 @@ async function babelTiming(
   if (followImports) {
     let importedFiles = await Promise.all(
       files.map(file =>
-        getImports(file, {resolveMainFields, include, exclude, verbose})
+        getImports(file, {
+          babelConfig,
+          resolveMainFields,
+          include,
+          exclude,
+          verbose,
+        })
       )
     );
 

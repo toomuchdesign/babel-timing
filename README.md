@@ -37,7 +37,7 @@ const results = await babelTiming(['path/to/file.js'], options);
 #### `babelConfig` / `--babel-config`
 
 Type: `string | false`<br />
-Default: `false`
+Default: `undefined`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
