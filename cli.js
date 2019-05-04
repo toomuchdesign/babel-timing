@@ -29,7 +29,6 @@ program
     list
   )
   .option('--expand-packages', 'expand node_modules packages results')
-  .option('--expand-plugins', 'expand babel plugins results')
   .option(
     '--output <return|console|json>',
     'make results available as',
@@ -48,7 +47,6 @@ babelTiming(
     exclude,
     resolveMainFields,
     expandPackages,
-    expandPlugins,
     output,
     verbose,
   } = program)

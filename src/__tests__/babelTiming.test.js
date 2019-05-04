@@ -2,11 +2,6 @@ const path = require('path');
 const babelTiming = require('../index').babelTiming;
 const FIXTURES = '__fixtures__';
 
-const expectedResultsEntry = {
-  name: expect.any(String),
-  totalTime: expect.any(Number),
-};
-
 const expectedPluginsEntry = {
   plugin: expect.any(String),
   timePerVisit: expect.any(Number),
@@ -14,8 +9,9 @@ const expectedPluginsEntry = {
   visits: expect.any(Number),
 };
 
-const expectedResultsEntryWithPlugins = {
-  ...expectedResultsEntry,
+const expectedResultsEntry = {
+  name: expect.any(String),
+  totalTime: expect.any(Number),
   plugins: expect.arrayContaining([expectedPluginsEntry]),
 };
 
@@ -25,7 +21,7 @@ function getFileList(results) {
 
 describe('babelTiming', () => {
   it('results have expected shape', async () => {
-    const results = await babelTiming([path.join(FIXTURES, 'file-1.js')]);
+    const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
     const resultsEntry = results[0];
     expect(resultsEntry).toEqual(expectedResultsEntry);
   });
@@ -45,26 +41,14 @@ describe('babelTiming', () => {
     });
   });
 
-  describe('"expandPlugins" option', () => {
-    it('results have expected shape', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
-        expandPlugins: true,
-      });
-      const resultsEntry = results[0];
-      expect(resultsEntry).toEqual(expectedResultsEntryWithPlugins);
-    });
+  it('plugins data entries are sorted by decreasing "time"', async () => {
+    const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
+    const resultsEntry = results[0];
+    let previous = Infinity;
 
-    it('plugins data entries are sorted by decreasing "time"', async () => {
-      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
-        expandPlugins: true,
-      });
-      const resultsEntry = results[0];
-      let previous = Infinity;
-
-      resultsEntry.plugins.forEach(entry => {
-        expect(previous >= entry.time).toBe(true);
-        previous = entry.time;
-      });
+    resultsEntry.plugins.forEach(entry => {
+      expect(previous >= entry.time).toBe(true);
+      previous = entry.time;
     });
   });
 

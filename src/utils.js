@@ -35,7 +35,14 @@ function hasEntryWithProperty(propName, value, arr) {
   return false;
 }
 
+function valueInRange(value, {min = -Infinity, max = Infinity} = {}) {
+  if (value > max) return max;
+  if (value < min) return min;
+  return value;
+}
+
 exports.hasEntryWithProperty = hasEntryWithProperty;
 exports.globPatternsToPaths = globPatternsToPaths;
 exports.onlyUnique = onlyUnique;
 exports.sortByProperty = sortByProperty;
+exports.valueInRange = valueInRange;
