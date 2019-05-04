@@ -5,7 +5,7 @@ const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
 const {globPatternsToPaths, onlyUnique, sortByProperty} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
-const renderer = require('./renderer');
+const cliRenderer = require('./cliRenderer');
 const getImports = require('./getImports');
 const joinSamePackageResults = require('./joinSamePackageResults');
 
@@ -18,7 +18,6 @@ async function babelTiming(
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
     expandPackages = false,
-    expandPlugins = false,
     output = 'return',
     verbose = false,
   } = {}
@@ -43,6 +42,7 @@ async function babelTiming(
     files = importedFiles;
   }
 
+  // All file paths absolute
   files = files.map(file => path.resolve(file));
 
   if (Array.isArray(include)) {
@@ -55,7 +55,6 @@ async function babelTiming(
   }
 
   let results = files.map(file => {
-    console.log('file', file);
     const timer = new PluginsTimer();
 
     /*
@@ -88,22 +87,12 @@ async function babelTiming(
     }))
     .sort(sortByProperty('totalTime'));
 
-  if (!expandPlugins) {
-    results = results.map(entry => {
-      const result = {
-        ...entry,
-      };
-      delete result.plugins;
-      return result;
-    });
-  }
-
   switch (output) {
     case 'return': {
       return results;
     }
     case 'console': {
-      renderer(results);
+      cliRenderer(results);
       return;
     }
     case 'json': {

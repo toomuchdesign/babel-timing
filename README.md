@@ -73,12 +73,6 @@ Default: `false`
 
 Expand results relative to `node_modules` packages file by file.
 
-#### `expandPlugins` / `--expand-plugins`
-Type: `bool`<br />
-Default: `false`
-
-Expand results relative to Babel plugins.
-
 #### `output` / `--output`
 
 Type: `string`<br />
@@ -147,8 +141,6 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `webpack`, `jest`, `rollup`, etc..
-- Improve CLI renderer output
-- Deal with files that `rollup-plugin-commonjs` can't parse
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
