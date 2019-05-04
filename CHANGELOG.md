@@ -1,5 +1,23 @@
 # Change log
 
+## 0.2.0
+
+### Breaking Changes
+
+- Make `babelTiming` async
+- Replace `importPatterns` with `include` and `exclude` options
+- Change result API's: rename data as plugins
+- Make all file paths absolute
+
+## Minor changes
+
+- Follow imports with Rollup.js
+- Add `resolveMainFields` option
+- Add `verbose` option
+- Add `expandPackages` option
+- Improve CLI output UX
+- Transpile files during imports discovery phase
+
 ## 0.1.0
 
 Initial release

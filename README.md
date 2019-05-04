@@ -2,7 +2,9 @@
 
 [![Build status][ci-badge]][ci]
 
-Measure Babel compilation time file by file, plugin by plugin. [See screenshot](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot.png).
+Measure **Babel compilation time** file by file, plugin by plugin. [See screenshot](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot.png).
+
+Get some insights about Babel transpilation when your application or your tests take ages to build.
 
 **Note:** this tool is in **version 0**, any minor release might introduce breaking changes.
 
