@@ -6,7 +6,8 @@
   "files": [
     "src",
     "cli.js",
-    "!__tests__"
+    "!__tests__",
+    "!__mocks__"
   ],
   "cli": "./cli.js",
   "scripts": {
