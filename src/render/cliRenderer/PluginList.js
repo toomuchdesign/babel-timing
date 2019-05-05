@@ -44,6 +44,7 @@ class PluginList {
         if (key.ctrl) {
           this.onExit();
           this.stop();
+          process.exit();
         }
         return;
       }
@@ -56,8 +57,6 @@ class PluginList {
 
   stop() {
     process.stdin.removeListener('keypress', this.onKeyPress);
-    this.diff.reset();
-    process.stdout;
     process.stdin.pause();
   }
 

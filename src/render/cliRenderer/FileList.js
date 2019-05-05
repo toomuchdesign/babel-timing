@@ -3,7 +3,7 @@ var keypress = require('keypress');
 const Table = require('cli-table3');
 var colors = require('colors/safe');
 var chunkArray = require('lodash.chunk');
-const {valueInRange} = require('../utils');
+const {valueInRange} = require('../../utils');
 
 class FileList {
   constructor({
@@ -80,6 +80,7 @@ class FileList {
         if (key.ctrl) {
           this.onExit(this.getSelectedEntryIndex());
           this.stop();
+          process.exit();
         }
         return;
       }
