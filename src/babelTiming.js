@@ -5,9 +5,9 @@ const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
 const {globPatternsToPaths, onlyUnique, sortByProperty} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
-const cliRenderer = require('./cliRenderer');
+const cliRenderer = require('./render/cliRenderer');
 const getImports = require('./getImports');
-const joinSamePackageResults = require('./joinSamePackageResults');
+const render = require('./render');
 
 async function babelTiming(
   filePatterns = [],
@@ -55,7 +55,7 @@ async function babelTiming(
   }
 
   let results = files.map(file => {
-    const timer = new PluginsTimer();
+    const timer = new PluginsTimer(file);
 
     /*
      * Transform all gathered files one by one and collect
@@ -70,39 +70,10 @@ async function babelTiming(
       wrapPluginVisitorMethod: timer.wrapPluginVisitorMethod,
     });
 
-    return {
-      name: file,
-      plugins: timer.getResults(),
-    };
+    return timer.getResults();
   });
 
-  if (!expandPackages) {
-    results = joinSamePackageResults(results);
-  }
-
-  results = results
-    .map(entry => ({
-      ...entry,
-      totalTime: PluginsTimer.getTotalTime(entry.plugins),
-    }))
-    .sort(sortByProperty('totalTime'));
-
-  switch (output) {
-    case 'return': {
-      return results;
-    }
-    case 'console': {
-      cliRenderer(results);
-      return;
-    }
-    case 'json': {
-      fs.writeFileSync(
-        path.join(process.cwd(), 'babel-timing-results.json'),
-        JSON.stringify(results)
-      );
-      return;
-    }
-  }
+  return render(results, {expandPackages, output});
 }
 
 module.exports = babelTiming;

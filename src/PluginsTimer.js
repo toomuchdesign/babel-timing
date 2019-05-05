@@ -2,17 +2,22 @@ const mergeWith = require('lodash.mergewith');
 const flatten = require('reduce-flatten');
 const {onlyUnique, sortByProperty} = require('./utils');
 
-// interface results {
-//   plugin: string
-//   time: number,
-//   visits: number,
-//   timePerVisit: number,
+// type Results = {
+//   name: string,
+//   totalTime: number,
+//   plugins: {
+//     plugin: string,
+//     timePerVisit: number,
+//     time: number,
+//     visits: number,
+//   }[]
 // }[]
 
 class PluginsTimer {
-  constructor() {
+  constructor(file) {
     this._events = {};
     this._results = {};
+    this._file = file;
     this.wrapPluginVisitorMethod = (pluginAlias, visitorType, callback) => {
       const self = this;
       return function(...args) {
@@ -47,7 +52,7 @@ class PluginsTimer {
   }
 
   getResults() {
-    return Object.keys(this._results)
+    const plugins = Object.keys(this._results)
       .map(pluginAlias => {
         const entry = this._results[pluginAlias];
         return {
@@ -57,6 +62,12 @@ class PluginsTimer {
       })
       .map(PluginsTimer.addTimePerVisitProperty)
       .sort(sortByProperty('time'));
+
+    return {
+      name: this._file,
+      totalTime: PluginsTimer.getTotalTime(plugins),
+      plugins,
+    };
   }
 
   static getDeltaInMS(start) {
