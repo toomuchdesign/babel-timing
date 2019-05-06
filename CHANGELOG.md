@@ -1,5 +1,11 @@
 # Change log
 
+## 0.2.1
+
+### Bugfixes
+
+- Fix package.json bin field
+
 ## 0.2.0
 
 ### Breaking Changes
