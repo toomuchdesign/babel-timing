@@ -2,17 +2,6 @@ const render = require('../src/render');
 const PluginsTimer = require('../src/PluginsTimer');
 let timers = [];
 
-/*
- * Weback configuration:
- * const babelTiming = require('babel-timing/webpack');
- *
- * Replace "babel-loader with":
- * use: ['babel-timing/webpack'],
- *
- * Add to plugins:
- * new babelTiming.BabelTimingPlugin(),
- */
-
 // https://github.com/babel/babel-loader#example
 const babelTimingLoader = require('babel-loader').custom(() => {
   return {
