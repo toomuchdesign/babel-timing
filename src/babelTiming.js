@@ -3,9 +3,8 @@ const path = require('path');
 const babel = require('@babel/core');
 const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
-const {globPatternsToPaths, onlyUnique, sortByProperty} = require('./utils');
+const {globPatternsToPaths, onlyUnique} = require('./utils');
 const PluginsTimer = require('./PluginsTimer');
-const cliRenderer = require('./render/cliRenderer');
 const getImports = require('./getImports');
 const render = require('./render');
 

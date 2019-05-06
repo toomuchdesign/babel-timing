@@ -1,4 +1,10 @@
-# Change log
+# Changelog
+
+## 0.3.0
+
+### New Features
+
+ - Provide Webpack integration through `babel-timing/webpack` `babelTimingLoader` and `BabelTimingPlugin`
 
 ## 0.2.1
 
