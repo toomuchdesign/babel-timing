@@ -4,7 +4,14 @@ const cliRenderer = require('./cliRenderer');
 const joinSamePackageResults = require('./joinSamePackageResults');
 const {sortByProperty} = require('../utils');
 
-function render(results, {expandPackages, output}) {
+function render(
+  results,
+  {
+    expandPackages,
+    output = 'return',
+    outputPath = './babel-timing-results.json',
+  } = {}
+) {
   if (!expandPackages) {
     results = joinSamePackageResults(results);
   }
@@ -20,7 +27,7 @@ function render(results, {expandPackages, output}) {
     }
     case 'json': {
       fs.writeFileSync(
-        path.join(process.cwd(), 'babel-timing-results.json'),
+        path.join(process.cwd(), outputPath),
         JSON.stringify(results)
       );
       return;
