@@ -53,7 +53,7 @@ use: [
 ],
 ```
 
-3. Add `BabelTimingPlugin` plugin *(accepts `output` option)*:
+3. Add `BabelTimingPlugin` plugin *(accepts `output` and `outputPath` options)*:
 
 ```diff
 plugins: [
@@ -108,7 +108,7 @@ Expand results relative to `node_modules` packages file by file.
 #### `output` / `--output`
 
 Type: `string`<br />
-Default: `"return"` (`"console"` when called via CLI)<br />
+Default: `"return"` (`"console"` when called via CLI/Webpack)<br />
 Options: `"return"`, `"console"`, `"json"`
 
 Make `babel-timing` results available as:
@@ -116,6 +116,12 @@ Make `babel-timing` results available as:
 - `"return"` return results' object
 - `"console"` render results in console
 - `"json"` save results as `babel-timing-results.json`
+
+#### `outputPath` / `--output-path`
+Type: `string`<br />
+Default: `"./babel-timing-results.json"`
+
+Path of output file in case `output` option is set to `"json"`.
 
 #### `verbose` / `--verbose`
 Type: `bool`<br />

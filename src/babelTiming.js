@@ -17,7 +17,8 @@ async function babelTiming(
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
     expandPackages = false,
-    output = 'return',
+    output,
+    outputPath,
     verbose = false,
   } = {}
 ) {
@@ -72,7 +73,7 @@ async function babelTiming(
     return timer.getResults();
   });
 
-  return render(results, {expandPackages, output});
+  return render(results, {expandPackages, output, outputPath});
 }
 
 module.exports = babelTiming;

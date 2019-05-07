@@ -19,14 +19,15 @@ const babelTimingLoader = require('babel-loader').custom(() => {
 
 // https://webpack.js.org/api/plugins/
 class BabelTimingPlugin {
-  constructor({output = 'console'} = {}) {
+  constructor({output = 'console', outputPath} = {}) {
     this._output = output;
+    this._outputPath = outputPath;
   }
 
   apply(compiler) {
     compiler.hooks.done.tap('Babel timing Plugin', stats => {
       const results = timers.map(timer => timer.getResults());
-      render(results, {output: this._output});
+      render(results, {output: this._output, outputPath: this._outputPath});
       timers = [];
     });
   }

@@ -34,6 +34,7 @@ program
     'make results available as',
     'console'
   )
+  .option('--output-path <path>', 'path of output file')
   .option('--verbose', 'log warnings')
   .parse(process.argv);
 
@@ -42,12 +43,12 @@ babelTiming(
   ({
     babelConfig,
     followImports,
-    importPatterns,
     include,
     exclude,
     resolveMainFields,
     expandPackages,
     output,
+    outputPath,
     verbose,
   } = program)
 );
