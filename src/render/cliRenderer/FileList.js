@@ -22,6 +22,7 @@ class FileList {
 
     // Make data suitable for rendering
     this.pagedResults = this.results.map((result, index) => [
+      index + 1,
       result.name,
       result.totalTime.toFixed(3),
     ]);
@@ -127,7 +128,7 @@ class FileList {
   }
 
   render() {
-    const table = new Table({head: ['File name', 'Total time(ms)']});
+    const table = new Table({head: ['', 'File', 'Total time(ms)']});
     const resultPage = this.pagedResults[this.page];
 
     table.push(
