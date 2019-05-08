@@ -65,7 +65,13 @@ class PluginList {
       head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
     });
     table.push(...this.pagedPlugins);
-    this.diff.write(table.toString() + '\n' + '← ESC back to result list');
+    this.diff.write(
+      `File: ${this.results.name}` +
+        '\n' +
+        table.toString() +
+        '\n' +
+        '← ESC back to result list'
+    );
   }
 }
 
