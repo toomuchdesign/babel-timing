@@ -40,25 +40,25 @@ You can hook `babel-timing` to your **actual Webpack build process** by register
 
 `babel-timing` and `babel-loader` have to be installed as local dependencies.
 
-1. Import `babel-timing/webpack` into your configuration:
+1. Import `babel-timing/webpack/plugin` into your configuration:
 ```js
-const babelTiming = require('babel-timing/webpack');
+const BabelTimingPlugin = require('babel-timing/webpack/plugin');
 ```
 
-2. Replace `babel-loader` with `babel-timing/webpack`:
+2. Replace `babel-loader` with `babel-timing/webpack/loader`:
 ```diff
 use: [
 -  'babel-loader',
-+  'babel-timing/webpack',
++  'babel-timing/webpack/loader',
 ],
 ```
 
-3. Add `BabelTimingPlugin` plugin *(accepts `output` and `outputPath` options)*:
+3. Add `babel-timing/webpack/plugin` plugin *(accepts `output` and `outputPath` options)*:
 
 ```diff
 plugins: [
   // ...
-+  new babelTiming.BabelTimingPlugin(),
++  new BabelTimingPlugin(),
 ]
 ```
 
