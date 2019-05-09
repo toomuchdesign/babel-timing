@@ -4,7 +4,7 @@
 
 Measure **Babel compilation time** file by file, plugin by plugin. [See screenshot](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot.png).
 
-Get some insights about Babel transpilation when your application or your tests take ages to build.
+Get Babel transpilation insights when your application or your tests take ages to build.
 
 **Note:** this tool is in **version 0**, any minor release might introduce breaking changes.
 
@@ -36,21 +36,21 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 ### As Webpack integration
 
-You can hook `babel-timing` to your **actual Webpack build process** by registering a **loader** and a **plugin**.
+Hook `babel-timing` into your **actual Webpack bundling process**.
 
-`babel-timing` and `babel-loader` have to be installed as local dependencies.
-
-1. Import `babel-timing/webpack/plugin` into your configuration:
+1. Import `babel-timing/webpack/plugin` to Webpack configuration:
 ```js
 const BabelTimingPlugin = require('babel-timing/webpack/plugin');
 ```
 
-2. Replace `babel-loader` with `babel-timing/webpack/loader`:
+2. Add `customize` option to the existing [`babel-loader`](https://github.com/babel/babel-loader#options) configuration:
 ```diff
-use: [
--  'babel-loader',
-+  'babel-timing/webpack/loader',
-],
+use: {
+  loader: 'babel-loader',
++  options: {
++    customize: require.resolve('babel-timing/webpack/babel-loader-customize')
++  },
+}
 ```
 
 3. Add `babel-timing/webpack/plugin` plugin *(accepts `output` and `outputPath` options)*:
@@ -154,7 +154,7 @@ type Results = {
 
 This tool started as an attempt of measuring the time taken by Babel while running transpiled tests and compiling Webpack applications.
 
-I didn't find a simple way of monitoring Babel while running the aforementioned tools, since I couldn't relate the `wrapPluginVisitorMethod` calls to the file actually being compiled.
+The main difficulty of monitoring Babel while running the aforementioned tools, consists of relating the `wrapPluginVisitorMethod` calls to the files actually being compiled.
 
 Any further idea/contribution to get to a better Babel monitoring solution is welcome.
 
@@ -179,7 +179,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
 - Provide a way to consume `babel-timing` from other tools like `jest`, `rollup`, etc..
-- Improve `webpack` integration (and use [`babel-loader`'s `customize` option](https://github.com/babel/babel-loader#options))
+- Improve `webpack` integration
 - Make `followImports` more reliable
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
