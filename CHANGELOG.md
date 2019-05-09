@@ -4,7 +4,7 @@
 
 ### New Features
 
- - Provide Webpack integration through `babel-timing/webpack` `babelTimingLoader` and `BabelTimingPlugin`
+ - Provide Webpack integration with `babel-timing/webpack/plugin` and `babel-timing/webpack/babel-loader-customize`
  - Add `outputPath` option
 
 ## 0.2.1
