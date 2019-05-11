@@ -1,6 +1,6 @@
 var differ = require('ansi-diff-stream');
-var keypress = require('keypress');
 const Table = require('cli-table3');
+const {enableKeyPressEvent} = require('./utils');
 
 class PluginList {
   constructor({results = {}, onBack = () => {}, onExit = () => {}} = {}) {
@@ -22,11 +22,9 @@ class PluginList {
     diff.pipe(process.stdout);
     this.diff = diff;
 
-    // Make `process.stdin` begin emitting "keypress" events
-    keypress(process.stdin);
+    enableKeyPressEvent();
     process.stdin.on('keypress', this.onKeyPress);
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
+
     this.render();
   }
 
