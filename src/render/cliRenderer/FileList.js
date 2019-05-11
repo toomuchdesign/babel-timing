@@ -1,9 +1,9 @@
 var differ = require('ansi-diff-stream');
-var keypress = require('keypress');
 const Table = require('cli-table3');
 var colors = require('colors/safe');
 var chunkArray = require('lodash.chunk');
 const {valueInRange} = require('../../utils');
+const {enableKeyPressEvent} = require('./utils');
 
 class FileList {
   constructor({
@@ -33,11 +33,8 @@ class FileList {
     diff.pipe(process.stdout);
     this.diff = diff;
 
-    // Make `process.stdin` begin emitting "keypress" events
-    keypress(process.stdin);
+    enableKeyPressEvent();
     process.stdin.on('keypress', this.onKeyPress);
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
 
     this.render();
   }
