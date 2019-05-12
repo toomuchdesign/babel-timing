@@ -1,12 +1,11 @@
-var differ = require('ansi-diff-stream');
 const Table = require('cli-table3');
-const {enableKeyPressEvent} = require('./utils');
 
 class PluginList {
-  constructor({results = {}, onBack = () => {}, onExit = () => {}} = {}) {
+  constructor({results = {}, onBack = () => {}, onExit = () => {}, diff} = {}) {
     this.results = results;
     this.onBack = onBack;
     this.onExit = onExit;
+    this.diff = diff;
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Make data suitable for rendering
@@ -17,14 +16,7 @@ class PluginList {
       result.timePerVisit.toFixed(3),
     ]);
 
-    // Init ansi-diff-stream
-    var diff = differ();
-    diff.pipe(process.stdout);
-    this.diff = diff;
-
-    enableKeyPressEvent();
     process.stdin.on('keypress', this.onKeyPress);
-
     this.render();
   }
 
@@ -54,8 +46,7 @@ class PluginList {
   }
 
   stop() {
-    process.stdin.removeListener('keypress', this.onKeyPress);
-    process.stdin.pause();
+    process.stdin.removeAllListeners('keypress');
   }
 
   render() {

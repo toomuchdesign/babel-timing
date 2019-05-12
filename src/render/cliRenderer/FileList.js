@@ -1,9 +1,7 @@
-var differ = require('ansi-diff-stream');
 const Table = require('cli-table3');
 var colors = require('colors/safe');
 var chunkArray = require('lodash.chunk');
 const {valueInRange} = require('../../utils');
-const {enableKeyPressEvent} = require('./utils');
 
 class FileList {
   constructor({
@@ -11,16 +9,18 @@ class FileList {
     paginationSize = 10,
     onSelected = () => {},
     onExit = () => {},
+    diff,
   } = {}) {
     this.results = results;
     this.onSelected = onSelected;
     this.onExit = onExit;
+    this.diff = diff;
     this.paginationSize = paginationSize;
     this.selected = 0;
     this.page = 0;
     this.onKeyPress = this.onKeyPress.bind(this);
 
-    // Make data suitable for rendering
+    // Prepare data for rendering
     this.pagedResults = this.results.map((result, index) => [
       index + 1,
       result.name,
@@ -28,14 +28,7 @@ class FileList {
     ]);
     this.pagedResults = chunkArray(this.pagedResults, paginationSize);
 
-    // Init ansi-diff-stream
-    var diff = differ();
-    diff.pipe(process.stdout);
-    this.diff = diff;
-
-    enableKeyPressEvent();
     process.stdin.on('keypress', this.onKeyPress);
-
     this.render();
   }
 
@@ -120,8 +113,7 @@ class FileList {
   }
 
   stop() {
-    process.stdin.removeListener('keypress', this.onKeyPress);
-    process.stdin.pause();
+    process.stdin.removeAllListeners('keypress');
   }
 
   render() {
