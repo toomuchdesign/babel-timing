@@ -2,21 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const babelTiming = require('../index').babelTiming;
 const FIXTURES = '__fixtures__';
-
-const expectedPluginsEntry = {
-  plugin: expect.any(String),
-  timePerVisit: expect.any(Number),
-  time: expect.any(Number),
-  visits: expect.any(Number),
-};
-
-const expectedResultsEntry = {
-  name: expect.any(String),
-  totalTime: expect.any(Number),
-  plugins: expect.arrayContaining([expectedPluginsEntry]),
-};
-
-const expectedResults = expect.arrayContaining([expectedResultsEntry]);
+const {expectedResults} = require('../../__utils__/expectations');
 
 function getFileList(results) {
   return results.map(entry => entry.name);
