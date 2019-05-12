@@ -1,4 +1,4 @@
-const PluginsTimer = require('../../src/PluginsTimer');
+const PluginsTimer = require('../src/PluginsTimer');
 let timers = [];
 
 // https://github.com/babel/babel-loader#example
