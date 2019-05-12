@@ -1,10 +1,9 @@
 const Table = require('cli-table3');
 
 class PluginList {
-  constructor({results = {}, onBack = () => {}, onExit = () => {}, diff} = {}) {
+  constructor({results = {}, onBack = () => {}, diff} = {}) {
     this.results = results;
     this.onBack = onBack;
-    this.onExit = onExit;
     this.diff = diff;
     this.onKeyPress = this.onKeyPress.bind(this);
 
@@ -32,7 +31,6 @@ class PluginList {
 
       case 'c': {
         if (key.ctrl) {
-          this.onExit();
           this.stop();
           process.exit();
         }
@@ -54,13 +52,15 @@ class PluginList {
       head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
     });
     table.push(...this.pagedPlugins);
-    this.diff.write(
+
+    const output =
       `File: ${this.results.name}` +
-        '\n' +
-        table.toString() +
-        '\n' +
-        '← ESC back to result list'
-    );
+      '\n' +
+      table.toString() +
+      '\n' +
+      '← ESC back to result list';
+
+    this.diff.write(output);
   }
 }
 
