@@ -8,12 +8,10 @@ class FileList {
     results = [],
     paginationSize = 10,
     onSelected = () => {},
-    onExit = () => {},
     diff,
   } = {}) {
     this.results = results;
     this.onSelected = onSelected;
-    this.onExit = onExit;
     this.diff = diff;
     this.paginationSize = paginationSize;
     this.selected = 0;
@@ -69,7 +67,6 @@ class FileList {
 
       case 'c': {
         if (key.ctrl) {
-          this.onExit(this.getSelectedEntryIndex());
           this.stop();
           process.exit();
         }
@@ -119,7 +116,6 @@ class FileList {
   render() {
     const table = new Table({head: ['', 'File', 'Total time(ms)']});
     const resultPage = this.pagedResults[this.page];
-
     table.push(
       ...resultPage.map((row, index) => {
         if (index === this.selected) {
@@ -128,14 +124,16 @@ class FileList {
         return row;
       })
     );
-    this.diff.write(
+
+    const output =
       `${this.results.length} results | page ${this.page +
         1}/${this.getTotalPages()}` +
-        '\n' +
-        table.toString() +
-        '\n' +
-        '← prev page  | → next page | ↑↓ select file | ↩ show entry details'
-    );
+      '\n' +
+      table.toString() +
+      '\n' +
+      '← prev page  | → next page | ↑↓ select file | ↩ show entry details';
+
+    this.diff.write(output);
   }
 }
 
