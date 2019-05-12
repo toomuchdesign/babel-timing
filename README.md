@@ -62,7 +62,31 @@ plugins: [
 ]
 ```
 
-4. Start your usual Webpack build
+### As Jest integration
+
+1. Add the following `transform` and `reporters` entries to the existing Jest configuration *(accepts `output` and `outputPath` options)*:
+
+```
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-timing/jest/transformer"
+    },
+    "reporters": [
+      "default",
+       "babel-timing/jest/reporter"
+    ],
+    // ...or with options:
+    "reporters": [
+      "default",
+      [
+        "babel-timing/jest/reporter",
+        {output: "", outputPath: ""}
+      ]
+    ]
+  }
+```
+
+2. Run tests with [`--no-cache` option](https://jestjs.io/docs/en/cli#cache)
 
 ## Options
 
@@ -178,8 +202,8 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 - Add `csv` output option
 - Expose `wrapPluginVisitorMethod`
-- Provide a way to consume `babel-timing` from other tools like `jest`, `rollup`, etc..
-- Improve `webpack` integration
+- Provide a wider set of integrations (`rollup`, `parcel`, ...)
+- Improve existing integrations
 - Make `followImports` more reliable
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
