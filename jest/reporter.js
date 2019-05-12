@@ -13,9 +13,13 @@ class MyCustomReporter {
 
     // Render output after Jest's pending async operations check
     // @TODO Find a more elegant whay of dealing with async operations check
-    setTimeout(() => {
+    if (this._options.output === 'console') {
+      setTimeout(() => {
+        render(timingResults, this._options);
+      }, 1500);
+    } else {
       render(timingResults, this._options);
-    }, 1500);
+    }
   }
 }
 
