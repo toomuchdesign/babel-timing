@@ -2,21 +2,29 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const path = require('path');
+const rimraf = require('rimraf');
 const {expectedResults} = require('../../__utils__/expectations');
 
-describe('Jest integration', () => {
+describe('Webpack integration', () => {
   it('return expected results as JSON', async () => {
-    const testFile = path.join(__dirname, '__fixtures__/test.js');
-    const jestConfig = path.join(__dirname, '__fixtures__/jest.config.js');
+    const entryFile = path.join(__dirname, '__fixtures__/entry.js');
+    const webpackConfig = path.join(
+      __dirname,
+      '__fixtures__/webpack.config.js'
+    );
+    const buildFolder = path.join(__dirname, '__fixtures__/dist');
     const expectedResultsPath = path.join(
       __dirname,
       '__fixtures__/results.json'
     );
 
-    await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
+    await exec(
+      `webpack ${entryFile} --config=${webpackConfig} --output-path=${buildFolder}`
+    );
 
     const actual = JSON.parse(fs.readFileSync(expectedResultsPath));
-    fs.unlinkSync(expectedResultsPath);
+    rimraf.sync(expectedResultsPath);
+    rimraf.sync(buildFolder);
 
     expect(actual).toEqual(expectedResults);
   });

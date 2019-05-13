@@ -8,17 +8,17 @@ class MyCustomReporter {
   }
 
   onRunComplete() {
-    const timingResults = getAllTimers().map(entry => entry[1].getResults());
+    const results = getAllTimers().map(entry => entry[1].getResults());
     clearAllTimers();
 
     // Render output after Jest's pending async operations check
     // @TODO Find a more elegant whay of dealing with async operations check
     if (this._options.output === 'console') {
       setTimeout(() => {
-        render(timingResults, this._options);
+        render(results, this._options);
       }, 1500);
     } else {
-      render(timingResults, this._options);
+      render(results, this._options);
     }
   }
 }
