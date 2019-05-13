@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0
+
+### New Features
+
+ - Provide Jest integration `babel-timing/jest/transformer` and `babel-timing/jest/reporter`
+
+### Bugfixes
+
+- Improve CLI stability
+- Fix `outputPath` option to handle absolute paths
+
 ## 0.3.0
 
 ### New Features

@@ -2,7 +2,7 @@
 
 [![Build status][ci-badge]][ci]
 
-Measure **Babel compilation time** file by file, plugin by plugin. [See screenshot](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot.png).
+Measure **Babel compilation time** [file by file](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot-01.png), [plugin by plugin](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot-02.png).
 
 Get Babel transpilation insights when your application or your tests take ages to build.
 
@@ -10,11 +10,9 @@ Get Babel transpilation insights when your application or your tests take ages t
 
 ## Installation
 
-Can be installed both as **global** or **local** dependency.
-
 ```bash
-npm i babel-timing
-yarn add babel-timing
+npm i babel-timing -D
+yarn add babel-timing -D
 ```
 
 ## Usage
@@ -36,54 +34,78 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 ### As Webpack integration
 
-Hook `babel-timing` into your **actual Webpack bundling process**.
+Monitor Babel while used by the **actual Webpack bundling process**.
 
 1. Import `babel-timing/webpack/plugin` to Webpack configuration:
+
 ```js
 const BabelTimingPlugin = require('babel-timing/webpack/plugin');
 ```
 
 2. Add `customize` option to the existing [`babel-loader`](https://github.com/babel/babel-loader#options) configuration:
-```diff
-use: {
-  loader: 'babel-loader',
-+  options: {
-+    customize: require.resolve('babel-timing/webpack/babel-loader-customize')
-+  },
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.m?js$/,
+      use: {
+        loader: 'babel-loader',
+          options: {
+            customize: require.resolve('babel-timing/webpack/babel-loader-customize')
+         },
+      }
+    }
+  ]
 }
 ```
 
-3. Add `babel-timing/webpack/plugin` plugin *(accepts `output` and `outputPath` options)*:
+3. Add `babel-timing/webpack/plugin` plugin _(accepts `output` and `outputPath` options)_:
 
-```diff
+```js
 plugins: [
-  // ...
-+  new BabelTimingPlugin(),
+   new BabelTimingPlugin(),
+]
+```
+
+...with **options** _(accepts `output` and `outputPath` options)_:
+
+```js
+plugins: [
+   new BabelTimingPlugin({output: "json", outputPath: "./results.json"}),
 ]
 ```
 
 ### As Jest integration
 
-1. Add the following `transform` and `reporters` entries to the existing Jest configuration *(accepts `output` and `outputPath` options)*:
+Monitor Babel while running your **actual Jest tests**.
 
+1. Add the following `transform` and `reporters` entries to the existing Jest configuration:
+
+```js
+{
+  transform: {
+    '^.+\\.jsx?$': 'babel-timing/jest/transformer'
+  },
+  reporters: [
+    'default',
+    'babel-timing/jest/reporter'
+  ]
+}
 ```
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-timing/jest/transformer"
-    },
-    "reporters": [
-      "default",
-       "babel-timing/jest/reporter"
-    ],
-    // ...or with options:
-    "reporters": [
-      "default",
-      [
-        "babel-timing/jest/reporter",
-        {output: "", outputPath: ""}
-      ]
+
+...with **reporter's options** _(accepts `output` and `outputPath` options)_:
+
+```js
+{
+  reporters: [
+    'default',
+    [
+      'babel-timing/jest/reporter',
+      {output: 'json', outputPath: './results.json'}
     ]
-  }
+  ]
+}
 ```
 
 2. Run tests with [`--no-cache` option](https://jestjs.io/docs/en/cli#cache)
@@ -97,7 +119,7 @@ Default: `undefined`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
-#### `followImports` / `--follow-imports` *(experimental)*
+#### `followImports` / `--follow-imports` _(experimental)_
 
 Type: `bool`<br />
 Default: `false`
@@ -105,25 +127,28 @@ Default: `false`
 Follow imported files/modules and run `babel-timing` against them.
 
 #### `include` / `--include`
-Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
+
+Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
 Default: `['**']`
 
 Include paths (imported ones also) according to the [provided glob patterns](https://www.npmjs.com/package/glob#glob-primer).
 
 #### `exclude` / `--exclude`
-Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
+
+Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
 Default: `['**/modules/**']`
 
 Exclude paths (imported ones also) according to the [provided glob patterns](https://www.npmjs.com/package/glob#glob-primer).
 
 #### `resolveMainFields` / `--resolve-main-fields`
 
-Type: `string[]` *(cli accepts a string containing a comma-separated list)*<br />
+Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
 Default: `['browser', 'module', 'main']`
 
 Determine which fields in imported modules's `package.json` are checked.
 
 #### `expandPackages` / `--expand-packages`
+
 Type: `bool`<br />
 Default: `false`
 
@@ -142,12 +167,14 @@ Make `babel-timing` results available as:
 - `"json"` save results as `babel-timing-results.json`
 
 #### `outputPath` / `--output-path`
+
 Type: `string`<br />
 Default: `"./babel-timing-results.json"`
 
 Path of output file in case `output` option is set to `"json"`.
 
 #### `verbose` / `--verbose`
+
 Type: `bool`<br />
 Default: `false`
 
@@ -163,15 +190,15 @@ Compile files with **Babel 7** and get **collect compilation info** through [`wr
 
 ```typescript
 type Results = {
-  name: string,
-  totalTime: number,
+  name: string;
+  totalTime: number;
   plugins: {
-    plugin: string,
-    timePerVisit: number,
-    time: number,
-    visits: number,
-  }[]
-}[]
+    plugin: string;
+    timePerVisit: number;
+    time: number;
+    visits: number;
+  }[];
+}[];
 ```
 
 ## Notes
@@ -196,7 +223,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - babel-minify’s [timing plugin](https://github.com/babel/minify/blob/babel-minify%400.5.0/scripts/plugin-timing.js)
 - Facebook fbt's [timing plugin](https://github.com/facebookincubator/fbt/blob/20d627d6864dbd8cf8f188d84eb32ba324a81332/transform/util/time-plugins.js)
 - This Stack Overflow's [question/answers](https://stackoverflow.com/questions/55537633/measure-babel-compilation-performance-per-file-or-module)
-
+- Xing [Hops team](https://github.com/xing/hops)
 
 ## Todo
 
@@ -205,6 +232,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 - Provide a wider set of integrations (`rollup`, `parcel`, ...)
 - Improve existing integrations
 - Make `followImports` more reliable
+- Consider paginating `PluginList` output
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
