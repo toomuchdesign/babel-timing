@@ -14,9 +14,13 @@ class BabelTimingPlugin {
     compiler.hooks.done.tap('Babel timing Plugin', stats => {
       const results = getTimers().map(timer => timer.getResults());
       clearTimers();
-      setImmediate(() => {
+      if (this._options.output === 'console') {
+        setImmediate(() => {
+          render(results, this._options);
+        });
+      } else {
         render(results, this._options);
-      });
+      }
     });
   }
 }
