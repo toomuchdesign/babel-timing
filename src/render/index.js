@@ -26,10 +26,7 @@ function render(
       return;
     }
     case 'json': {
-      fs.writeFileSync(
-        path.join(process.cwd(), outputPath),
-        JSON.stringify(results)
-      );
+      fs.writeFileSync(outputPath, JSON.stringify(results));
       return;
     }
   }

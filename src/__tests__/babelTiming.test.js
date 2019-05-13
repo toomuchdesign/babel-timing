@@ -62,16 +62,36 @@ describe('babelTiming', () => {
   });
 
   describe('"output" option', () => {
-    describe('is "JSON"', () => {
-      it('save result as JSON at the path specified by "outputPath" option', async () => {
-        await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
-          output: 'json',
-          outputPath: './the-results.json',
+    describe('is "json"', () => {
+      describe('"outputPath" is relative path', () => {
+        it('save result as JSON at the path specified by "outputPath" option', async () => {
+          await babelTiming([path.join(FIXTURES, 'entry.js')], {
+            output: 'json',
+            outputPath: './the-results.json',
+          });
+          const expectedFilePath = path.join(process.cwd(), 'the-results.json');
+          const actual = JSON.parse(fs.readFileSync(expectedFilePath));
+
+          fs.unlinkSync(expectedFilePath);
+          expect(actual).toEqual(expectedResults);
         });
-        const expectedFilePath = path.join(process.cwd(), 'the-results.json');
-        const actual = JSON.parse(fs.readFileSync(expectedFilePath));
-        fs.unlinkSync(expectedFilePath);
-        expect(actual).toEqual(expectedResults);
+      });
+
+      describe('"outputPath" is absolute path', () => {
+        it('save result as JSON at the path specified by "outputPath" option', async () => {
+          const absoluteFilePath = path.resolve(
+            process.cwd(),
+            'the-results.json'
+          );
+          await babelTiming([path.join(FIXTURES, 'entry.js')], {
+            output: 'json',
+            outputPath: absoluteFilePath,
+          });
+          const actual = JSON.parse(fs.readFileSync(absoluteFilePath));
+
+          fs.unlinkSync(absoluteFilePath);
+          expect(actual).toEqual(expectedResults);
+        });
       });
     });
   });
