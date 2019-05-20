@@ -1,5 +1,5 @@
 const babelJest = require('babel-jest');
-const {getFileTimer} = require('./babelTimers');
+const {timersCollection} = require('../src');
 
 // Keep track of the file currently being traspiled in current module scope :-(
 let currentFile;
@@ -8,7 +8,8 @@ let currentFile;
 function createTransformer() {
   const babelJestTransformer = babelJest.createTransformer({
     wrapPluginVisitorMethod: (...args) => {
-      const visitorWrapper = getFileTimer(currentFile).wrapPluginVisitorMethod;
+      const visitorWrapper = timersCollection.getTimer(currentFile)
+        .wrapPluginVisitorMethod;
       return visitorWrapper(...args);
     },
   });

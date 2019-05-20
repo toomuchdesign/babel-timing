@@ -2,6 +2,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const path = require('path');
+const rimraf = require('rimraf');
 const {expectedResults} = require('../../__utils__/expectations');
 
 describe('Jest integration', () => {
@@ -16,7 +17,7 @@ describe('Jest integration', () => {
     await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
 
     const actual = JSON.parse(fs.readFileSync(expectedResultsPath));
-    fs.unlinkSync(expectedResultsPath);
+    rimraf.sync(expectedResultsPath);
 
     expect(actual).toEqual(expectedResults);
   });

@@ -220,12 +220,12 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 ## API's
 
-### Timer
+### new Timer(filename)
 
-Exposes the function used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keeps track of transform times and return a `ResultList` entry object for a given transpiled file.
+`Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a `ResultList` entry object for a given file.
 
 ```js
-const {Timer} = require 'babel-timing';
+const {Timer} = require('babel-timing');
 const timer = new Timer(fileName);
 
 // This is the function to be provided to Babel's "wrapPluginVisitorMethod" option
@@ -235,13 +235,29 @@ timer.wrapPluginVisitorMethod;
 timer.getResults();
 ```
 
-### render
+### timersCollection
+
+Utility function meant to temporarily store `Timer` instances into a Node module while Babel compiles.
+
+```js
+const {timersCollection} = require('babel-timing');
+
+// Returns Timer instance for given file. Creates a new `Timer` instance if no timer for given file is found
+timersCollection.getFile(fileName);
+
+// Returns an array containing all the stored Timer instances
+timersCollection.getAll();
+
+timersCollection.clear();
+```
+
+### render(ResultList, options)
 
 Accepts a `ResultList` array and outputs a CLI visualisation or a JSON file of it.
 
 ```js
-const {render} = require 'babel-timing';
-render(babelTimingResults):
+const {render} = require('babel-timing');
+render(babelTimingResults, {output: 'json'});
 ```
 
 Accepts the following [options](#options):

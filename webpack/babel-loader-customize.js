@@ -1,13 +1,11 @@
-const {Timer} = require('../src');
-let timers = [];
+const {timersCollection} = require('../src');
 
 // https://github.com/babel/babel-loader#example
 const babelLoaderCustomize = () => {
   return {
     // Babel's 'PartialConfig' object.
     config(cfg) {
-      const timer = new Timer(cfg.options.filename);
-      timers.push(timer);
+      const timer = timersCollection.getTimer(cfg.options.filename);
       return {
         ...cfg.options,
         wrapPluginVisitorMethod: timer.wrapPluginVisitorMethod,
@@ -16,17 +14,4 @@ const babelLoaderCustomize = () => {
   };
 };
 
-function getTimers() {
-  return [...timers];
-}
-
-function clearTimers() {
-  timers = [];
-}
-
-module.exports = {
-  default: babelLoaderCustomize,
-  getTimers: getTimers,
-  clearTimers: clearTimers,
-  __esModule: true,
-};
+module.exports = babelLoaderCustomize;

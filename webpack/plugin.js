@@ -1,5 +1,4 @@
-const {render} = require('../src');
-const {getTimers, clearTimers} = require('./babel-loader-customize');
+const {render, timersCollection} = require('../src');
 
 // https://webpack.js.org/api/plugins/
 class BabelTimingPlugin {
@@ -12,8 +11,11 @@ class BabelTimingPlugin {
 
   apply(compiler) {
     compiler.hooks.done.tap('Babel timing Plugin', stats => {
-      const results = getTimers().map(timer => timer.getResults());
-      clearTimers();
+      const results = timersCollection
+        .getAll()
+        .map(timer => timer.getResults());
+      timersCollection.clear();
+
       if (this._options.output === 'console') {
         setImmediate(() => {
           render(results, this._options);

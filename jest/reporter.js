@@ -1,5 +1,4 @@
-const {getAllTimers, clearAllTimers} = require('./babelTimers');
-const {render} = require('../src');
+const {render, timersCollection} = require('../src');
 
 // https://jestjs.io/docs/en/configuration#reporters-array-modulename-modulename-options
 class MyCustomReporter {
@@ -8,8 +7,8 @@ class MyCustomReporter {
   }
 
   onRunComplete() {
-    const results = getAllTimers().map(entry => entry[1].getResults());
-    clearAllTimers();
+    const results = timersCollection.getAll().map(timer => timer.getResults());
+    timersCollection.clear();
 
     // Render output after Jest's pending async operations check
     // @TODO Find a more elegant whay of dealing with async operations check
