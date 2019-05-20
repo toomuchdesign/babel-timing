@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+### New Features
+
+- Expose and document library's internals: `Timer`, `timersCollection` and `render`
+- Paginate both interactive CLI pages and review output style
+
 ## 0.4.0
 
 ### New Features
