@@ -1,4 +1,4 @@
-const PluginsTimer = require('../src/PluginsTimer');
+const {Timer} = require('../src');
 let timers = [];
 
 // https://github.com/babel/babel-loader#example
@@ -6,7 +6,7 @@ const babelLoaderCustomize = () => {
   return {
     // Babel's 'PartialConfig' object.
     config(cfg) {
-      const timer = new PluginsTimer(cfg.options.filename);
+      const timer = new Timer(cfg.options.filename);
       timers.push(timer);
       return {
         ...cfg.options,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const babelTiming = require('./src').babelTiming;
+const {babelTiming} = require('./src');
 const pkg = require('./package.json');
 
 function list(val) {

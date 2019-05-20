@@ -1,4 +1,4 @@
-const render = require('../src/render');
+const {render} = require('../src');
 const {getTimers, clearTimers} = require('./babel-loader-customize');
 
 // https://webpack.js.org/api/plugins/

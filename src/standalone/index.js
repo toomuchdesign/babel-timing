@@ -3,10 +3,10 @@ const path = require('path');
 const babel = require('@babel/core');
 const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
-const {globPatternsToPaths, onlyUnique} = require('./utils');
-const PluginsTimer = require('./PluginsTimer');
 const getImports = require('./getImports');
-const render = require('./render');
+const {globPatternsToPaths, onlyUnique} = require('../utils');
+const Timer = require('../Timer');
+const render = require('../render');
 
 async function babelTiming(
   filePatterns = [],
@@ -55,7 +55,7 @@ async function babelTiming(
   }
 
   let results = files.map(file => {
-    const timer = new PluginsTimer(file);
+    const timer = new Timer(file);
 
     /*
      * Transform all gathered files one by one and collect

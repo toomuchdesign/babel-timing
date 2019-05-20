@@ -1,3 +1,5 @@
 module.exports = {
-  babelTiming: require('./babelTiming'),
+  babelTiming: require('./standalone'),
+  Timer: require('./Timer'),
+  render: require('./render'),
 };
