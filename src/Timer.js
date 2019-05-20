@@ -13,7 +13,7 @@ const {onlyUnique, sortByProperty} = require('./utils');
 //   }[]
 // }[]
 
-class PluginsTimer {
+class Timer {
   constructor(file) {
     this._events = {};
     this._results = {};
@@ -47,7 +47,7 @@ class PluginsTimer {
     }
 
     const start = this._events[pluginAlias].shift();
-    const deltaInMS = PluginsTimer.getDeltaInMS(start);
+    const deltaInMS = Timer.getDeltaInMS(start);
     this._results[pluginAlias].time += deltaInMS;
   }
 
@@ -60,12 +60,12 @@ class PluginsTimer {
           ...entry,
         };
       })
-      .map(PluginsTimer.addTimePerVisitProperty)
+      .map(Timer.addTimePerVisitProperty)
       .sort(sortByProperty('time'));
 
     return {
       name: this._file,
-      totalTime: PluginsTimer.getTotalTime(plugins),
+      totalTime: Timer.getTotalTime(plugins),
       plugins,
     };
   }
@@ -108,10 +108,10 @@ class PluginsTimer {
           const samePlugin = results.filter(data => data.plugin === pluginName);
           return mergeWith(...samePlugin, mergeStrategy);
         })
-        .map(PluginsTimer.addTimePerVisitProperty)
+        .map(Timer.addTimePerVisitProperty)
         .sort(sortByProperty('time'))
     );
   }
 }
 
-module.exports = PluginsTimer;
+module.exports = Timer;

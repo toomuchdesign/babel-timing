@@ -1,5 +1,5 @@
 const mergeWith = require('lodash.mergewith');
-const PluginsTimer = require('../../PluginsTimer');
+const Timer = require('../../Timer');
 const {onlyUnique} = require('../../utils');
 
 const PACKAGE_NAME_REGEX = /(.*\/node_modules\/)((?:@.+?\/)?.+?\/)/;
@@ -15,7 +15,7 @@ function normalizeResultName(name) {
 
 function mergeStrategy(objValue, srcValue, key) {
   if (key === 'plugins') {
-    return PluginsTimer.mergeResults(objValue, srcValue);
+    return Timer.mergeResults(objValue, srcValue);
   }
   if (typeof objValue === 'string') {
     return objValue;

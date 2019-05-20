@@ -28,7 +28,7 @@ babel-timing path/to/entrypoint.js --follow-imports
 ### As standalone library via Node
 
 ```js
-const babelTiming = require('babel-timing').babelTiming;
+const {babelTiming} = require('babel-timing');
 const results = await babelTiming(['path/to/file.js'], options);
 ```
 
@@ -182,14 +182,14 @@ Log warnings.
 
 ## How it works
 
-Compile files with **Babel 7** and get **collect compilation info** through [`wrapPluginVisitorMethod`](https://babeljs.io/docs/en/options#wrappluginvisitormethod) Babel config option.
+Compile files with **Babel 7** and get **collect compilation info** through [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs] Babel config option.
 
-### Results
+### ResultList
 
 **Compilation info** are extracted into the following data **structure**:
 
 ```typescript
-type Results = {
+type ResultList = {
   name: string;
   totalTime: number;
   plugins: {
@@ -218,6 +218,38 @@ node cli.js __fixtures__/*.js
 node cli.js __fixtures__/entry.js --follow-imports
 ```
 
+## API's
+
+### Timer
+
+Exposes the function used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keeps track of transform times and return a `ResultList` entry object for a given transpiled file.
+
+```js
+const {Timer} = require 'babel-timing';
+const timer = new Timer(fileName);
+
+// This is the function to be provided to Babel's "wrapPluginVisitorMethod" option
+timer.wrapPluginVisitorMethod;
+
+// Called after Babel transformations, returns "Results" object for given file
+timer.getResults();
+```
+
+### render
+
+Accepts a `ResultList` array and outputs a CLI visualisation or a JSON file of it.
+
+```js
+const {render} = require 'babel-timing';
+render(babelTimingResults):
+```
+
+Accepts the following [options](#options):
+
+- `expandPackages`
+- `output`
+- `outputPath`
+
 ## Thanks to
 
 - babel-minify’s [timing plugin](https://github.com/babel/minify/blob/babel-minify%400.5.0/scripts/plugin-timing.js)
@@ -228,7 +260,6 @@ node cli.js __fixtures__/entry.js --follow-imports
 ## Todo
 
 - Add `csv` output option
-- Expose `wrapPluginVisitorMethod`
 - Provide a wider set of integrations (`rollup`, `parcel`, ...)
 - Improve existing integrations
 - Make `followImports` more reliable
@@ -236,3 +267,4 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
+[wrappluginvisitormethod-docs]: https://babeljs.io/docs/en/options#wrappluginvisitormethod

@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const babelTiming = require('../index').babelTiming;
+const {babelTiming} = require('../index');
 const FIXTURES = '__fixtures__';
 const {expectedResults} = require('../../__utils__/expectations');
 

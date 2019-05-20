@@ -1,5 +1,5 @@
 const {getAllTimers, clearAllTimers} = require('./babelTimers');
-const render = require('../src/render');
+const {render} = require('../src');
 
 // https://jestjs.io/docs/en/configuration#reporters-array-modulename-modulename-options
 class MyCustomReporter {

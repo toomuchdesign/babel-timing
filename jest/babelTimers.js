@@ -1,4 +1,4 @@
-const PluginsTimer = require('../src/PluginsTimer');
+const {Timer} = require('../src');
 
 let timers = new Map();
 
@@ -12,7 +12,7 @@ function clearAllTimers() {
 
 function getFileTimer(file) {
   if (!timers.has(file)) {
-    timers.set(file, new PluginsTimer(file));
+    timers.set(file, new Timer(file));
   }
   return timers.get(file);
 }

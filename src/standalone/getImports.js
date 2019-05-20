@@ -4,7 +4,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const babel = require('rollup-plugin-babel');
 const findBabelConfig = require('find-babel-config');
-const {onlyUnique} = require('./utils');
+const {onlyUnique} = require('../utils');
 const defaultExtensions = ['.js', '.jsx', '.mjs', '.ts', '.json'];
 
 /*
