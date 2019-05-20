@@ -1,6 +1,6 @@
 const Table = require('cli-table3');
 var colors = require('colors/safe');
-var chunkArray = require('lodash.chunk');
+const Pagination = require('./Pagination');
 const {valueInRange} = require('../../utils');
 
 class FileList {
@@ -13,33 +13,29 @@ class FileList {
     this.results = results;
     this.onSelected = onSelected;
     this.diff = diff;
-    this.paginationSize = paginationSize;
     this.selected = 0;
-    this.page = 0;
+    this.paginationSize = paginationSize;
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Prepare data for rendering
-    this.pagedResults = this.results.map((result, index) => [
+    const pagedResults = this.results.map((result, index) => [
       index + 1,
       result.name,
       result.totalTime.toFixed(3),
     ]);
-    this.pagedResults = chunkArray(this.pagedResults, paginationSize);
+
+    this.pagination = new Pagination({
+      items: pagedResults,
+      itemsPerPage: paginationSize,
+    });
 
     process.stdin.on('keypress', this.onKeyPress);
     this.render();
   }
 
-  getTotalPages() {
-    return this.pagedResults.length;
-  }
-
-  getTotalEntriesInPage(pageNumber) {
-    return this.pagedResults[pageNumber].length;
-  }
-
   getSelectedEntryIndex() {
-    return this.paginationSize * this.page + this.selected;
+    const currentPage = this.pagination.getCurrentPage();
+    return this.paginationSize * currentPage + this.selected;
   }
 
   onKeyPress(ch, key) {
@@ -84,25 +80,25 @@ class FileList {
 
   moveSelectionDown() {
     this.selected = valueInRange(this.selected + 1, {
-      max: this.getTotalEntriesInPage(this.page) - 1,
+      max: this.pagination.countItemsInCurrentPage() - 1,
     });
     this.render();
   }
 
   previousPage() {
-    this.page = valueInRange(this.page - 1, {
-      min: 0,
-    });
-    this.selected = 0;
-    this.render();
+    if (this.pagination.hasPreviousPage()) {
+      this.pagination.previousPage();
+      this.selected = 0;
+      this.render();
+    }
   }
 
   nextPage() {
-    this.page = valueInRange(this.page + 1, {
-      max: this.getTotalPages() - 1,
-    });
-    this.selected = 0;
-    this.render();
+    if (this.pagination.hasNextPage()) {
+      this.pagination.nextPage();
+      this.selected = 0;
+      this.render();
+    }
   }
 
   clear() {
@@ -114,24 +110,28 @@ class FileList {
   }
 
   render() {
-    const table = new Table({head: ['', 'File', 'Total time(ms)']});
-    const resultPage = this.pagedResults[this.page];
+    const table = new Table({
+      head: ['', 'File', 'Total time(ms)'].map(entry => colors.yellow(entry)),
+    });
+    const items = this.pagination.getCurrentItems();
     table.push(
-      ...resultPage.map((row, index) => {
+      ...items.map((row, index) => {
         if (index === this.selected) {
-          return row.map(entry => colors.green(entry));
+          return row.map(entry => colors.yellow.underline(entry));
         }
         return row;
       })
     );
 
     const output =
-      `${this.results.length} results | page ${this.page +
-        1}/${this.getTotalPages()}` +
+      '\n' +
+      colors.yellow('Babel timing - trasformed files') +
+      '\n' +
+      this.pagination.getInfo() +
       '\n' +
       table.toString() +
       '\n' +
-      '← prev page  | → next page | ↑↓ select file | ↩ show entry details';
+      '← prev page  | → next page | ↑↓ select file | ↩ show file details';
 
     this.diff.write(output);
   }

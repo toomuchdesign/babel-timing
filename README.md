@@ -60,7 +60,7 @@ module: {
 }
 ```
 
-3. Add `babel-timing/webpack/plugin` plugin _(accepts `output` and `outputPath` options)_:
+3. Add `babel-timing/webpack/plugin` plugin _(accepts the [render options][render-options])_:
 
 ```js
 plugins: [
@@ -94,7 +94,7 @@ Monitor Babel while running your **actual Jest tests**.
 }
 ```
 
-...with **reporter's options** _(accepts `output` and `outputPath` options)_:
+...with **reporter's options** _(accepts the [render options][render-options])_:
 
 ```js
 {
@@ -147,6 +147,15 @@ Default: `['browser', 'module', 'main']`
 
 Determine which fields in imported modules's `package.json` are checked.
 
+#### `verbose` / `--verbose`
+
+Type: `bool`<br />
+Default: `false`
+
+Log warnings.
+
+### Render options
+
 #### `expandPackages` / `--expand-packages`
 
 Type: `bool`<br />
@@ -173,12 +182,11 @@ Default: `"./babel-timing-results.json"`
 
 Path of output file in case `output` option is set to `"json"`.
 
-#### `verbose` / `--verbose`
+#### `paginationSize` / `--pagination-size`
+Type: `number`<br />
+Default: `10`
 
-Type: `bool`<br />
-Default: `false`
-
-Log warnings.
+Number of entries displayed in a page when rendering `"console"` output.
 
 ## How it works
 
@@ -222,7 +230,7 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 ### new Timer(filename)
 
-`Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a `ResultList` entry object for a given file.
+`Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a [`ResultList`][resultlist] entry object for a given file.
 
 ```js
 const {Timer} = require('babel-timing');
@@ -257,14 +265,10 @@ Accepts a `ResultList` array and outputs a CLI visualisation or a JSON file of i
 
 ```js
 const {render} = require('babel-timing');
-render(babelTimingResults, {output: 'json'});
+render(babelTimingResults, {options});
 ```
 
-Accepts the following [options](#options):
-
-- `expandPackages`
-- `output`
-- `outputPath`
+Accepts the [render options][render-options].
 
 ## Thanks to
 
@@ -279,8 +283,9 @@ Accepts the following [options](#options):
 - Provide a wider set of integrations (`rollup`, `parcel`, ...)
 - Improve existing integrations
 - Make `followImports` more reliable
-- Consider paginating `PluginList` output
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
 [wrappluginvisitormethod-docs]: https://babeljs.io/docs/en/options#wrappluginvisitormethod
+[render-options]: #render-options
+[resultlist]: #resultList
