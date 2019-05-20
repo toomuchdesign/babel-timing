@@ -10,6 +10,7 @@ function render(
     expandPackages,
     output = 'return',
     outputPath = './babel-timing-results.json',
+    paginationSize,
   } = {}
 ) {
   if (!expandPackages) {
@@ -22,7 +23,7 @@ function render(
       return results;
     }
     case 'console': {
-      cliRenderer(results);
+      cliRenderer(results, {paginationSize});
       return;
     }
     case 'json': {

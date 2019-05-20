@@ -2,10 +2,10 @@ const {render, timersCollection} = require('../src');
 
 // https://webpack.js.org/api/plugins/
 class BabelTimingPlugin {
-  constructor({output = 'console', outputPath} = {}) {
+  constructor({output = 'console', ...otherOptions} = {}) {
     this._options = {
       output,
-      outputPath,
+      ...otherOptions,
     };
   }
 

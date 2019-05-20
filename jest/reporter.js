@@ -2,8 +2,8 @@ const {render, timersCollection} = require('../src');
 
 // https://jestjs.io/docs/en/configuration#reporters-array-modulename-modulename-options
 class MyCustomReporter {
-  constructor(globalConfig, {output = 'console', outputPath} = {}) {
-    this._options = {output, outputPath};
+  constructor(globalConfig, {output = 'console', ...otherOptions} = {}) {
+    this._options = {output, ...otherOptions};
   }
 
   onRunComplete() {

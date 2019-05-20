@@ -33,7 +33,7 @@
 - Change result API's: rename data as plugins
 - Make all file paths absolute
 
-## Minor changes
+### Minor changes
 
 - Follow imports with Rollup.js
 - Add `resolveMainFields` option

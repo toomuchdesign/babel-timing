@@ -35,6 +35,10 @@ program
     'console'
   )
   .option('--output-path <path>', 'path of output file')
+  .option(
+    '--pagination-size <number-of-entries>',
+    'number of entries displayed per page'
+  )
   .option('--verbose', 'log warnings')
   .parse(process.argv);
 
@@ -49,6 +53,7 @@ babelTiming(
     expandPackages,
     output,
     outputPath,
+    paginationSize,
     verbose,
   } = program)
 );

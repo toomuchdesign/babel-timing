@@ -19,6 +19,7 @@ async function babelTiming(
     expandPackages = false,
     output,
     outputPath,
+    paginationSize,
     verbose = false,
   } = {}
 ) {
@@ -73,7 +74,7 @@ async function babelTiming(
     return timer.getResults();
   });
 
-  return render(results, {expandPackages, output, outputPath});
+  return render(results, {expandPackages, output, outputPath, paginationSize});
 }
 
 module.exports = babelTiming;

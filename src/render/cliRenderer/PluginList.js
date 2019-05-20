@@ -1,19 +1,27 @@
 const Table = require('cli-table3');
+var colors = require('colors/safe');
+const Pagination = require('./Pagination');
 
 class PluginList {
-  constructor({results = {}, onBack = () => {}, diff} = {}) {
+  constructor({results = {}, paginationSize, onBack = () => {}, diff} = {}) {
     this.results = results;
     this.onBack = onBack;
     this.diff = diff;
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Make data suitable for rendering
-    this.pagedPlugins = this.results.plugins.map(result => [
+    const pagedPlugins = results.plugins.map((result, index) => [
+      index + 1,
       result.plugin,
       result.time.toFixed(3),
       result.visits,
       result.timePerVisit.toFixed(3),
     ]);
+
+    this.pagination = new Pagination({
+      items: pagedPlugins,
+      itemsPerPage: paginationSize,
+    });
 
     process.stdin.on('keypress', this.onKeyPress);
     this.render();
@@ -26,8 +34,13 @@ class PluginList {
 
     switch (key.name) {
       case 'escape':
-      case 'left':
         return this.onBack();
+
+      case 'left':
+        return this.previousPage();
+
+      case 'right':
+        return this.nextPage();
 
       case 'c': {
         if (key.ctrl) {
@@ -37,6 +50,16 @@ class PluginList {
         return;
       }
     }
+  }
+
+  previousPage() {
+    this.pagination.previousPage();
+    this.render();
+  }
+
+  nextPage() {
+    this.pagination.nextPage();
+    this.render();
   }
 
   clear() {
@@ -49,16 +72,24 @@ class PluginList {
 
   render() {
     const table = new Table({
-      head: ['pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'],
+      head: ['', 'pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'].map(
+        entry => colors.yellow(entry)
+      ),
     });
-    table.push(...this.pagedPlugins);
+    const items = this.pagination.getCurrentItems();
+    table.push(...items);
 
     const output =
-      `File: ${this.results.name}` +
+      '\n' +
+      colors.yellow('Babel timing - info for file:') +
+      '\n' +
+      colors.yellow(this.results.name) +
+      '\n' +
+      this.pagination.getInfo() +
       '\n' +
       table.toString() +
       '\n' +
-      '← ESC back to result list';
+      '← prev page  | → next page | ESC back to results list';
 
     this.diff.write(output);
   }
