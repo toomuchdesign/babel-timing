@@ -76,6 +76,8 @@ plugins: [
 ]
 ```
 
+4. Consider deleting `babel-loader` cache at `./node_modules/.cache/babel-loader/`
+
 ### As Jest integration
 
 Monitor Babel while running your **actual Jest tests**.
@@ -109,6 +111,10 @@ Monitor Babel while running your **actual Jest tests**.
 ```
 
 2. Run tests with [`--no-cache` option](https://jestjs.io/docs/en/cli#cache)
+
+### Further integrations
+
+- [Hops](./FURTHER-INTEGRATIONS.md#hops)
 
 ## Options
 
@@ -228,6 +234,8 @@ node cli.js __fixtures__/entry.js --follow-imports
 
 ## API's
 
+These API's are meant to integrate `babel-timing` with any bundler/tool using Babel.
+
 ### new Timer(filename)
 
 `Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a [`ResultList`][resultlist] entry object for a given file.
@@ -261,7 +269,7 @@ timersCollection.clear();
 
 ### render(ResultList, options)
 
-Accepts a `ResultList` array and outputs a CLI visualisation or a JSON file of it.
+Accepts a `ResultList` array and renders an interactive CLI visualisation or outputs a JSON file of it.
 
 ```js
 const {render} = require('babel-timing');
@@ -280,7 +288,7 @@ Accepts the [render options][render-options].
 ## Todo
 
 - Add `csv` output option
-- Provide a wider set of integrations (`rollup`, `parcel`, ...)
+- Provide a wider set of integrations (`rollup`, `babelify`, `parcel`, ...)
 - Improve existing integrations
 - Make `followImports` more reliable
 
