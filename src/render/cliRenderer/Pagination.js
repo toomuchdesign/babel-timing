@@ -3,6 +3,7 @@ var chunkArray = require('lodash.chunk');
 class Pagination {
   constructor({items = [], itemsPerPage = 10} = {}) {
     this.items = items;
+    this.itemsPerPage = itemsPerPage;
     this.pagedItems = chunkArray(items, itemsPerPage);
     this.currentPage = 0;
   }
@@ -57,6 +58,14 @@ class Pagination {
     if (this.hasNextPage()) {
       this.currentPage = this.currentPage + 1;
     }
+  }
+
+  goToItemPage(itemIndex = -1) {
+    if (itemIndex < 0 || itemIndex > this.items.length) {
+      return;
+    }
+
+    this.currentPage = Math.floor(itemIndex / this.itemsPerPage);
   }
 }
 
