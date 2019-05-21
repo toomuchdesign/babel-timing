@@ -2,6 +2,7 @@ const Table = require('cli-table3');
 var colors = require('colors/safe');
 const Pagination = require('./Pagination');
 const {valueInRange} = require('../../utils');
+const {wrapUp} = require('./utils');
 
 class FileList {
   constructor({
@@ -112,17 +113,33 @@ class FileList {
   }
 
   render() {
+    const consoleWidth = process.stdout.columns;
+    const occupiedWidth = 27;
+    const availableWidth = consoleWidth - occupiedWidth;
+    const fileNameIndex = 1;
+
     const table = new Table({
       head: ['', 'File', 'Total time(ms)'].map(entry => colors.yellow(entry)),
     });
     const items = this.pagination.getCurrentItems();
     table.push(
-      ...items.map((row, index) => {
-        if (index === this.selected) {
-          return row.map(entry => colors.yellow.underline(entry));
-        }
-        return row;
-      })
+      ...items
+        // Wrap large file names
+        .map(row =>
+          row.map((entry, index) => {
+            if (index === fileNameIndex) {
+              return wrapUp(entry, availableWidth);
+            }
+            return entry;
+          })
+        )
+        // Highlight selected file
+        .map((row, rowIndex) => {
+          if (rowIndex === this.selected) {
+            return row.map(entry => colors.yellow.underline(entry));
+          }
+          return row;
+        })
     );
 
     const output =

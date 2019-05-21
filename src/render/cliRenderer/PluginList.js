@@ -1,6 +1,7 @@
 const Table = require('cli-table3');
 var colors = require('colors/safe');
 const Pagination = require('./Pagination');
+const {wrapUp} = require('./utils');
 
 class PluginList {
   constructor({results = {}, paginationSize, onBack = () => {}, diff} = {}) {
@@ -71,13 +72,29 @@ class PluginList {
   }
 
   render() {
+    const consoleWidth = process.stdout.columns;
+    const occupiedWidth = 49;
+    const availableWidth = consoleWidth - occupiedWidth;
+    const pluginNameIndex = 1;
+
     const table = new Table({
       head: ['', 'pluginAlias', 'time(ms)', 'visits', 'time/visit(ms)'].map(
         entry => colors.yellow(entry)
       ),
     });
     const items = this.pagination.getCurrentItems();
-    table.push(...items);
+    table.push(
+      ...items
+        // Wrap large plugin names
+        .map(row =>
+          row.map((entry, index) => {
+            if (index === pluginNameIndex) {
+              return wrapUp(entry, availableWidth);
+            }
+            return entry;
+          })
+        )
+    );
 
     const output =
       '\n' +
