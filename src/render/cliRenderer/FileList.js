@@ -6,6 +6,7 @@ const {valueInRange} = require('../../utils');
 class FileList {
   constructor({
     results = [],
+    selected = 0,
     paginationSize = 10,
     onSelected = () => {},
     diff,
@@ -13,7 +14,7 @@ class FileList {
     this.results = results;
     this.onSelected = onSelected;
     this.diff = diff;
-    this.selected = 0;
+    this.selected = selected % paginationSize;
     this.paginationSize = paginationSize;
     this.onKeyPress = this.onKeyPress.bind(this);
 
@@ -28,6 +29,7 @@ class FileList {
       items: pagedResults,
       itemsPerPage: paginationSize,
     });
+    this.pagination.goToItemPage(selected);
 
     process.stdin.on('keypress', this.onKeyPress);
     this.render();
