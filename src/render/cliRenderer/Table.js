@@ -1,32 +1,46 @@
-const Table = require('cli-table3');
-var colors = require('colors/safe');
+const CliTable = require('cli-table3');
+const colors = require('colors/safe');
 const Pagination = require('./Pagination');
 const {valueInRange} = require('../../utils');
 
-class FileList {
+class Table {
   constructor({
-    results = [],
+    title = '',
+    entries = [],
+    entriesMap = [],
+    selectable = false,
     selected = 0,
     paginationSize = 10,
     onSelected = () => {},
+    onSelectedInfo = '',
+    onEscape = () => {},
+    onEscapeInfo = '',
     diff,
   } = {}) {
-    this.results = results;
-    this.onSelected = onSelected;
-    this.diff = diff;
+    this.title = title;
+    this.entries = entries;
+    this.selectable = selectable;
     this.selected = selected % paginationSize;
     this.paginationSize = paginationSize;
+    this.onSelected = onSelected;
+    this.onSelectedInfo = onSelectedInfo;
+    this.onEscape = onEscape;
+    this.onEscapeInfo = onEscapeInfo;
+    this.diff = diff;
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Prepare data for rendering
-    const pagedResults = this.results.map((result, index) => [
+    this.tableHead = ['', ...entriesMap.map(entry => entry[0])].map(entry =>
+      colors.yellow(entry)
+    );
+
+    const pagedentries = this.entries.map((result, index) => [
       index + 1,
-      result.name,
-      result.totalTime.toFixed(3),
+      ...entriesMap.map(entry => entry[1](result)),
     ]);
 
     this.pagination = new Pagination({
-      items: pagedResults,
+      items: pagedentries,
       itemsPerPage: paginationSize,
     });
     this.pagination.goToItemPage(selected);
@@ -47,16 +61,19 @@ class FileList {
 
     switch (key.name) {
       case 'up':
-        return this.moveSelectionUp();
+        return this.selectable && this.moveSelectionUp();
 
       case 'down':
-        return this.moveSelectionDown();
+        return this.selectable && this.moveSelectionDown();
 
       case 'left':
         return this.previousPage();
 
       case 'right':
         return this.nextPage();
+
+      case 'escape':
+        return this.onEscape();
 
       case 'return': {
         this.onSelected(this.getSelectedEntryIndex());
@@ -103,6 +120,17 @@ class FileList {
     }
   }
 
+  getCommandsInfo() {
+    return [
+      '← prev page',
+      '→ next page',
+      this.selectable && this.onSelectedInfo && `↑↓ ${this.onSelectedInfo}`,
+      this.onEscapeInfo && `ESC ${this.onEscapeInfo}`,
+    ]
+      .filter(entry => Boolean(entry))
+      .join(' | ');
+  }
+
   clear() {
     this.diff.clear();
   }
@@ -112,31 +140,36 @@ class FileList {
   }
 
   render() {
-    const table = new Table({
-      head: ['', 'File', 'Total time(ms)'].map(entry => colors.yellow(entry)),
-    });
-    const items = this.pagination.getCurrentItems();
-    table.push(
-      ...items.map((row, index) => {
+    let items = this.pagination.getCurrentItems();
+
+    // Highlight selected entry
+    if (this.selectable) {
+      items = items.map((row, index) => {
         if (index === this.selected) {
           return row.map(entry => colors.yellow.underline(entry));
         }
         return row;
-      })
-    );
+      });
+    }
+
+    const table = new CliTable({
+      head: this.tableHead,
+    });
+
+    table.push(...items);
 
     const output =
       '\n' +
-      colors.yellow('Babel timing - trasformed files') +
+      colors.yellow(this.title) +
       '\n' +
       this.pagination.getInfo() +
       '\n' +
       table.toString() +
       '\n' +
-      '← prev page  | → next page | ↑↓ select file | ↩ show file details';
+      this.getCommandsInfo();
 
     this.diff.write(output);
   }
 }
 
-module.exports = FileList;
+module.exports = Table;
