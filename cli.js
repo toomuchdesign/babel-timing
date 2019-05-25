@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const program = require('commander');
-const {babelTiming} = require('./src');
+const {babelTiming, render} = require('./src');
 const pkg = require('./package.json');
 
 function list(val) {
@@ -29,6 +30,8 @@ program
     list
   )
   .option('--expand-packages', 'expand node_modules packages results')
+  .option('--read-results <path>', 'render results from file at specified path')
+  .option('--verbose', 'log warnings')
   .option(
     '--output <return|console|json>',
     'make results available as',
@@ -39,10 +42,14 @@ program
     '--pagination-size <number-of-entries>',
     'number of entries displayed per page'
   )
-  .option('--verbose', 'log warnings')
   .parse(process.argv);
 
-babelTiming(
+if (program.readResults) {
+  const results = JSON.parse(fs.readFileSync(program.readResults));
+  return render(results, ({output, outputPath, paginationSize} = program));
+}
+
+return babelTiming(
   program.args,
   ({
     babelConfig,
@@ -51,9 +58,9 @@ babelTiming(
     exclude,
     resolveMainFields,
     expandPackages,
+    verbose,
     output,
     outputPath,
     paginationSize,
-    verbose,
   } = program)
 );
