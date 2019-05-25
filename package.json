@@ -16,6 +16,7 @@
   "bin": "./cli.js",
   "scripts": {
     "test": "jest",
+    "start": "node cli.js __fixtures__/entry.js --follow-imports",
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
