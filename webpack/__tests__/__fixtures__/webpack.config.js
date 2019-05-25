@@ -18,7 +18,7 @@ module.exports = {
   plugins: [
     new BabelTimingPlugin({
       output: 'json',
-      outputPath: path.resolve(__dirname, 'results.json'),
+      outputPath: path.resolve(__dirname, 'results.temp.json'),
     }),
   ],
 };

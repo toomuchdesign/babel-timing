@@ -8,7 +8,10 @@ module.exports = {
   reporters: [
     [
       '<rootDir>/../../reporter',
-      {output: 'json', outputPath: path.resolve(__dirname, 'results.json')},
+      {
+        output: 'json',
+        outputPath: path.resolve(__dirname, 'results.temp.json'),
+      },
     ],
   ],
 };

@@ -60,7 +60,7 @@
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
     "husky": "^1.0.0",
-    "jest": "^24.7.1",
+    "jest": "^24.8.0",
     "lint-staged": "^7.0.0",
     "prettier": "^1.0.0",
     "rimraf": "^2.6.3",
@@ -72,6 +72,9 @@
     "testPathIgnorePatterns": [
       "__fixtures__",
       "__utils__"
+    ],
+    "watchPathIgnorePatterns": [
+      ".*\\.temp.*"
     ]
   },
   "husky": {

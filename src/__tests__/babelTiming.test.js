@@ -117,9 +117,12 @@ describe('babelTiming', () => {
         it('save result as JSON at the path specified by "outputPath" option', async () => {
           await babelTiming([path.join(FIXTURES, 'entry.js')], {
             output: 'json',
-            outputPath: './the-results.json',
+            outputPath: './results.temp.json',
           });
-          const expectedFilePath = path.join(process.cwd(), 'the-results.json');
+          const expectedFilePath = path.join(
+            process.cwd(),
+            'results.temp.json'
+          );
           const actual = JSON.parse(fs.readFileSync(expectedFilePath));
 
           fs.unlinkSync(expectedFilePath);
@@ -131,7 +134,7 @@ describe('babelTiming', () => {
         it('save result as JSON at the path specified by "outputPath" option', async () => {
           const absoluteFilePath = path.resolve(
             process.cwd(),
-            'the-results.json'
+            'results.temp.json'
           );
           await babelTiming([path.join(FIXTURES, 'entry.js')], {
             output: 'json',

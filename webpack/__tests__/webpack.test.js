@@ -12,10 +12,10 @@ describe('Webpack integration', () => {
       __dirname,
       '__fixtures__/webpack.config.js'
     );
-    const buildFolder = path.join(__dirname, '__fixtures__/dist');
+    const buildFolder = path.join(__dirname, '__fixtures__/dist.temp');
     const expectedResultsPath = path.join(
       __dirname,
-      '__fixtures__/results.json'
+      '__fixtures__/results.temp.json'
     );
 
     await exec(
