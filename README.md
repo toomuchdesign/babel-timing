@@ -153,6 +153,13 @@ Default: `['browser', 'module', 'main']`
 
 Determine which fields in imported modules's `package.json` are checked.
 
+#### `--read-results` (CLI only, for Node use [`render` API][render-api])
+
+Type: `string`<br />
+Default: `undefined`
+
+Skip compilation and render existing results from file at specified path.
+
 #### `verbose` / `--verbose`
 
 Type: `bool`<br />
@@ -291,9 +298,11 @@ Accepts the [render options][render-options].
 - Provide a wider set of integrations (`rollup`, `babelify`, `parcel`, ...)
 - Improve existing integrations
 - Make `followImports` more reliable
+- Consider versioning results JSON data shape
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
 [wrappluginvisitormethod-docs]: https://babeljs.io/docs/en/options#wrappluginvisitormethod
 [render-options]: #render-options
 [resultlist]: #resultList
+[render-api]: #renderresultlist-options
