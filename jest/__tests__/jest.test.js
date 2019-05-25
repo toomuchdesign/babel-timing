@@ -11,7 +11,7 @@ describe('Jest integration', () => {
     const jestConfig = path.join(__dirname, '__fixtures__/jest.config.js');
     const expectedResultsPath = path.join(
       __dirname,
-      '__fixtures__/results.json'
+      '__fixtures__/results.temp.json'
     );
 
     await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
