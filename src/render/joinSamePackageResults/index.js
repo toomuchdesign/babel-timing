@@ -15,7 +15,7 @@ function normalizeResultName(name) {
 
 function mergeStrategy(objValue, srcValue, key) {
   if (key === 'plugins') {
-    return Timer.mergeResults(objValue, srcValue);
+    return Timer.mergePluginsProp(objValue, srcValue);
   }
   if (typeof objValue === 'string') {
     return objValue;

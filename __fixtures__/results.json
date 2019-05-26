@@ -1,148 +1,148 @@
 [
   {
     "name": "/Users/andrea/development/babel-timing/__fixtures__/entry.js",
-    "totalTime": 11.374889999999999,
+    "time": 11.374889999999999,
     "plugins": [
       {
-        "plugin": "transform-modules-commonjs",
+        "name": "transform-modules-commonjs",
         "time": 10.763132,
         "visits": 1,
         "timePerVisit": 10.763132
       },
       {
-        "plugin": "transform-block-scoping",
+        "name": "transform-block-scoping",
         "time": 0.167839,
         "visits": 5,
         "timePerVisit": 0.033567799999999995
       },
       {
-        "plugin": "transform-reserved-words",
+        "name": "transform-reserved-words",
         "time": 0.13592199999999996,
         "visits": 40,
         "timePerVisit": 0.003398049999999999
       },
       {
-        "plugin": "proposal-async-generator-functions",
+        "name": "proposal-async-generator-functions",
         "time": 0.058689,
         "visits": 1,
         "timePerVisit": 0.058689
       },
       {
-        "plugin": "proposal-json-strings",
+        "name": "proposal-json-strings",
         "time": 0.036306000000000005,
         "visits": 7,
         "timePerVisit": 0.005186571428571429
       },
       {
-        "plugin": "internal.blockHoist",
+        "name": "internal.blockHoist",
         "time": 0.033314,
         "visits": 2,
         "timePerVisit": 0.016657
       },
       {
-        "plugin": "transform-destructuring",
+        "name": "transform-destructuring",
         "time": 0.025391,
         "visits": 3,
         "timePerVisit": 0.008463666666666666
       },
       {
-        "plugin": "transform-typeof-symbol",
+        "name": "transform-typeof-symbol",
         "time": 0.022899,
         "visits": 3,
         "timePerVisit": 0.007633
       },
       {
-        "plugin": "proposal-object-rest-spread",
+        "name": "proposal-object-rest-spread",
         "time": 0.018514999999999997,
         "visits": 5,
         "timePerVisit": 0.0037029999999999993
       },
       {
-        "plugin": "transform-parameters",
+        "name": "transform-parameters",
         "time": 0.01536,
         "visits": 1,
         "timePerVisit": 0.01536
       },
       {
-        "plugin": "transform-react-display-name",
+        "name": "transform-react-display-name",
         "time": 0.013886999999999998,
         "visits": 6,
         "timePerVisit": 0.0023144999999999997
       },
       {
-        "plugin": "transform-spread",
+        "name": "transform-spread",
         "time": 0.01226,
         "visits": 6,
         "timePerVisit": 0.002043333333333333
       },
       {
-        "plugin": "transform-property-literals",
+        "name": "transform-property-literals",
         "time": 0.011448,
         "visits": 1,
         "timePerVisit": 0.011448
       },
       {
-        "plugin": "transform-react-jsx",
+        "name": "transform-react-jsx",
         "time": 0.010936000000000001,
         "visits": 2,
         "timePerVisit": 0.005468000000000001
       },
       {
-        "plugin": "transform-duplicate-keys",
+        "name": "transform-duplicate-keys",
         "time": 0.009846,
         "visits": 1,
         "timePerVisit": 0.009846
       },
       {
-        "plugin": "transform-literals",
+        "name": "transform-literals",
         "time": 0.009540000000000002,
         "visits": 6,
         "timePerVisit": 0.0015900000000000003
       },
       {
-        "plugin": "transform-object-super",
+        "name": "transform-object-super",
         "time": 0.006737,
         "visits": 1,
         "timePerVisit": 0.006737
       },
       {
-        "plugin": "transform-member-expression-literals",
+        "name": "transform-member-expression-literals",
         "time": 0.005606,
         "visits": 1,
         "timePerVisit": 0.005606
       },
       {
-        "plugin": "transform-function-name",
+        "name": "transform-function-name",
         "time": 0.004017,
         "visits": 1,
         "timePerVisit": 0.004017
       },
       {
-        "plugin": "regenerator-transform",
+        "name": "regenerator-transform",
         "time": 0.003501,
         "visits": 1,
         "timePerVisit": 0.003501
       },
       {
-        "plugin": "transform-block-scoped-functions",
+        "name": "transform-block-scoped-functions",
         "time": 0.003231,
         "visits": 1,
         "timePerVisit": 0.003231
       },
       {
-        "plugin": "transform-computed-properties",
+        "name": "transform-computed-properties",
         "time": 0.002778,
         "visits": 1,
         "timePerVisit": 0.002778
       },
       {
-        "plugin": "transform-async-to-generator",
+        "name": "transform-async-to-generator",
         "time": 0.002114,
         "visits": 1,
         "timePerVisit": 0.002114
       },
       {
-        "plugin": "transform-shorthand-properties",
+        "name": "transform-shorthand-properties",
         "time": 0.001622,
         "visits": 1,
         "timePerVisit": 0.001622
@@ -151,160 +151,160 @@
   },
   {
     "name": "/Users/andrea/development/babel-timing/__fixtures__/file-1.js",
-    "totalTime": 9.132643000000003,
+    "time": 9.132643000000003,
     "plugins": [
       {
-        "plugin": "transform-modules-commonjs",
+        "name": "transform-modules-commonjs",
         "time": 5.050284,
         "visits": 1,
         "timePerVisit": 5.050284
       },
       {
-        "plugin": "transform-classes",
+        "name": "transform-classes",
         "time": 2.5517230000000004,
         "visits": 3,
         "timePerVisit": 0.8505743333333334
       },
       {
-        "plugin": "transform-block-scoping",
+        "name": "transform-block-scoping",
         "time": 0.5068159999999998,
         "visits": 14,
         "timePerVisit": 0.03620114285714284
       },
       {
-        "plugin": "transform-reserved-words",
+        "name": "transform-reserved-words",
         "time": 0.3731080000000002,
         "visits": 142,
         "timePerVisit": 0.002627521126760565
       },
       {
-        "plugin": "proposal-object-rest-spread",
+        "name": "proposal-object-rest-spread",
         "time": 0.09084199999999999,
         "visits": 17,
         "timePerVisit": 0.005343647058823529
       },
       {
-        "plugin": "transform-member-expression-literals",
+        "name": "transform-member-expression-literals",
         "time": 0.06543500000000001,
         "visits": 14,
         "timePerVisit": 0.004673928571428572
       },
       {
-        "plugin": "internal.blockHoist",
+        "name": "internal.blockHoist",
         "time": 0.054010999999999997,
         "visits": 10,
         "timePerVisit": 0.0054011
       },
       {
-        "plugin": "transform-parameters",
+        "name": "transform-parameters",
         "time": 0.05019,
         "visits": 7,
         "timePerVisit": 0.00717
       },
       {
-        "plugin": "transform-destructuring",
+        "name": "transform-destructuring",
         "time": 0.047633,
         "visits": 8,
         "timePerVisit": 0.005954125
       },
       {
-        "plugin": "transform-typeof-symbol",
+        "name": "transform-typeof-symbol",
         "time": 0.044362,
         "visits": 20,
         "timePerVisit": 0.0022180999999999998
       },
       {
-        "plugin": "transform-react-display-name",
+        "name": "transform-react-display-name",
         "time": 0.038954,
         "visits": 10,
         "timePerVisit": 0.0038954000000000003
       },
       {
-        "plugin": "proposal-async-generator-functions",
+        "name": "proposal-async-generator-functions",
         "time": 0.033355,
         "visits": 1,
         "timePerVisit": 0.033355
       },
       {
-        "plugin": "transform-spread",
+        "name": "transform-spread",
         "time": 0.03225000000000001,
         "visits": 11,
         "timePerVisit": 0.0029318181818181826
       },
       {
-        "plugin": "transform-block-scoped-functions",
+        "name": "transform-block-scoped-functions",
         "time": 0.028033,
         "visits": 9,
         "timePerVisit": 0.0031147777777777775
       },
       {
-        "plugin": "transform-function-name",
+        "name": "transform-function-name",
         "time": 0.021834000000000003,
         "visits": 5,
         "timePerVisit": 0.0043668000000000005
       },
       {
-        "plugin": "transform-duplicate-keys",
+        "name": "transform-duplicate-keys",
         "time": 0.021039000000000002,
         "visits": 2,
         "timePerVisit": 0.010519500000000001
       },
       {
-        "plugin": "regenerator-transform",
+        "name": "regenerator-transform",
         "time": 0.018292000000000003,
         "visits": 7,
         "timePerVisit": 0.0026131428571428577
       },
       {
-        "plugin": "transform-literals",
+        "name": "transform-literals",
         "time": 0.015562,
         "visits": 7,
         "timePerVisit": 0.002223142857142857
       },
       {
-        "plugin": "transform-object-super",
+        "name": "transform-object-super",
         "time": 0.015401999999999999,
         "visits": 2,
         "timePerVisit": 0.0077009999999999995
       },
       {
-        "plugin": "transform-property-literals",
+        "name": "transform-property-literals",
         "time": 0.014363999999999998,
         "visits": 3,
         "timePerVisit": 0.004788
       },
       {
-        "plugin": "proposal-json-strings",
+        "name": "proposal-json-strings",
         "time": 0.014113,
         "visits": 6,
         "timePerVisit": 0.002352166666666667
       },
       {
-        "plugin": "transform-exponentiation-operator",
+        "name": "transform-exponentiation-operator",
         "time": 0.014036,
         "visits": 8,
         "timePerVisit": 0.0017545
       },
       {
-        "plugin": "transform-async-to-generator",
+        "name": "transform-async-to-generator",
         "time": 0.010932,
         "visits": 7,
         "timePerVisit": 0.0015617142857142859
       },
       {
-        "plugin": "transform-react-jsx",
+        "name": "transform-react-jsx",
         "time": 0.010761,
         "visits": 2,
         "timePerVisit": 0.0053805
       },
       {
-        "plugin": "transform-computed-properties",
+        "name": "transform-computed-properties",
         "time": 0.005279000000000001,
         "visits": 2,
         "timePerVisit": 0.0026395000000000004
       },
       {
-        "plugin": "transform-shorthand-properties",
+        "name": "transform-shorthand-properties",
         "time": 0.004033,
         "visits": 3,
         "timePerVisit": 0.0013443333333333334
@@ -313,160 +313,160 @@
   },
   {
     "name": "/Users/andrea/development/babel-timing/__fixtures__/file-2.js",
-    "totalTime": 5.677920999999999,
+    "time": 5.677920999999999,
     "plugins": [
       {
-        "plugin": "transform-classes",
+        "name": "transform-classes",
         "time": 2.295419,
         "visits": 3,
         "timePerVisit": 0.7651396666666667
       },
       {
-        "plugin": "transform-modules-commonjs",
+        "name": "transform-modules-commonjs",
         "time": 1.974167,
         "visits": 1,
         "timePerVisit": 1.974167
       },
       {
-        "plugin": "transform-reserved-words",
+        "name": "transform-reserved-words",
         "time": 0.41967800000000016,
         "visits": 166,
         "timePerVisit": 0.0025281807228915675
       },
       {
-        "plugin": "transform-block-scoping",
+        "name": "transform-block-scoping",
         "time": 0.365271,
         "visits": 16,
         "timePerVisit": 0.0228294375
       },
       {
-        "plugin": "transform-member-expression-literals",
+        "name": "transform-member-expression-literals",
         "time": 0.064736,
         "visits": 15,
         "timePerVisit": 0.004315733333333334
       },
       {
-        "plugin": "proposal-object-rest-spread",
+        "name": "proposal-object-rest-spread",
         "time": 0.058973000000000005,
         "visits": 20,
         "timePerVisit": 0.00294865
       },
       {
-        "plugin": "internal.blockHoist",
+        "name": "internal.blockHoist",
         "time": 0.057446000000000004,
         "visits": 11,
         "timePerVisit": 0.005222363636363637
       },
       {
-        "plugin": "transform-parameters",
+        "name": "transform-parameters",
         "time": 0.049682000000000004,
         "visits": 8,
         "timePerVisit": 0.0062102500000000005
       },
       {
-        "plugin": "transform-typeof-symbol",
+        "name": "transform-typeof-symbol",
         "time": 0.043048,
         "visits": 22,
         "timePerVisit": 0.0019567272727272727
       },
       {
-        "plugin": "transform-react-display-name",
+        "name": "transform-react-display-name",
         "time": 0.040401,
         "visits": 12,
         "timePerVisit": 0.00336675
       },
       {
-        "plugin": "proposal-async-generator-functions",
+        "name": "proposal-async-generator-functions",
         "time": 0.033151,
         "visits": 1,
         "timePerVisit": 0.033151
       },
       {
-        "plugin": "transform-spread",
+        "name": "transform-spread",
         "time": 0.031998000000000006,
         "visits": 13,
         "timePerVisit": 0.0024613846153846157
       },
       {
-        "plugin": "transform-destructuring",
+        "name": "transform-destructuring",
         "time": 0.031228999999999996,
         "visits": 9,
         "timePerVisit": 0.0034698888888888887
       },
       {
-        "plugin": "transform-block-scoped-functions",
+        "name": "transform-block-scoped-functions",
         "time": 0.029297999999999998,
         "visits": 10,
         "timePerVisit": 0.0029297999999999998
       },
       {
-        "plugin": "transform-property-literals",
+        "name": "transform-property-literals",
         "time": 0.027835000000000002,
         "visits": 4,
         "timePerVisit": 0.0069587500000000005
       },
       {
-        "plugin": "transform-duplicate-keys",
+        "name": "transform-duplicate-keys",
         "time": 0.025274,
         "visits": 3,
         "timePerVisit": 0.008424666666666667
       },
       {
-        "plugin": "transform-function-name",
+        "name": "transform-function-name",
         "time": 0.020793,
         "visits": 6,
         "timePerVisit": 0.0034655
       },
       {
-        "plugin": "regenerator-transform",
+        "name": "regenerator-transform",
         "time": 0.019309,
         "visits": 8,
         "timePerVisit": 0.002413625
       },
       {
-        "plugin": "transform-object-super",
+        "name": "transform-object-super",
         "time": 0.018359,
         "visits": 3,
         "timePerVisit": 0.0061196666666666665
       },
       {
-        "plugin": "proposal-json-strings",
+        "name": "proposal-json-strings",
         "time": 0.015576000000000001,
         "visits": 8,
         "timePerVisit": 0.0019470000000000002
       },
       {
-        "plugin": "transform-literals",
+        "name": "transform-literals",
         "time": 0.015003,
         "visits": 9,
         "timePerVisit": 0.001667
       },
       {
-        "plugin": "transform-exponentiation-operator",
+        "name": "transform-exponentiation-operator",
         "time": 0.012046,
         "visits": 8,
         "timePerVisit": 0.00150575
       },
       {
-        "plugin": "transform-react-jsx",
+        "name": "transform-react-jsx",
         "time": 0.009338,
         "visits": 2,
         "timePerVisit": 0.004669
       },
       {
-        "plugin": "transform-async-to-generator",
+        "name": "transform-async-to-generator",
         "time": 0.008872000000000001,
         "visits": 8,
         "timePerVisit": 0.0011090000000000002
       },
       {
-        "plugin": "transform-computed-properties",
+        "name": "transform-computed-properties",
         "time": 0.006639999999999999,
         "visits": 3,
         "timePerVisit": 0.002213333333333333
       },
       {
-        "plugin": "transform-shorthand-properties",
+        "name": "transform-shorthand-properties",
         "time": 0.004379,
         "visits": 4,
         "timePerVisit": 0.00109475
@@ -475,136 +475,136 @@
   },
   {
     "name": "/Users/andrea/development/babel-timing/__fixtures__/file-3.jsx",
-    "totalTime": 1.1616879999999996,
+    "time": 1.1616879999999996,
     "plugins": [
       {
-        "plugin": "transform-modules-commonjs",
+        "name": "transform-modules-commonjs",
         "time": 0.700109,
         "visits": 1,
         "timePerVisit": 0.700109
       },
       {
-        "plugin": "transform-react-jsx",
+        "name": "transform-react-jsx",
         "time": 0.201567,
         "visits": 3,
         "timePerVisit": 0.067189
       },
       {
-        "plugin": "transform-reserved-words",
+        "name": "transform-reserved-words",
         "time": 0.07792500000000001,
         "visits": 25,
         "timePerVisit": 0.0031170000000000004
       },
       {
-        "plugin": "transform-member-expression-literals",
+        "name": "transform-member-expression-literals",
         "time": 0.026427999999999997,
         "visits": 4,
         "timePerVisit": 0.006606999999999999
       },
       {
-        "plugin": "transform-block-scoping",
+        "name": "transform-block-scoping",
         "time": 0.026048,
         "visits": 1,
         "timePerVisit": 0.026048
       },
       {
-        "plugin": "internal.blockHoist",
+        "name": "internal.blockHoist",
         "time": 0.026029,
         "visits": 1,
         "timePerVisit": 0.026029
       },
       {
-        "plugin": "transform-react-display-name",
+        "name": "transform-react-display-name",
         "time": 0.015481,
         "visits": 3,
         "timePerVisit": 0.005160333333333334
       },
       {
-        "plugin": "proposal-async-generator-functions",
+        "name": "proposal-async-generator-functions",
         "time": 0.012109,
         "visits": 1,
         "timePerVisit": 0.012109
       },
       {
-        "plugin": "proposal-object-rest-spread",
+        "name": "proposal-object-rest-spread",
         "time": 0.010757,
         "visits": 3,
         "timePerVisit": 0.0035856666666666663
       },
       {
-        "plugin": "transform-spread",
+        "name": "transform-spread",
         "time": 0.009528,
         "visits": 2,
         "timePerVisit": 0.004764
       },
       {
-        "plugin": "transform-duplicate-keys",
+        "name": "transform-duplicate-keys",
         "time": 0.008455,
         "visits": 1,
         "timePerVisit": 0.008455
       },
       {
-        "plugin": "transform-object-super",
+        "name": "transform-object-super",
         "time": 0.00738,
         "visits": 1,
         "timePerVisit": 0.00738
       },
       {
-        "plugin": "transform-destructuring",
+        "name": "transform-destructuring",
         "time": 0.007155,
         "visits": 2,
         "timePerVisit": 0.0035775
       },
       {
-        "plugin": "transform-property-literals",
+        "name": "transform-property-literals",
         "time": 0.004978,
         "visits": 1,
         "timePerVisit": 0.004978
       },
       {
-        "plugin": "transform-function-name",
+        "name": "transform-function-name",
         "time": 0.004359,
         "visits": 1,
         "timePerVisit": 0.004359
       },
       {
-        "plugin": "proposal-json-strings",
+        "name": "proposal-json-strings",
         "time": 0.004319,
         "visits": 2,
         "timePerVisit": 0.0021595
       },
       {
-        "plugin": "transform-typeof-symbol",
+        "name": "transform-typeof-symbol",
         "time": 0.004046,
         "visits": 2,
         "timePerVisit": 0.002023
       },
       {
-        "plugin": "transform-literals",
+        "name": "transform-literals",
         "time": 0.003966,
         "visits": 2,
         "timePerVisit": 0.001983
       },
       {
-        "plugin": "transform-classes",
+        "name": "transform-classes",
         "time": 0.003445,
         "visits": 1,
         "timePerVisit": 0.003445
       },
       {
-        "plugin": "transform-exponentiation-operator",
+        "name": "transform-exponentiation-operator",
         "time": 0.0032510000000000004,
         "visits": 2,
         "timePerVisit": 0.0016255000000000002
       },
       {
-        "plugin": "transform-computed-properties",
+        "name": "transform-computed-properties",
         "time": 0.002578,
         "visits": 1,
         "timePerVisit": 0.002578
       },
       {
-        "plugin": "transform-shorthand-properties",
+        "name": "transform-shorthand-properties",
         "time": 0.001775,
         "visits": 1,
         "timePerVisit": 0.001775

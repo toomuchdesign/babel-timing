@@ -215,11 +215,11 @@ Compile files with **Babel 7** and get **collect compilation info** through [`wr
 ```typescript
 type ResultList = {
   name: string;
-  totalTime: number;
+  time: number;
   plugins: {
-    plugin: string;
-    timePerVisit: number;
+    name: string;
     time: number;
+    timePerVisit: number;
     visits: number;
   }[];
 }[];

@@ -22,13 +22,13 @@ describe('babelTiming', () => {
     expect(results).toEqual([]);
   });
 
-  it('entries are sorted by decreasing "totalTime"', async () => {
+  it('entries are sorted by decreasing "time"', async () => {
     const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
     let previous = Infinity;
 
     results.forEach(entry => {
-      expect(previous >= entry.totalTime).toBe(true);
-      previous = entry.totalTime;
+      expect(previous >= entry.time).toBe(true);
+      previous = entry.time;
     });
   });
 
