@@ -13,21 +13,23 @@ function renderFileList({results, selected = 0, diff, paginationSize} = {}) {
     selectable: true,
     selected,
     onSelected: selected => {
-      output.clear();
-      output.stop();
+      diff.clear();
+      output.unmount();
       renderPluginList({results, resultIndex: selected, diff, paginationSize});
     },
-    onSelectedInfo: 'show file detail',
-    diff,
+    onSelectedCommandInfo: 'show file detail',
     paginationSize,
+    onRender: output => {
+      diff.write(output);
+    },
   });
 }
 
 function renderPluginList({results, resultIndex, diff, paginationSize} = {}) {
-  const result = results[resultIndex];
+  const fileResult = results[resultIndex];
   const output = new Table({
-    title: `Babel timing - info for file: ${result.name}`,
-    entries: result.plugins,
+    title: `Babel timing - info for file: ${fileResult.name}`,
+    entries: fileResult.plugins,
     entriesMap: [
       ['pluginAlias', entry => entry.plugin],
       ['time(ms)', entry => entry.time.toFixed(3)],
@@ -35,13 +37,15 @@ function renderPluginList({results, resultIndex, diff, paginationSize} = {}) {
       ['time/visit(ms)', entry => entry.timePerVisit.toFixed(3)],
     ],
     onEscape: () => {
-      output.clear();
-      output.stop();
+      diff.clear();
+      output.unmount();
       renderFileList({results, selected: resultIndex, diff, paginationSize});
     },
-    onEscapeInfo: 'back to results list',
-    diff,
+    onEscapeCommandInfo: 'back to results list',
     paginationSize,
+    onRender: output => {
+      diff.write(output);
+    },
   });
 }
 
