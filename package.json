@@ -1,6 +1,6 @@
 {
   "name": "babel-timing",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Measure Babel compilation time",
   "main": "src/index.js",
   "files": [
