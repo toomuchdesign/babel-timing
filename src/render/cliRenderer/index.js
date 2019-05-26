@@ -8,7 +8,7 @@ function renderFileList({results, selected = 0, diff, paginationSize} = {}) {
     entries: results,
     entriesMap: [
       ['File', entry => entry.name],
-      ['Total time(ms)', entry => entry.totalTime.toFixed(3)],
+      ['Total time(ms)', entry => entry.time.toFixed(3)],
     ],
     selectable: true,
     selected,
@@ -31,7 +31,7 @@ function renderPluginList({results, resultIndex, diff, paginationSize} = {}) {
     title: `Babel timing - info for file: ${fileResult.name}`,
     entries: fileResult.plugins,
     entriesMap: [
-      ['pluginAlias', entry => entry.plugin],
+      ['pluginAlias', entry => entry.name],
       ['time(ms)', entry => entry.time.toFixed(3)],
       ['visits', entry => entry.visits],
       ['time/visit(ms)', entry => entry.timePerVisit.toFixed(3)],

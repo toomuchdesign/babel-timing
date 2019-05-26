@@ -8,16 +8,16 @@ describe('joinSamePackageResults', () => {
     const expected = [
       {
         name: '/foo/node_modules/package-name/',
-        totalTime: 2,
+        time: 2,
         plugins: [
           {
-            plugin: 'due',
+            name: 'due',
             timePerVisit: 1,
             time: 4,
             visits: 4,
           },
           {
-            plugin: 'uno',
+            name: 'uno',
             timePerVisit: 1,
             time: 2,
             visits: 2,
@@ -26,16 +26,16 @@ describe('joinSamePackageResults', () => {
       },
       {
         name: './relative.js',
-        totalTime: 1,
+        time: 1,
         plugins: [
           {
-            plugin: 'uno',
+            name: 'uno',
             timePerVisit: 1,
             time: 1,
             visits: 1,
           },
           {
-            plugin: 'due',
+            name: 'due',
             timePerVisit: 1,
             time: 2,
             visits: 2,

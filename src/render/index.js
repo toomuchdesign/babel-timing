@@ -16,7 +16,7 @@ function render(
   if (!expandPackages) {
     results = joinSamePackageResults(results);
   }
-  results = results.sort(sortByProperty('totalTime'));
+  results = results.sort(sortByProperty('time'));
 
   switch (output) {
     case 'return': {

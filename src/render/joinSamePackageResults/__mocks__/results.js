@@ -1,16 +1,16 @@
 const resultsMock = [
   {
     name: '/foo/node_modules/package-name/index.js',
-    totalTime: 1,
+    time: 1,
     plugins: [
       {
-        plugin: 'uno',
+        name: 'uno',
         timePerVisit: 1,
         time: 1,
         visits: 1,
       },
       {
-        plugin: 'due',
+        name: 'due',
         timePerVisit: 1,
         time: 2,
         visits: 2,
@@ -19,16 +19,16 @@ const resultsMock = [
   },
   {
     name: '/foo/node_modules/package-name/src/nested.js',
-    totalTime: 1,
+    time: 1,
     plugins: [
       {
-        plugin: 'uno',
+        name: 'uno',
         timePerVisit: 1,
         time: 1,
         visits: 1,
       },
       {
-        plugin: 'due',
+        name: 'due',
         timePerVisit: 1,
         time: 2,
         visits: 2,
@@ -37,16 +37,16 @@ const resultsMock = [
   },
   {
     name: './relative.js',
-    totalTime: 1,
+    time: 1,
     plugins: [
       {
-        plugin: 'uno',
+        name: 'uno',
         timePerVisit: 1,
         time: 1,
         visits: 1,
       },
       {
-        plugin: 'due',
+        name: 'due',
         timePerVisit: 1,
         time: 2,
         visits: 2,

@@ -4,11 +4,11 @@ const {onlyUnique, sortByProperty} = require('./utils');
 
 // type Results = {
 //   name: string,
-//   totalTime: number,
+//   time: number,
 //   plugins: {
-//     plugin: string,
-//     timePerVisit: number,
+//     name: string,
 //     time: number,
+//     timePerVisit: number,
 //     visits: number,
 //   }[]
 // }[]
@@ -56,7 +56,7 @@ class Timer {
       .map(pluginAlias => {
         const entry = this._results[pluginAlias];
         return {
-          plugin: pluginAlias,
+          name: pluginAlias,
           ...entry,
         };
       })
@@ -65,7 +65,7 @@ class Timer {
 
     return {
       name: this._file,
-      totalTime: Timer.getTotalTime(plugins),
+      time: Timer.getTotalTime(plugins),
       plugins,
     };
   }
@@ -87,7 +87,7 @@ class Timer {
     };
   }
 
-  static mergeResults(...resultArrays) {
+  static mergePluginsProp(...pluginsArrays) {
     function mergeStrategy(objValue, srcValue) {
       if (typeof objValue === 'string') {
         return objValue;
@@ -97,15 +97,15 @@ class Timer {
       }
     }
 
-    const results = resultArrays.reduce(flatten, []);
+    const results = pluginsArrays.reduce(flatten, []);
     return (
       results
         // Get list of plugin names
-        .map(entry => entry.plugin)
+        .map(entry => entry.name)
         .filter(onlyUnique)
         // Merge data entries with same plugin name
         .map(pluginName => {
-          const samePlugin = results.filter(data => data.plugin === pluginName);
+          const samePlugin = results.filter(data => data.name === pluginName);
           return mergeWith(...samePlugin, mergeStrategy);
         })
         .map(Timer.addTimePerVisitProperty)
