@@ -77,7 +77,7 @@ class Table {
 
       case 'c': {
         if (key.ctrl) {
-          this.stop();
+          this.unmount();
           process.exit();
         }
         return;
