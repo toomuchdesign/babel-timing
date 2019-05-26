@@ -39,6 +39,10 @@ program
   )
   .option('--output-path <path>', 'path of output file')
   .option(
+    '--aggregate-by <files | plugins>',
+    'aggregate output data by files or plugins'
+  )
+  .option(
     '--pagination-size <number-of-entries>',
     'number of entries displayed per page'
   )
@@ -46,7 +50,10 @@ program
 
 if (program.readResults) {
   const results = JSON.parse(fs.readFileSync(program.readResults));
-  return render(results, ({output, outputPath, paginationSize} = program));
+  return render(
+    results,
+    ({output, outputPath, aggregateBy, paginationSize} = program)
+  );
 }
 
 return babelTiming(
@@ -61,6 +68,7 @@ return babelTiming(
     verbose,
     output,
     outputPath,
+    aggregateBy,
     paginationSize,
   } = program)
 );

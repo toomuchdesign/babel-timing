@@ -13,8 +13,22 @@ const expectedResultsEntry = {
 
 const expectedResults = expect.arrayContaining([expectedResultsEntry]);
 
+// Aggregation by plugins
+const expectedFilesEntry = expectedPluginsEntry;
+
+const expectedResultsEntryAggregatedByPlugins = {
+  name: expect.any(String),
+  time: expect.any(Number),
+  files: expect.arrayContaining([expectedFilesEntry]),
+};
+
+const expectedResultsAggregatedByPlugins = expect.arrayContaining([
+  expectedResultsEntryAggregatedByPlugins,
+]);
+
 module.exports = {
   expectedPluginsEntry,
   expectedResultsEntry,
   expectedResults,
+  expectedResultsAggregatedByPlugins,
 };
