@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1
+
+### Bugfixes
+
+- Fix CLI error on exit
+
 ## 0.6.0
 
 ### New Features
