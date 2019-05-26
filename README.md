@@ -204,13 +204,19 @@ Default: `10`
 
 Number of entries displayed in a page when rendering `"console"` output.
 
+#### `aggregateBy` / `--aggregate-by`
+Type: `string`<br />
+Default: `'files'`
+
+Output results aggregated by `files` or `plugins`.
+
 ## How it works
 
 Compile files with **Babel 7** and get **collect compilation info** through [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs] Babel config option.
 
 ### ResultList
 
-**Compilation info** are extracted into the following data **structure**:
+**Compilation info** are by default extracted into the following data **structure**:
 
 ```typescript
 type ResultList = {

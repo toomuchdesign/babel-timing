@@ -5,7 +5,10 @@ const exec = util.promisify(require('child_process').exec);
 const rimraf = require('rimraf');
 const {babelTiming} = require('../index');
 const FIXTURES = '__fixtures__';
-const {expectedResults} = require('../../__utils__/expectations');
+const {
+  expectedResults,
+  expectedResultsAggregatedByPlugins,
+} = require('../../__utils__/expectations');
 
 function getFileList(results) {
   return results.map(entry => entry.name);
@@ -169,6 +172,16 @@ describe('babelTiming', () => {
           expect(actual).toEqual(expectedResults);
         });
       });
+    });
+  });
+
+  describe('"aggregateBy" === "plugins"', () => {
+    it('return result aggregated by plugins -> files', async () => {
+      const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')], {
+        aggregateBy: 'plugins',
+      });
+
+      expect(results).toEqual(expectedResultsAggregatedByPlugins);
     });
   });
 });
