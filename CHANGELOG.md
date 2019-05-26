@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0
+
+### New Features
+
+- Add `--read-results` CLI option
+
 ## 0.5.0
 
 ### New Features
