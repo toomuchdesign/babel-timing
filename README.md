@@ -1,8 +1,11 @@
 # Babel timing
 
 [![Build status][ci-badge]][ci]
+[![Npm version][npm-version-badge]][npm]
 
-Measure **Babel compilation time** [file by file](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot-01.png), [plugin by plugin](https://raw.githubusercontent.com/toomuchdesign/babel-timing/master/screenshot-02.png).
+Measure **Babel compilation time** **file by file**, **plugin by plugin**.
+
+[![asciicast](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh.svg)](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh)
 
 Get Babel transpilation insights when your application or your tests take ages to build.
 
@@ -302,6 +305,8 @@ Accepts the [render options][render-options].
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
+[npm]: https://www.npmjs.com/package/babel-timing
+[npm-version-badge]: https://img.shields.io/npm/v/babel-timing.svg
 [wrappluginvisitormethod-docs]: https://babeljs.io/docs/en/options#wrappluginvisitormethod
 [render-options]: #render-options
 [resultlist]: #resultList
