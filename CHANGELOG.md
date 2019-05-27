@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0
+
+### Breaking Changes
+
+- Change `ResultList` shape
+
+### New Features
+
+- Add `aggregateBy` option
+
 ## 0.6.1
 
 ### Bugfixes
