@@ -60,13 +60,14 @@ describe('babelTiming', () => {
       });
       const files = getFileList(results);
 
-      expect(files.length).toBe(4);
+      expect(files.length).toBe(5);
       expect(files).toEqual(
         expect.arrayContaining([
           expect.stringContaining('/entry.js'),
           expect.stringContaining('/file-1.js'),
           expect.stringContaining('/file-2.js'),
           expect.stringContaining('/file-3.js'),
+          expect.stringContaining('/file-4/index.js'),
         ])
       );
     });
@@ -79,13 +80,14 @@ describe('babelTiming', () => {
         });
         const files = getFileList(results);
 
-        expect(files.length).toBe(8);
+        expect(files.length).toBe(9);
         expect(files).toEqual(
           expect.arrayContaining([
             expect.stringContaining('/entry.js'),
             expect.stringContaining('/file-1.js'),
             expect.stringContaining('/file-2.js'),
             expect.stringContaining('/file-3.js'),
+            expect.stringContaining('/file-4/index.js'),
             expect.stringContaining('/node_modules/minimatch/'),
             expect.stringContaining('/node_modules/brace-expansion/'),
             expect.stringContaining('/node_modules/balanced-match/'),
@@ -103,13 +105,14 @@ describe('babelTiming', () => {
         });
         const files = getFileList(results);
 
-        expect(files.length).toBe(4);
+        expect(files.length).toBe(5);
         expect(files).toEqual(
           expect.arrayContaining([
             expect.stringContaining('/entry.js'),
             expect.stringContaining('/file-1.js'),
             expect.stringContaining('/file-2.js'),
             expect.stringContaining('/file-3.js'),
+            expect.stringContaining('/file-4/index.js'),
           ])
         );
       });

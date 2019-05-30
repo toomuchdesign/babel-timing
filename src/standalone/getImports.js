@@ -1,55 +1,130 @@
-const path = require('path');
-const rollup = require('rollup');
-const commonjs = require('rollup-plugin-commonjs');
-const nodeResolve = require('rollup-plugin-node-resolve');
-const babel = require('rollup-plugin-babel');
+let webpack = require('webpack');
+let path = require('path');
+const multimatch = require('multimatch');
+const minimatch = require('minimatch');
+const rimraf = require('rimraf');
+const flatten = require('reduce-flatten');
+const findCacheDir = require('find-cache-dir');
 const findBabelConfig = require('find-babel-config');
 const {onlyUnique} = require('../utils');
-const defaultExtensions = ['.js', '.jsx', '.mjs', '.ts', '.json'];
 
-/*
- * @NOTE Even though we only need to discover the import tree of the
- * provided file, we still have to transpile in case files syntax
- * prevent Rollup from parsing
- *
- * @TODO consider using Rollup to run "wrapPluginVisitorMethod" method
- */
+function runWebpack(config) {
+  return new Promise((resolve, reject) => {
+    let compiler = webpack(config);
+    compiler.run((err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+function extractPathFromIdentifier(sourceName) {
+  return sourceName.split('!').pop();
+}
+
+function getOutptPath() {
+  return findCacheDir({name: 'babel-timing'});
+}
+
+function hasExtension(name) {
+  const lastPathPart = name.split('/').pop();
+  return lastPathPart.includes('.', 1);
+}
+
 async function getImports(file, options) {
-  // Even though rollup-plugin-babel can autodiscover Babel configurations,
-  // here we want to use the same babel config for every module
+  const config = getConfig(file, options);
+  const stats = await runWebpack(config);
+
+  if (stats.hasErrors()) {
+    throw new Error(stats.toString('minimal'));
+  }
+
+  rimraf(getOutptPath(), () => {});
+
+  // https://webpack.js.org/api/stats/#root
+  const imports = stats
+    .toJson('normal')
+    .modules.map(module => {
+      if (module.modules) {
+        return module.modules.map(module => module.identifier);
+      } else {
+        return [module.identifier];
+      }
+    })
+    .reduce(flatten)
+    .filter(identifier => identifier.startsWith('/'))
+    .map(extractPathFromIdentifier)
+    .filter(onlyUnique);
+
+  return imports;
+}
+
+function getConfig(file, options) {
+  // @TODO make it configurable
+  const defaultExtensions = ['.js', '.jsx', '.mjs', '.ts'];
   const babelConfig =
     options.babelConfig || findBabelConfig.sync(path.dirname(file)).file;
 
-  // https://rollupjs.org/guide/en#rollup-rollup
-  const inputOptions = {
-    external: [],
-    input: file,
+  const BABEL_TIMING_FILE_EXTENSIONS_REGEX = new RegExp(
+    `(${defaultExtensions.join('|')})$`
+  );
+
+  const config = {
+    mode: 'production',
+    target: 'node',
+    entry: path.resolve(file),
+    output: {
+      path: getOutptPath(),
+    },
+    resolve: {
+      modules: [path.join(process.cwd(), 'node_modules')],
+      mainFields: options.resolveMainFields,
+      extensions: defaultExtensions,
+    },
+    module: {
+      rules: [
+        {
+          test: BABEL_TIMING_FILE_EXTENSIONS_REGEX,
+          include: options.include.map(minimatch.makeRe),
+          exclude: options.exclude.map(minimatch.makeRe),
+          use: {
+            loader: require.resolve('babel-loader', {paths: __dirname}),
+            options: {
+              configFile: babelConfig,
+            },
+          },
+        },
+      ],
+    },
     plugins: [
-      nodeResolve({
-        extensions: defaultExtensions,
-        mainFields: options.resolveMainFields,
-      }),
-      babel({
-        include: options.include,
-        exclude: options.exclude,
-        extensions: defaultExtensions,
-        configFile: babelConfig,
-      }),
-      commonjs({
-        include: options.include,
-        exclude: options.exclude,
-        extensions: defaultExtensions,
-        sourceMap: false,
+      new webpack.IgnorePlugin({
+        // @TODO build actual absolute resource path
+        checkResource(resource, context) {
+          // Exclude files with unexpected extensions (!defaultExtensions)
+          // @NOTE It breaks when filename has dots
+          if (hasExtension(resource)) {
+            return BABEL_TIMING_FILE_EXTENSIONS_REGEX.test(resource) === false;
+          }
+
+          // Ignore excluded files
+          const resourcePath = resource.startsWith('.')
+            ? resource
+            : require.resolve(resource, {paths: [process.cwd()]});
+
+          if (multimatch([resourcePath], options.exclude).length > 0) {
+            return true;
+          }
+
+          return false;
+        },
       }),
     ],
-    onwarn: options.verbose ? undefined : () => {},
   };
 
-  const bundle = await rollup.rollup(inputOptions);
-  const imports = bundle.watchFiles
-    .filter(file => file.startsWith('/'))
-    .filter(onlyUnique);
-  return imports;
+  return config;
 }
 
 module.exports = getImports;
