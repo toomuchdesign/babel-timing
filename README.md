@@ -3,11 +3,11 @@
 [![Build status][ci-badge]][ci]
 [![Npm version][npm-version-badge]][npm]
 
-Measure **Babel compilation time** **file by file**, **plugin by plugin**.
+Measure **[Babel](https://babeljs.io/) compilation time** **file by file**, **plugin by plugin**.
 
 [![asciicast](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh.svg)](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh)
 
-Get Babel transpilation insights when your application or your tests take ages to build.
+Profile Babel when your application or your tests take ages to build.
 
 **Note:** this tool is in **version 0**, any minor release might introduce breaking changes.
 
@@ -37,7 +37,7 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 ### As Webpack integration
 
-Monitor Babel while used by the **actual Webpack bundling process**.
+Profile Babel during the **actual Webpack bundling process**.
 
 1. Import `babel-timing/webpack/plugin` to Webpack configuration:
 
@@ -83,7 +83,7 @@ plugins: [
 
 ### As Jest integration
 
-Monitor Babel while running your **actual Jest tests**.
+Profile Babel while running your **actual Jest tests**.
 
 1. Add the following `transform` and `reporters` entries to the existing Jest configuration:
 
@@ -145,7 +145,7 @@ Include paths (imported ones also) according to the [provided glob patterns](htt
 #### `exclude` / `--exclude`
 
 Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
-Default: `['**/modules/**']`
+Default: `['**/node_modules/**']`
 
 Exclude paths (imported ones also) according to the [provided glob patterns](https://www.npmjs.com/package/glob#glob-primer).
 
@@ -154,7 +154,7 @@ Exclude paths (imported ones also) according to the [provided glob patterns](htt
 Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
 Default: `['browser', 'module', 'main']`
 
-Determine which fields in imported modules's `package.json` are checked.
+When importing from an npm package this option will determine [which fields](https://webpack.js.org/configuration/resolve/#resolvemainfields) in its `package.json` are checked.
 
 #### `--read-results` (CLI only, for Node use [`render` API][render-api])
 
@@ -171,13 +171,6 @@ Default: `false`
 Log warnings.
 
 ### Render options
-
-#### `expandPackages` / `--expand-packages`
-
-Type: `bool`<br />
-Default: `false`
-
-Expand results relative to `node_modules` packages file by file.
 
 #### `output` / `--output`
 
@@ -206,9 +199,17 @@ Number of entries displayed in a page when rendering `"console"` output.
 
 #### `aggregateBy` / `--aggregate-by`
 Type: `string`<br />
-Default: `'files'`
+Default: `"files"`<br />
+Options: `"files"`, `"plugins"`
 
 Output results aggregated by `files` or `plugins`.
+
+#### `expandPackages` / `--expand-packages`
+
+Type: `bool`<br />
+Default: `false`
+
+Expand results relative to `node_modules` packages file by file.
 
 ## How it works
 
