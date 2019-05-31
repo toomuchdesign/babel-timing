@@ -128,7 +128,7 @@ Default: `undefined`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
-#### `followImports` / `--follow-imports` _(experimental)_
+#### `followImports` / `--follow-imports`
 
 Type: `bool`<br />
 Default: `false`
@@ -307,8 +307,8 @@ Accepts the [render options][render-options].
 - Add `csv` output option
 - Provide a wider set of integrations (`rollup`, `babelify`, `parcel`, ...)
 - Improve existing integrations
-- Make `followImports` more reliable
 - Consider versioning results JSON data shape
+- Consider splitting standalone feature from core and integrations
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
