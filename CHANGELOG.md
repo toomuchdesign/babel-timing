@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.8.0
+
+### Breaking Changes
+
+- Remove `verbose` option
+
+### New Features
+
+- Add `resolveExtensions` option
+
+### Bugfixes
+
+- Stabilize `followImports` option (introducing webpack)
+
 ## 0.7.0
 
 ### Breaking Changes

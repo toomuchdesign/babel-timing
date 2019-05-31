@@ -128,7 +128,7 @@ Default: `undefined`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
-#### `followImports` / `--follow-imports` _(experimental)_
+#### `followImports` / `--follow-imports`
 
 Type: `bool`<br />
 Default: `false`
@@ -175,7 +175,7 @@ Skip compilation and render existing results from file at specified path.
 #### `output` / `--output`
 
 Type: `string`<br />
-Default: `"return"` (`"console"` when called via CLI/Webpack)<br />
+Default: `"return"` (`"console"` when called via CLI or integrations)<br />
 Options: `"return"`, `"console"`, `"json"`
 
 Make `babel-timing` results available as:
@@ -238,7 +238,7 @@ This tool started as an attempt of measuring the time taken by Babel while runni
 
 The main difficulty of monitoring Babel while running the aforementioned tools, consists of relating the `wrapPluginVisitorMethod` calls to the files actually being compiled.
 
-Any further idea/contribution to get to a better Babel monitoring solution is welcome.
+Any further idea/contribution to get to a better Babel profiling solution is welcome.
 
 ## Manual tests :)
 
@@ -307,8 +307,8 @@ Accepts the [render options][render-options].
 - Add `csv` output option
 - Provide a wider set of integrations (`rollup`, `babelify`, `parcel`, ...)
 - Improve existing integrations
-- Make `followImports` more reliable
 - Consider versioning results JSON data shape
+- Consider splitting standalone feature from core and integrations
 
 [ci-badge]: https://travis-ci.org/toomuchdesign/babel-timing.svg?branch=master
 [ci]: https://travis-ci.org/toomuchdesign/babel-timing
