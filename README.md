@@ -163,13 +163,6 @@ Default: `undefined`
 
 Skip compilation and render existing results from file at specified path.
 
-#### `verbose` / `--verbose`
-
-Type: `bool`<br />
-Default: `false`
-
-Log warnings.
-
 ### Render options
 
 #### `output` / `--output`
