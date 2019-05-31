@@ -63,13 +63,11 @@ async function getImports(file, options) {
 }
 
 function getConfig(file, options) {
-  // @TODO make it configurable
-  const defaultExtensions = ['.js', '.jsx', '.mjs', '.ts'];
   const babelConfig =
     options.babelConfig || findBabelConfig.sync(path.dirname(file)).file;
 
   const BABEL_TIMING_FILE_EXTENSIONS_REGEX = new RegExp(
-    `(${defaultExtensions.join('|')})$`
+    `(${options.resolveExtensions.join('|')})$`
   );
 
   const config = {
@@ -82,7 +80,7 @@ function getConfig(file, options) {
     resolve: {
       modules: [path.join(process.cwd(), 'node_modules')],
       mainFields: options.resolveMainFields,
-      extensions: defaultExtensions,
+      extensions: options.resolveExtensions,
     },
     module: {
       rules: [
@@ -103,7 +101,7 @@ function getConfig(file, options) {
       new webpack.IgnorePlugin({
         // @TODO build actual absolute resource path
         checkResource(resource, context) {
-          // Exclude files with unexpected extensions (!defaultExtensions)
+          // Exclude files with unexpected extensions (!options.resolveExtensions)
           // @NOTE It breaks when filename has dots
           if (hasExtension(resource)) {
             return BABEL_TIMING_FILE_EXTENSIONS_REGEX.test(resource) === false;

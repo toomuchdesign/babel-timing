@@ -29,6 +29,11 @@ program
     'determine which fields in imported package.json are checked',
     list
   )
+  .option(
+    '--resolve-extensions <comma-separated-list-of-extensions>',
+    'attempt to resolve these extensions',
+    list
+  )
   .option('--expand-packages', 'expand node_modules packages results')
   .option('--read-results <path>', 'render results from file at specified path')
   .option(
@@ -63,6 +68,7 @@ return babelTiming(
     include,
     exclude,
     resolveMainFields,
+    resolveExtensions,
     expandPackages,
     output,
     outputPath,

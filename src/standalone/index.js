@@ -16,6 +16,7 @@ async function babelTiming(
     include = ['**'],
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
+    resolveExtensions = ['.js', '.jsx', '.mjs', '.ts'],
     expandPackages = false,
     output,
     outputPath,
@@ -32,6 +33,7 @@ async function babelTiming(
         getImports(file, {
           babelConfig,
           resolveMainFields,
+          resolveExtensions,
           include,
           exclude,
         })
