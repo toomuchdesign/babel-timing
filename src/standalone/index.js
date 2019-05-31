@@ -21,7 +21,6 @@ async function babelTiming(
     outputPath,
     aggregateBy,
     paginationSize,
-    verbose = false,
   } = {}
 ) {
   let files = globPatternsToPaths(filePatterns);
@@ -35,7 +34,6 @@ async function babelTiming(
           resolveMainFields,
           include,
           exclude,
-          verbose,
         })
       )
     );

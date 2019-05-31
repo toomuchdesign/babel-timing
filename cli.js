@@ -31,7 +31,6 @@ program
   )
   .option('--expand-packages', 'expand node_modules packages results')
   .option('--read-results <path>', 'render results from file at specified path')
-  .option('--verbose', 'log warnings')
   .option(
     '--output <return|console|json>',
     'make results available as',
@@ -65,7 +64,6 @@ return babelTiming(
     exclude,
     resolveMainFields,
     expandPackages,
-    verbose,
     output,
     outputPath,
     aggregateBy,
