@@ -156,6 +156,13 @@ Default: `['browser', 'module', 'main']`
 
 When importing from an npm package this option will determine [which fields](https://webpack.js.org/configuration/resolve/#resolvemainfields) in its `package.json` are checked.
 
+#### `resolveExtensions` / `--resolve-extensions`
+
+Type: `string[]` _(cli accepts a string containing a comma-separated list)_<br />
+Default: `['.js', '.jsx', '.mjs', '.ts']`
+
+Attempt to [resolve these extensions](https://webpack.js.org/configuration/resolve/#resolveextensions) in order. Any other extension won't be considered.
+
 #### `--read-results` (CLI only, for Node use [`render` API][render-api])
 
 Type: `string`<br />
