@@ -79,7 +79,9 @@ plugins: [
 ]
 ```
 
-4. Consider deleting `babel-loader` cache at `./node_modules/.cache/babel-loader/`
+4. Delete `babel-loader` cache at `./node_modules/.cache/babel-loader/`
+
+5. Start Webpack bundling process and wait for results
 
 ### As Jest integration
 
