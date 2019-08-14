@@ -52,7 +52,7 @@
     "minimatch": "^3.0.4",
     "multimatch": "^4.0.0",
     "reduce-flatten": "^2.0.0",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "webpack": "^4.32.2"
   },
   "devDependencies": {
