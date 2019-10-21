@@ -1,4 +1,24 @@
 {
   "extends": ["config:base"],
-  "pinVersions": false
+  "schedule": "every weekend",
+  "rangeStrategy": "bump",
+  "postUpdateOptions": ["npmDedupe"],
+  "packageRules": [
+    {
+      "packagePatterns": ["^@babel/"],
+      "groupName": "Update babel monorepo packages"
+    },
+    {
+      "packageNames": ["jest", "babel-jest"],
+      "groupName": "Update jest packages"
+    },
+    {
+      "packagePatterns": ["^lodash"],
+      "groupName": "Update lodash packages"
+    },
+    {
+      "packagePatterns": ["^webpack"],
+      "groupName": "Update webpack packages"
+    }
+  ]
 }
