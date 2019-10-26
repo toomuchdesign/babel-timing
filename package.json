@@ -37,7 +37,7 @@
   "author": "Andrea Carraro <me@andreacarraro.it>",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.6.4",
     "ansi-diff-stream": "^1.2.1",
     "babel-loader": "^8.0.6",
     "cli-table3": "^0.5.1",
@@ -56,8 +56,8 @@
     "webpack": "^4.32.2"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
     "babel-jest": "^24.8.0",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
