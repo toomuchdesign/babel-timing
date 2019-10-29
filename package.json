@@ -48,7 +48,7 @@
     "glob": "^7.1.5",
     "lodash.chunk": "^4.2.0",
     "lodash.defaults": "^4.2.0",
-    "lodash.mergewith": "^4.6.1",
+    "lodash.mergewith": "^4.6.2",
     "minimatch": "^3.0.4",
     "multimatch": "^4.0.0",
     "reduce-flatten": "^3.0.0",
