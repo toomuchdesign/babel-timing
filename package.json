@@ -42,7 +42,7 @@
     "babel-loader": "^8.0.6",
     "cli-table3": "^0.5.1",
     "colors": "^1.4.0",
-    "commander": "^3.0.2",
+    "commander": "^4.0.0",
     "find-babel-config": "^1.2.0",
     "find-cache-dir": "^3.0.0",
     "glob": "^7.1.5",
