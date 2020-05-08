@@ -3,7 +3,10 @@ const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
-const {expectedResults} = require('../../__utils__/expectations');
+
+function getFileList(results) {
+  return results.map(entry => entry.name);
+}
 
 describe('Webpack integration', () => {
   it('return expected results as JSON', async () => {
@@ -22,10 +25,26 @@ describe('Webpack integration', () => {
       `webpack ${entryFile} --config=${webpackConfig} --output-path=${buildFolder}`
     );
 
-    const actual = JSON.parse(fs.readFileSync(expectedResultsPath));
+    const results = JSON.parse(fs.readFileSync(expectedResultsPath));
+    const files = getFileList(results);
+
     rimraf.sync(expectedResultsPath);
     rimraf.sync(buildFolder);
 
-    expect(actual).toEqual(expectedResults);
+    expect(files.length).toBe(9);
+    expect(files).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('/entry.js'),
+        expect.stringContaining('/sum.js'),
+        expect.stringContaining('/sub.js'),
+        expect.stringContaining('/node_modules/minimatch/'),
+        expect.stringContaining('/node_modules/brace-expansion/'),
+        expect.stringContaining('/node_modules/balanced-match/'),
+        expect.stringContaining('/node_modules/concat-map/'),
+        // Added by webpack
+        expect.stringContaining('/node_modules/path-browserify/'),
+        expect.stringContaining('/node_modules/process/'),
+      ])
+    );
   });
 });

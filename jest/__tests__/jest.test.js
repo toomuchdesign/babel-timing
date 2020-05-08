@@ -3,8 +3,12 @@ const exec = util.promisify(require('child_process').exec);
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
-const {expectedResults} = require('../../__utils__/expectations');
 
+function getFileList(results) {
+  return results.map(entry => entry.name);
+}
+
+jest.setTimeout(10000);
 describe('Jest integration', () => {
   it('return expected results as JSON', async () => {
     const testFile = path.join(__dirname, '__fixtures__/test.js');
@@ -16,9 +20,18 @@ describe('Jest integration', () => {
 
     await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
 
-    const actual = JSON.parse(fs.readFileSync(expectedResultsPath));
+    const results = JSON.parse(fs.readFileSync(expectedResultsPath));
+    const files = getFileList(results);
+
     rimraf.sync(expectedResultsPath);
 
-    expect(actual).toEqual(expectedResults);
+    expect(files.length).toBe(3);
+    expect(files).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('/test.js'),
+        expect.stringContaining('/sub.js'),
+        expect.stringContaining('/sum.js'),
+      ])
+    );
   });
 });
