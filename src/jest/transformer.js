@@ -1,5 +1,5 @@
 const babelJest = require('babel-jest');
-const {timersCollection} = require('../index');
+const {timersCollection} = require('../index.ts');
 
 // Keep track of the file currently being traspiled in current module scope :-(
 let currentFile;

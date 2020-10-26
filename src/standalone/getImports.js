@@ -6,7 +6,7 @@ const rimraf = require('rimraf');
 const flatten = require('reduce-flatten');
 const findCacheDir = require('find-cache-dir');
 const findBabelConfig = require('find-babel-config');
-const {onlyUnique} = require('../utils');
+const {onlyUnique} = require('../utils.ts');
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {

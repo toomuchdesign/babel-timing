@@ -1,4 +1,4 @@
-const {render, timersCollection} = require('../index');
+const {render, timersCollection} = require('../index.ts');
 
 // https://webpack.js.org/api/plugins/
 class BabelTimingPlugin {

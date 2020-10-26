@@ -1,4 +1,4 @@
-const {timersCollection} = require('../index');
+const {timersCollection} = require('../index.ts');
 
 // https://github.com/babel/babel-loader#example
 const babelLoaderCustomize = () => {

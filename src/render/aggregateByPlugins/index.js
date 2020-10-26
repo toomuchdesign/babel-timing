@@ -1,6 +1,6 @@
 const flatten = require('reduce-flatten');
 const Timer = require('../../Timer');
-const {onlyUnique, sortByProperty} = require('../../utils');
+const {onlyUnique, sortByProperty} = require('../../utils.ts');
 
 /*
  * Transform <ResultList> into the following structure:

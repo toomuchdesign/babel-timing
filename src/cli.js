@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const program = require('commander');
-const {babelTiming, render} = require('./index');
+const {babelTiming, render} = require('./index.ts');
 const pkg = require('../package.json');
 
 function list(val) {

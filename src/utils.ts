@@ -1,31 +1,34 @@
 const glob = require('glob');
-const fs = require('fs');
+const {existsSync} = require('fs');
 
-function globPatternsToPaths(patterns) {
-  const paths = [];
+function globPatternsToPaths(patterns: string[]): string[] {
+  const paths = [] as string[];
   patterns.forEach(pattern => {
     if (glob.hasMagic(pattern)) {
       paths.push(...glob.sync(pattern));
-    } else if (fs.existsSync(pattern)) {
+    } else if (existsSync(pattern)) {
       paths.push(pattern);
     }
   });
   return paths;
 }
 
-function onlyUnique(value, index, self) {
+function onlyUnique<Value>(value: Value, index: number, self: any[]): boolean {
   return self.indexOf(value) === index;
 }
 
-function sortByProperty(prop) {
-  return (a, b) => {
+function sortByProperty(prop: string) {
+  return (a: {[key: string]: any}, b: {[key: string]: any}) => {
     if (a[prop] < b[prop]) return 1;
     if (a[prop] > b[prop]) return -1;
     return 0;
   };
 }
 
-function valueInRange(value, {min = -Infinity, max = Infinity} = {}) {
+function valueInRange(
+  value: number,
+  {min = -Infinity, max = Infinity}: {min?: number; max?: number} = {}
+): number {
   if (value > max) return max;
   if (value < min) return min;
   return value;

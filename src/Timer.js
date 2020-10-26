@@ -1,6 +1,6 @@
 const mergeWith = require('lodash.mergewith');
 const flatten = require('reduce-flatten');
-const {onlyUnique, sortByProperty} = require('./utils');
+const {onlyUnique, sortByProperty} = require('./utils.ts');
 
 // type Results = {
 //   name: string,

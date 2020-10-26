@@ -4,7 +4,7 @@ const babel = require('@babel/core');
 const multimatch = require('multimatch');
 const flatten = require('reduce-flatten');
 const getImports = require('./getImports');
-const {globPatternsToPaths, onlyUnique} = require('../utils');
+const {globPatternsToPaths, onlyUnique} = require('../utils.ts');
 const Timer = require('../Timer');
 const render = require('../render');
 
