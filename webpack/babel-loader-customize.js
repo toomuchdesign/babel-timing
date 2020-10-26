@@ -1,4 +1,4 @@
-const {timersCollection} = require('../src');
+const {timersCollection} = require('../dist');
 
 // https://github.com/babel/babel-loader#example
 const babelLoaderCustomize = () => {

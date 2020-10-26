@@ -5,6 +5,7 @@
 node_modules
 babel-timing-results.json
 *.temp*
+dist
 
 # Trailing dotted files
 !.all-contributorsrc

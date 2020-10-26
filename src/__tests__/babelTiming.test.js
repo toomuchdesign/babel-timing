@@ -128,7 +128,7 @@ describe('babelTiming', () => {
       );
 
       await exec(
-        `node cli.js --read-results ${resultsPath} --output-path ${expectedResultsPath} --output json`
+        `node src/cli.js --read-results ${resultsPath} --output-path ${expectedResultsPath} --output json`
       );
 
       const expected = JSON.parse(fs.readFileSync(resultsPath));

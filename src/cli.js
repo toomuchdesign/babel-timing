@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const program = require('commander');
-const {babelTiming, render} = require('./src');
-const pkg = require('./package.json');
+const {babelTiming, render} = require('./index');
+const pkg = require('../package.json');
 
 function list(val) {
   return val.split(',');
