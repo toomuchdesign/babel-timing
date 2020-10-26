@@ -1,4 +1,4 @@
-const {render, timersCollection} = require('../dist');
+const {render, timersCollection} = require('../index');
 
 // https://jestjs.io/docs/en/configuration#reporters-array-modulename-modulename-options
 class MyCustomReporter {

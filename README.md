@@ -39,10 +39,10 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 Profile Babel during the **actual Webpack bundling process**.
 
-1. Import `babel-timing/webpack/plugin` to Webpack configuration:
+1. Import `babel-timing/dist/webpack/plugin` to Webpack configuration:
 
 ```js
-const BabelTimingPlugin = require('babel-timing/webpack/plugin');
+const BabelTimingPlugin = require('babel-timing/dist/webpack/plugin');
 ```
 
 2. Add `customize` option to the existing [`babel-loader`](https://github.com/babel/babel-loader#options) configuration:
@@ -54,29 +54,29 @@ module: {
       test: /\.m?js$/,
       use: {
         loader: 'babel-loader',
-          options: {
-            customize: require.resolve('babel-timing/webpack/babel-loader-customize')
-         },
-      }
-    }
-  ]
+        options: {
+          customize: require.resolve(
+            'babel-timing/dist/webpack/babel-loader-customize'
+          ),
+        },
+      },
+    },
+  ];
 }
 ```
 
-3. Add `babel-timing/webpack/plugin` plugin _(accepts the [render options][render-options])_:
+3. Add `babel-timing/dist/webpack/plugin` plugin _(accepts the [render options][render-options])_:
 
 ```js
-plugins: [
-   new BabelTimingPlugin(),
-]
+plugins: [new BabelTimingPlugin()];
 ```
 
 ...with **options** _(accepts `output` and `outputPath` options)_:
 
 ```js
 plugins: [
-   new BabelTimingPlugin({output: "json", outputPath: "./results.json"}),
-]
+  new BabelTimingPlugin({output: 'json', outputPath: './results.json'}),
+];
 ```
 
 4. Delete `babel-loader` cache at `./node_modules/.cache/babel-loader/`
@@ -92,11 +92,11 @@ Profile Babel while running your **actual Jest tests**.
 ```js
 {
   transform: {
-    '^.+\\.jsx?$': 'babel-timing/jest/transformer'
+    '^.+\\.jsx?$': 'babel-timing/dist/jest/transformer'
   },
   reporters: [
     'default',
-    'babel-timing/jest/reporter'
+    'babel-timing/dist/jest/reporter'
   ]
 }
 ```
@@ -108,10 +108,10 @@ Profile Babel while running your **actual Jest tests**.
   reporters: [
     'default',
     [
-      'babel-timing/jest/reporter',
-      {output: 'json', outputPath: './results.json'}
-    ]
-  ]
+      'babel-timing/dist/jest/reporter',
+      {output: 'json', outputPath: './results.json'},
+    ],
+  ];
 }
 ```
 
@@ -194,12 +194,14 @@ Default: `"./babel-timing-results.json"`
 Path of output file in case `output` option is set to `"json"`.
 
 #### `paginationSize` / `--pagination-size`
+
 Type: `number`<br />
 Default: `10`
 
 Number of entries displayed in a page when rendering `"console"` output.
 
 #### `aggregateBy` / `--aggregate-by`
+
 Type: `string`<br />
 Default: `"files"`<br />
 Options: `"files"`, `"plugins"`

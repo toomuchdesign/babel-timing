@@ -9,5 +9,6 @@
     "allowJs": true,
     "declaration": true
   },
-  "include": ["./src/index.js", "./src/cli.js"]
+  "include": ["./src/index.js", "./src/cli.js", "./src/webpack", "./src/jest"],
+  "exclude": ["**/__tests__", "**/__fixtures__"]
 }
