@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+// @ts-nocheck
 
-const fs = require('fs');
-const program = require('commander');
-const { babelTiming, render } = require('./index.ts');
-const pkg = require('../package.json');
+import { readFileSync } from 'fs';
+import program from 'commander';
+import { babelTiming, render } from './index';
+import pkg from '../package.json';
 
-function list(val) {
+function list(val: string) {
   return val.split(',');
 }
 
@@ -52,15 +53,20 @@ program
   )
   .parse(process.argv);
 
-if (program.readResults) {
-  const results = JSON.parse(fs.readFileSync(program.readResults));
-  return render(
+if (program.readResults && typeof program.readResults === 'string') {
+  const path: string = program.readResults;
+  const results = JSON.parse(readFileSync(path).toString());
+  const rendered = render(
     results,
+    // @ts-ignore
     ({ output, outputPath, aggregateBy, paginationSize } = program)
   );
+
+  // @ts-ignore
+  return rendered;
 }
 
-return babelTiming(
+const rendered = babelTiming(
   program.args,
   ({
     babelConfig,
@@ -76,3 +82,5 @@ return babelTiming(
     paginationSize,
   } = program)
 );
+// @ts-ignore
+return rendered;

@@ -8,11 +8,12 @@
     "noErrorTruncation": true,
     "outDir": "dist",
     "allowJs": true,
-    "declaration": true
+    "declaration": true,
+    "resolveJsonModule": true
   },
   "include": [
     "./src/index.ts",
-    "./src/cli.js",
+    "./src/cli.ts",
     "./src/webpack",
     "./src/jest",
     "./src/types"
