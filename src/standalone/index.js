@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const babel = require('@babel/core');
 const multimatch = require('multimatch');
-const flatten = require('reduce-flatten');
 const getImports = require('./getImports.ts').default;
 const { globPatternsToPaths, onlyUnique } = require('../utils.ts');
 const Timer = require('../Timer.ts').default;
@@ -40,7 +39,7 @@ async function babelTiming(
       )
     );
 
-    importedFiles = importedFiles.reduce(flatten, []).filter(onlyUnique);
+    importedFiles = importedFiles.flat().filter(onlyUnique);
     files = importedFiles;
   }
 
