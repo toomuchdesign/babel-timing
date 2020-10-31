@@ -1,5 +1,4 @@
 import mergeWith from 'lodash.mergewith';
-import { flatten } from 'array-flatten';
 import { onlyUnique, sortByProperty } from './utils';
 
 type HRTime = ReturnType<NodeJS.HRTime>;
@@ -119,7 +118,7 @@ export default class Timer {
         return objValue + srcValue;
       }
     }
-    const results = flatten(pluginsArrays);
+    const results = pluginsArrays.flat();
     return (
       results
         // Get list of plugin names
