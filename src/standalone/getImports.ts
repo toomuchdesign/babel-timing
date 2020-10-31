@@ -1,14 +1,14 @@
-let webpack = require('webpack');
-let path = require('path');
-const multimatch = require('multimatch');
-const minimatch = require('minimatch');
-const rimraf = require('rimraf');
-const flatten = require('reduce-flatten');
-const findCacheDir = require('find-cache-dir');
-const findBabelConfig = require('find-babel-config');
-const { onlyUnique } = require('../utils.ts');
+import webpack from 'webpack';
+import path from 'path';
+import multimatch from 'multimatch';
+import minimatch from 'minimatch';
+import rimraf from 'rimraf';
+import findCacheDir from 'find-cache-dir';
+import findBabelConfig from 'find-babel-config';
+import { onlyUnique } from '../utils';
+import { OptionsWithDefaults } from '../types';
 
-function runWebpack(config) {
+function runWebpack(config: webpack.Configuration): Promise<webpack.Stats> {
   return new Promise((resolve, reject) => {
     let compiler = webpack(config);
     compiler.run((err, result) => {
@@ -21,7 +21,7 @@ function runWebpack(config) {
   });
 }
 
-function extractPathFromIdentifier(sourceName) {
+function extractPathFromIdentifier(sourceName: string) {
   return sourceName.split('!').pop();
 }
 
@@ -29,12 +29,18 @@ function getOutptPath() {
   return findCacheDir({ name: 'babel-timing' });
 }
 
-function hasExtension(name) {
+function hasExtension(name: string) {
   const lastPathPart = name.split('/').pop();
+  if (!lastPathPart) {
+    return false;
+  }
   return lastPathPart.includes('.', 1);
 }
 
-async function getImports(file, options) {
+export default async function getImports(
+  file: string,
+  options: OptionsWithDefaults
+) {
   const config = getConfig(file, options);
   const stats = await runWebpack(config);
 
@@ -42,19 +48,22 @@ async function getImports(file, options) {
     throw new Error(stats.toString('minimal'));
   }
 
-  rimraf(getOutptPath(), () => {});
+  const outputPath = getOutptPath();
+  if (outputPath) {
+    rimraf(outputPath, () => {});
+  }
 
   // https://webpack.js.org/api/stats/#root
-  const imports = stats
-    .toJson('normal')
-    .modules.map(module => {
+  const importedModules = stats.toJson('normal').modules || [];
+  const imports = importedModules
+    .map(module => {
       if (module.modules) {
         return module.modules.map(module => module.identifier);
       } else {
         return [module.identifier];
       }
     })
-    .reduce(flatten)
+    .flat()
     .filter(identifier => identifier.startsWith('/'))
     .map(extractPathFromIdentifier)
     .filter(onlyUnique);
@@ -62,7 +71,10 @@ async function getImports(file, options) {
   return imports;
 }
 
-function getConfig(file, options) {
+function getConfig(
+  file: string,
+  options: OptionsWithDefaults
+): webpack.Configuration {
   const babelConfig =
     options.babelConfig || findBabelConfig.sync(path.dirname(file)).file;
 
@@ -70,7 +82,7 @@ function getConfig(file, options) {
     `(${options.resolveExtensions.join('|')})$`
   );
 
-  const config = {
+  const config: webpack.Configuration = {
     mode: 'production',
     target: 'node',
     entry: path.resolve(file),
@@ -86,10 +98,10 @@ function getConfig(file, options) {
       rules: [
         {
           test: BABEL_TIMING_FILE_EXTENSIONS_REGEX,
-          include: options.include.map(minimatch.makeRe),
-          exclude: options.exclude.map(minimatch.makeRe),
+          include: options.include.map(path => minimatch.makeRe(path)),
+          exclude: options.exclude.map(path => minimatch.makeRe(path)),
           use: {
-            loader: require.resolve('babel-loader', { paths: __dirname }),
+            loader: require.resolve('babel-loader', { paths: [__dirname] }),
             options: {
               configFile: babelConfig,
             },
@@ -100,7 +112,7 @@ function getConfig(file, options) {
     plugins: [
       new webpack.IgnorePlugin({
         // @TODO build actual absolute resource path
-        checkResource(resource, context) {
+        checkResource(resource: string) {
           // Exclude files with unexpected extensions (!options.resolveExtensions)
           // @NOTE It breaks when filename has dots
           if (hasExtension(resource)) {
@@ -124,5 +136,3 @@ function getConfig(file, options) {
 
   return config;
 }
-
-module.exports = getImports;

@@ -10,6 +10,12 @@
     "allowJs": true,
     "declaration": true
   },
-  "include": ["./src/index.ts", "./src/cli.js", "./src/webpack", "./src/jest"],
+  "include": [
+    "./src/index.ts",
+    "./src/cli.js",
+    "./src/webpack",
+    "./src/jest",
+    "./src/types"
+  ],
   "exclude": ["**/__tests__", "**/__fixtures__"]
 }
