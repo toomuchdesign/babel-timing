@@ -1,5 +1,5 @@
 import glob from 'glob';
-import {existsSync} from 'fs';
+import { existsSync } from 'fs';
 
 export function globPatternsToPaths(patterns: string[]): string[] {
   const paths = [] as string[];
@@ -22,7 +22,7 @@ export function onlyUnique<Value>(
 }
 
 export function sortByProperty(prop: string) {
-  return (a: {[key: string]: any}, b: {[key: string]: any}) => {
+  return (a: { [key: string]: any }, b: { [key: string]: any }) => {
     if (a[prop] < b[prop]) return 1;
     if (a[prop] > b[prop]) return -1;
     return 0;
@@ -31,7 +31,7 @@ export function sortByProperty(prop: string) {
 
 export function valueInRange(
   value: number,
-  {min = -Infinity, max = Infinity}: {min?: number; max?: number} = {}
+  { min = -Infinity, max = Infinity }: { min?: number; max?: number } = {}
 ): number {
   if (value > max) return max;
   if (value < min) return min;

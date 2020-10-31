@@ -1,9 +1,9 @@
-const {render, timersCollection} = require('../index.ts');
+const { render, timersCollection } = require('../index.ts');
 
 // https://jestjs.io/docs/en/configuration#reporters-array-modulename-modulename-options
 class MyCustomReporter {
-  constructor(globalConfig, {output = 'console', ...otherOptions} = {}) {
-    this._options = {output, ...otherOptions};
+  constructor(globalConfig, { output = 'console', ...otherOptions } = {}) {
+    this._options = { output, ...otherOptions };
   }
 
   onRunComplete() {

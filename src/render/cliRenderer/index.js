@@ -1,8 +1,8 @@
 var differ = require('ansi-diff-stream');
 const Table = require('./Table');
-const {enableKeyPressEvent} = require('./utils');
+const { enableKeyPressEvent } = require('./utils');
 
-function renderFileList({results, selected = 0, diff, paginationSize} = {}) {
+function renderFileList({ results, selected = 0, diff, paginationSize } = {}) {
   const output = new Table({
     title: 'Babel timing - trasformed files',
     entries: results,
@@ -15,7 +15,12 @@ function renderFileList({results, selected = 0, diff, paginationSize} = {}) {
     onSelected: selected => {
       diff.clear();
       output.unmount();
-      renderFileDetails({results, resultIndex: selected, diff, paginationSize});
+      renderFileDetails({
+        results,
+        resultIndex: selected,
+        diff,
+        paginationSize,
+      });
     },
     onSelectedCommandInfo: 'show file detail',
     paginationSize,
@@ -25,7 +30,12 @@ function renderFileList({results, selected = 0, diff, paginationSize} = {}) {
   });
 }
 
-function renderFileDetails({results, resultIndex, diff, paginationSize} = {}) {
+function renderFileDetails({
+  results,
+  resultIndex,
+  diff,
+  paginationSize,
+} = {}) {
   const fileResult = results[resultIndex];
   const output = new Table({
     title: `Babel timing - info for file: ${fileResult.name}`,
@@ -39,7 +49,7 @@ function renderFileDetails({results, resultIndex, diff, paginationSize} = {}) {
     onEscape: () => {
       diff.clear();
       output.unmount();
-      renderFileList({results, selected: resultIndex, diff, paginationSize});
+      renderFileList({ results, selected: resultIndex, diff, paginationSize });
     },
     onEscapeCommandInfo: 'back to results list',
     paginationSize,
@@ -49,7 +59,12 @@ function renderFileDetails({results, resultIndex, diff, paginationSize} = {}) {
   });
 }
 
-function renderPluginList({results, selected = 0, diff, paginationSize} = {}) {
+function renderPluginList({
+  results,
+  selected = 0,
+  diff,
+  paginationSize,
+} = {}) {
   const output = new Table({
     title: 'Babel timing - plugins called',
     entries: results,
@@ -96,7 +111,12 @@ function renderPluginDetails({
     onEscape: () => {
       diff.clear();
       output.unmount();
-      renderPluginList({results, selected: resultIndex, diff, paginationSize});
+      renderPluginList({
+        results,
+        selected: resultIndex,
+        diff,
+        paginationSize,
+      });
     },
     onEscapeCommandInfo: 'back to results list',
     paginationSize,
@@ -106,7 +126,7 @@ function renderPluginDetails({
   });
 }
 
-function renderer(results = [], {paginationSize} = {}) {
+function renderer(results = [], { paginationSize } = {}) {
   // Duck type results to tell if data is aggregated by files or plugins.
   // @TODO Find a better way to adjust renderer on data type
   isFileList = results[0].hasOwnProperty('plugins');

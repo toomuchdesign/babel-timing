@@ -1,6 +1,6 @@
 import mergeWith from 'lodash.mergewith';
-import {flatten} from 'array-flatten';
-import {onlyUnique, sortByProperty} from './utils';
+import { flatten } from 'array-flatten';
+import { onlyUnique, sortByProperty } from './utils';
 
 type HRTime = ReturnType<NodeJS.HRTime>;
 
@@ -96,14 +96,14 @@ export default class Timer {
     return delta[0] * 1e3 + delta[1] / 1e6;
   }
 
-  static getTotalTime(results: {time: number}[]): number {
+  static getTotalTime(results: { time: number }[]): number {
     return results.reduce((total, entry) => total + entry.time, 0);
   }
 
   // To be used in .map
-  static addTimePerVisitProperty<Entry extends {time: number; visits: number}>(
-    entry: Entry
-  ): Entry & {timePerVisit: number} {
+  static addTimePerVisitProperty<
+    Entry extends { time: number; visits: number }
+  >(entry: Entry): Entry & { timePerVisit: number } {
     return {
       ...entry,
       timePerVisit: entry.time / entry.visits,

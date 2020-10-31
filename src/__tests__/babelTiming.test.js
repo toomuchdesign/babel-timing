@@ -3,7 +3,7 @@ const fs = require('fs');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const rimraf = require('rimraf');
-const {babelTiming} = require('../index');
+const { babelTiming } = require('../index');
 const FIXTURES = '__fixtures__';
 const {
   expectedResults,

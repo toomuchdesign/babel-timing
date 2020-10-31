@@ -31,7 +31,7 @@ babel-timing path/to/entrypoint.js --follow-imports
 ### As standalone library via Node
 
 ```js
-const {babelTiming} = require('babel-timing');
+const { babelTiming } = require('babel-timing');
 const results = await babelTiming(['path/to/file.js'], options);
 ```
 
@@ -75,7 +75,7 @@ plugins: [new BabelTimingPlugin()];
 
 ```js
 plugins: [
-  new BabelTimingPlugin({output: 'json', outputPath: './results.json'}),
+  new BabelTimingPlugin({ output: 'json', outputPath: './results.json' }),
 ];
 ```
 
@@ -109,7 +109,7 @@ Profile Babel while running your **actual Jest tests**.
     'default',
     [
       'babel-timing/dist/jest/reporter',
-      {output: 'json', outputPath: './results.json'},
+      { output: 'json', outputPath: './results.json' },
     ],
   ];
 }
@@ -262,7 +262,7 @@ These API's are meant to integrate `babel-timing` with any bundler/tool using Ba
 `Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a [`ResultList`][resultlist] entry object for a given file.
 
 ```js
-const {Timer} = require('babel-timing');
+const { Timer } = require('babel-timing');
 const timer = new Timer(fileName);
 
 // This is the function to be provided to Babel's "wrapPluginVisitorMethod" option
@@ -277,7 +277,7 @@ timer.getResults();
 Utility function meant to temporarily store `Timer` instances into a Node module while Babel compiles.
 
 ```js
-const {timersCollection} = require('babel-timing');
+const { timersCollection } = require('babel-timing');
 
 // Returns Timer instance for given file. Creates a new `Timer` instance if no timer for given file is found
 timersCollection.getFile(fileName);
@@ -293,8 +293,8 @@ timersCollection.clear();
 Accepts a `ResultList` array and renders an interactive CLI visualisation or outputs a JSON file of it.
 
 ```js
-const {render} = require('babel-timing');
-render(babelTimingResults, {options});
+const { render } = require('babel-timing');
+render(babelTimingResults, { options });
 ```
 
 Accepts the [render options][render-options].

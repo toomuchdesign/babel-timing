@@ -1,7 +1,7 @@
 var chunkArray = require('lodash.chunk');
 
 class Pagination {
-  constructor({items = [], itemsPerPage = 10} = {}) {
+  constructor({ items = [], itemsPerPage = 10 } = {}) {
     this.items = items;
     this.itemsPerPage = itemsPerPage;
     this.pagedItems = chunkArray(items, itemsPerPage);

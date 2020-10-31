@@ -6,7 +6,7 @@
 
 ```js
 // mixin.core.js
-const {Mixin} = require('hops');
+const { Mixin } = require('hops');
 const BabelTimingPlugin = require('babel-timing/dist/webpack/plugin');
 
 class BabelTimingMixin extends Mixin {

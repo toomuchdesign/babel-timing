@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const program = require('commander');
-const {babelTiming, render} = require('./index.ts');
+const { babelTiming, render } = require('./index.ts');
 const pkg = require('../package.json');
 
 function list(val) {
@@ -56,7 +56,7 @@ if (program.readResults) {
   const results = JSON.parse(fs.readFileSync(program.readResults));
   return render(
     results,
-    ({output, outputPath, aggregateBy, paginationSize} = program)
+    ({ output, outputPath, aggregateBy, paginationSize } = program)
   );
 }
 

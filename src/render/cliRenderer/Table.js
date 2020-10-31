@@ -2,7 +2,7 @@ const CliTable = require('cli-table3');
 const colors = require('colors/safe');
 const defaults = require('lodash.defaults');
 const Pagination = require('./Pagination');
-const {valueInRange} = require('../../utils');
+const { valueInRange } = require('../../utils');
 
 class Table {
   constructor(props = {}) {
@@ -25,9 +25,10 @@ class Table {
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Prepare data for rendering
-    this.tableHead = ['', ...this.props.entriesMap.map(entry => entry[0])].map(
-      entry => colors.yellow(entry)
-    );
+    this.tableHead = [
+      '',
+      ...this.props.entriesMap.map(entry => entry[0]),
+    ].map(entry => colors.yellow(entry));
 
     const pagedEntries = this.props.entries.map((result, index) => [
       index + 1,

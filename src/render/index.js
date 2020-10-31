@@ -3,7 +3,7 @@ const fs = require('fs');
 const cliRenderer = require('./cliRenderer');
 const aggregateByPlugins = require('./aggregateByPlugins');
 const joinSamePackageResults = require('./joinSamePackageResults');
-const {sortByProperty} = require('../utils');
+const { sortByProperty } = require('../utils');
 
 function render(
   results,
@@ -30,7 +30,7 @@ function render(
       return results;
     }
     case 'console': {
-      cliRenderer(results, {paginationSize});
+      cliRenderer(results, { paginationSize });
       return;
     }
     case 'json': {

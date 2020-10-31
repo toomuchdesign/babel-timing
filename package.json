@@ -23,7 +23,7 @@
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
     "prepublish": "npm t",
-    "format": "prettier --write \"**/*.{js,json,md}\""
+    "format": "prettier --write \"**/*.{js,ts,json,md}\""
   },
   "keywords": [
     "babel",
@@ -89,7 +89,7 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,json}": [
+    "**/*.{js,ts,json}": [
       "prettier --write",
       "npm t -- .",
       "git add"

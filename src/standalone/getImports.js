@@ -6,7 +6,7 @@ const rimraf = require('rimraf');
 const flatten = require('reduce-flatten');
 const findCacheDir = require('find-cache-dir');
 const findBabelConfig = require('find-babel-config');
-const {onlyUnique} = require('../utils.ts');
+const { onlyUnique } = require('../utils.ts');
 
 function runWebpack(config) {
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ function extractPathFromIdentifier(sourceName) {
 }
 
 function getOutptPath() {
-  return findCacheDir({name: 'babel-timing'});
+  return findCacheDir({ name: 'babel-timing' });
 }
 
 function hasExtension(name) {
@@ -89,7 +89,7 @@ function getConfig(file, options) {
           include: options.include.map(minimatch.makeRe),
           exclude: options.exclude.map(minimatch.makeRe),
           use: {
-            loader: require.resolve('babel-loader', {paths: __dirname}),
+            loader: require.resolve('babel-loader', { paths: __dirname }),
             options: {
               configFile: babelConfig,
             },
@@ -110,7 +110,7 @@ function getConfig(file, options) {
           // Ignore excluded files
           const resourcePath = resource.startsWith('.')
             ? resource
-            : require.resolve(resource, {paths: [process.cwd()]});
+            : require.resolve(resource, { paths: [process.cwd()] });
 
           if (multimatch([resourcePath], options.exclude).length > 0) {
             return true;
