@@ -1,7 +1,7 @@
-const glob = require('glob');
-const {existsSync} = require('fs');
+import glob from 'glob';
+import {existsSync} from 'fs';
 
-function globPatternsToPaths(patterns: string[]): string[] {
+export function globPatternsToPaths(patterns: string[]): string[] {
   const paths = [] as string[];
   patterns.forEach(pattern => {
     if (glob.hasMagic(pattern)) {
@@ -13,11 +13,15 @@ function globPatternsToPaths(patterns: string[]): string[] {
   return paths;
 }
 
-function onlyUnique<Value>(value: Value, index: number, self: any[]): boolean {
+export function onlyUnique<Value>(
+  value: Value,
+  index: number,
+  self: any[]
+): boolean {
   return self.indexOf(value) === index;
 }
 
-function sortByProperty(prop: string) {
+export function sortByProperty(prop: string) {
   return (a: {[key: string]: any}, b: {[key: string]: any}) => {
     if (a[prop] < b[prop]) return 1;
     if (a[prop] > b[prop]) return -1;
@@ -25,7 +29,7 @@ function sortByProperty(prop: string) {
   };
 }
 
-function valueInRange(
+export function valueInRange(
   value: number,
   {min = -Infinity, max = Infinity}: {min?: number; max?: number} = {}
 ): number {
@@ -33,8 +37,3 @@ function valueInRange(
   if (value < min) return min;
   return value;
 }
-
-exports.globPatternsToPaths = globPatternsToPaths;
-exports.onlyUnique = onlyUnique;
-exports.sortByProperty = sortByProperty;
-exports.valueInRange = valueInRange;

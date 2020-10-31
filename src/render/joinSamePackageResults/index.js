@@ -1,5 +1,5 @@
 const mergeWith = require('lodash.mergewith');
-const Timer = require('../../Timer');
+const Timer = require('../../Timer.ts').default;
 const {onlyUnique} = require('../../utils.ts');
 
 const PACKAGE_NAME_REGEX = /(.*\/node_modules\/)((?:@.+?\/)?.+?\/)/;

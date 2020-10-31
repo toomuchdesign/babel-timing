@@ -1,4 +1,4 @@
-const Timer = require('./Timer');
+const Timer = require('./Timer.ts').default;
 
 let timers = new Map();
 

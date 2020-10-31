@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2018",
+    "target": "es2019",
+    "lib": ["dom", "es2020", "esnext.array"],
     "strict": true,
     "esModuleInterop": true,
     "noErrorTruncation": true,

@@ -1,5 +1,5 @@
 const flatten = require('reduce-flatten');
-const Timer = require('../../Timer');
+const Timer = require('../../Timer.ts').default;
 const {onlyUnique, sortByProperty} = require('../../utils.ts');
 
 /*

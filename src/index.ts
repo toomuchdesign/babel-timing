@@ -1,6 +1,4 @@
-module.exports = {
-  babelTiming: require('./standalone'),
-  Timer: require('./Timer'),
-  timersCollection: require('./timersCollection'),
-  render: require('./render'),
-};
+export {default as babelTiming} from './standalone';
+export {default as Timer} from './Timer';
+export {default as timersCollection} from './timersCollection';
+export {default as render} from './render';
