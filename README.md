@@ -126,7 +126,7 @@ Profile Babel while running your **actual Jest tests**.
 #### `babelConfig` / `--babel-config`
 
 Type: `string | false`<br />
-Default: `undefined`
+Default: `false`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 

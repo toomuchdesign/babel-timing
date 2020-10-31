@@ -1,5 +1,6 @@
 import mergeWith from 'lodash.mergewith';
 import { onlyUnique, sortByProperty } from './utils';
+import { TransformOptions } from '@babel/core';
 
 type HRTime = ReturnType<NodeJS.HRTime>;
 
@@ -27,13 +28,7 @@ export default class Timer {
     };
   };
   _file: string;
-  wrapPluginVisitorMethod: (
-    pluginAlias: string,
-    visitorType: string,
-    callback: {
-      apply: Function;
-    }
-  ) => Function;
+  wrapPluginVisitorMethod: TransformOptions['wrapPluginVisitorMethod'];
 
   constructor(file: string) {
     this._events = {};

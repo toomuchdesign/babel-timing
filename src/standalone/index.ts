@@ -1,45 +1,51 @@
-const fs = require('fs');
-const path = require('path');
-const babel = require('@babel/core');
-const multimatch = require('multimatch');
-const getImports = require('./getImports.ts').default;
-const { globPatternsToPaths, onlyUnique } = require('../utils.ts');
-const Timer = require('../Timer.ts').default;
-const render = require('../render');
+import fs from 'fs';
+import path from 'path';
+import { transformSync } from '@babel/core';
+import multimatch from 'multimatch';
+import getImports from './getImports';
+import { globPatternsToPaths, onlyUnique } from '../utils';
+import Timer from '../Timer';
+import render from '../render';
+import { Options, OptionsWithDefaults } from '../types';
 
-async function babelTiming(
+export default async function babelTiming(
   filePatterns = [],
   {
-    babelConfig,
+    babelConfig = false,
     followImports = false,
     include = ['**'],
     exclude = ['**/node_modules/**'],
     resolveMainFields = ['browser', 'module', 'main'],
     resolveExtensions = ['.js', '.jsx', '.mjs', '.ts'],
     expandPackages = false,
+    output = 'return',
+    outputPath = './babel-timing-results.json',
+    aggregateBy = 'files',
+    paginationSize = 10,
+  }: Options = {}
+) {
+  const options: OptionsWithDefaults = {
+    babelConfig,
+    followImports,
+    include,
+    exclude,
+    resolveMainFields,
+    resolveExtensions,
+    expandPackages,
     output,
     outputPath,
     aggregateBy,
     paginationSize,
-  } = {}
-) {
+  };
   let files = globPatternsToPaths(filePatterns);
 
   // Follow and recursively resolve all relative imports
   if (followImports) {
-    let importedFiles = await Promise.all(
-      files.map(file =>
-        getImports(file, {
-          babelConfig,
-          resolveMainFields,
-          resolveExtensions,
-          include,
-          exclude,
-        })
-      )
+    const rawImportedFiles = await Promise.all(
+      files.map(file => getImports(file, options))
     );
 
-    importedFiles = importedFiles.flat().filter(onlyUnique);
+    const importedFiles = rawImportedFiles.flat().filter(onlyUnique);
     files = importedFiles;
   }
 
@@ -63,7 +69,7 @@ async function babelTiming(
      * transform meta data using `wrapPluginVisitorMethod`
      * https://babeljs.io/docs/en/options#configfile
      */
-    babel.transformSync(fs.readFileSync(file).toString(), {
+    transformSync(fs.readFileSync(file).toString(), {
       filename: file,
       configFile: babelConfig ? path.join(process.cwd(), babelConfig) : false,
       minified: true,
@@ -82,5 +88,3 @@ async function babelTiming(
     paginationSize,
   });
 }
-
-module.exports = babelTiming;

@@ -22,10 +22,11 @@ function runWebpack(config: webpack.Configuration): Promise<webpack.Stats> {
 }
 
 function extractPathFromIdentifier(sourceName: string) {
-  return sourceName.split('!').pop();
+  const path = sourceName.split('!').pop();
+  return path || sourceName;
 }
 
-function getOutptPath() {
+function getOutputPath() {
   return findCacheDir({ name: 'babel-timing' });
 }
 
@@ -48,14 +49,14 @@ export default async function getImports(
     throw new Error(stats.toString('minimal'));
   }
 
-  const outputPath = getOutptPath();
+  const outputPath = getOutputPath();
   if (outputPath) {
     rimraf(outputPath, () => {});
   }
 
   // https://webpack.js.org/api/stats/#root
   const importedModules = stats.toJson('normal').modules || [];
-  const imports = importedModules
+  const imports: string[] = importedModules
     .map(module => {
       if (module.modules) {
         return module.modules.map(module => module.identifier);
@@ -87,7 +88,7 @@ function getConfig(
     target: 'node',
     entry: path.resolve(file),
     output: {
-      path: getOutptPath(),
+      path: getOutputPath(),
     },
     resolve: {
       modules: [path.join(process.cwd(), 'node_modules')],
