@@ -1,6 +1,6 @@
 var differ = require('ansi-diff-stream');
 const Table = require('./Table');
-const { enableKeyPressEvent } = require('./utils');
+const { enableKeyPressEvent } = require('./utils.ts');
 
 function renderFileList({ results, selected = 0, diff, paginationSize } = {}) {
   const output = new Table({

@@ -1,7 +1,7 @@
 const CliTable = require('cli-table3');
 const colors = require('colors/safe');
 const defaults = require('lodash.defaults');
-const Pagination = require('./Pagination');
+const Pagination = require('./Pagination.ts').default;
 const { valueInRange } = require('../../utils');
 
 class Table {
