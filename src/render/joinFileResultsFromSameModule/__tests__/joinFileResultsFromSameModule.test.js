@@ -1,10 +1,10 @@
-const joinSamePackageResults = require('../index');
+const joinFileResultsFromSameModule = require('../index.ts').default;
 const resultsMock = require('../__mocks__/results');
 
 // @TODO: rewrite as integration test
-describe('joinSamePackageResults', () => {
+describe('joinFileResultsFromSameModule', () => {
   it('join results from same package', () => {
-    const actual = joinSamePackageResults(resultsMock);
+    const actual = joinFileResultsFromSameModule(resultsMock);
     const expected = [
       {
         name: '/foo/node_modules/package-name/',

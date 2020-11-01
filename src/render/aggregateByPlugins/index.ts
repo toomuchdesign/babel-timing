@@ -1,27 +1,15 @@
-const Timer = require('../../Timer.ts').default;
-const { sortByProperty } = require('../../utils.ts');
+import Timer from '../../Timer';
+import { sortByProperty } from '../../utils';
+import { ResultByFile, ResultByPlugin } from '../../types';
 
-/*
- * Transform <ResultList> into the following structure:
- *
- * type ResultList = {
- *   name: string;
- *   time: number;
- *   files: {
- *     name: string;
- *     time: number;
- *     timePerVisit: number;
- *     visits: number;
- *   }[];
- * }[];
- */
-
-function aggregateByPlugins(originalResults) {
-  const results = [];
+export default function aggregateByPlugins(
+  resultByFile: ResultByFile[]
+): ResultByPlugin[] {
+  const results = [] as ResultByPlugin[];
   const pluginsMap = new Map();
 
   // Extract "results.plugins" entries and group them by plugin name
-  originalResults.forEach(fileResult => {
+  resultByFile.forEach(fileResult => {
     const fileName = fileResult.name;
     fileResult.plugins.forEach(plugin => {
       const pluginName = plugin.name;
@@ -46,5 +34,3 @@ function aggregateByPlugins(originalResults) {
 
   return results;
 }
-
-module.exports = aggregateByPlugins;

@@ -1,8 +1,9 @@
 const path = require('path');
 const fs = require('fs');
 const cliRenderer = require('./cliRenderer');
-const aggregateByPlugins = require('./aggregateByPlugins');
-const joinSamePackageResults = require('./joinSamePackageResults');
+const aggregateByPlugins = require('./aggregateByPlugins/index.ts').default;
+const joinFileResultsFromSameModule = require('./joinFileResultsFromSameModule')
+  .default;
 const { sortByProperty } = require('../utils');
 
 function render(
@@ -16,7 +17,7 @@ function render(
   } = {}
 ) {
   if (!expandPackages) {
-    results = joinSamePackageResults(results);
+    results = joinFileResultsFromSameModule(results);
   }
 
   if (aggregateBy === 'plugins') {

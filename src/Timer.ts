@@ -1,21 +1,9 @@
 import mergeWith from 'lodash.mergewith';
 import { onlyUnique, sortByProperty } from './utils';
 import { TransformOptions } from '@babel/core';
+import { ResultByFile, Visit } from './types';
 
 type HRTime = ReturnType<NodeJS.HRTime>;
-
-type PluginResult = {
-  name: string;
-  time: number;
-  timePerVisit: number;
-  visits: number;
-};
-
-export type Result = {
-  name: string;
-  time: number;
-  plugins: PluginResult[];
-};
 
 export default class Timer {
   _events: {
@@ -66,7 +54,7 @@ export default class Timer {
     }
   }
 
-  getResults(): Result {
+  getResults(): ResultByFile {
     const plugins = Object.keys(this._results)
       .map(pluginAlias => {
         const entry = this._results[pluginAlias];
@@ -104,16 +92,16 @@ export default class Timer {
     };
   }
 
-  static mergePluginsProp(...pluginsArrays: PluginResult[]) {
-    function mergeStrategy(objValue: string | number, srcValue: number) {
-      if (typeof objValue === 'string') {
-        return objValue;
-      }
-      if (typeof objValue === 'number') {
+  static mergeVisits(...visitArray: Visit[]): Visit[] {
+    type VisitKeys = keyof Visit;
+    type VisitValues = Visit[VisitKeys];
+    function mergeStrategy(objValue: VisitValues, srcValue: VisitValues) {
+      if (typeof objValue === 'number' && typeof srcValue === 'number') {
         return objValue + srcValue;
       }
+      return objValue;
     }
-    const results = pluginsArrays.flat();
+    const results = visitArray.flat();
     return (
       results
         // Get list of plugin names

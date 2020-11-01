@@ -12,4 +12,23 @@ export type Options = {
   paginationSize?: number;
 };
 
+export type Visit = {
+  name: string;
+  time: number;
+  timePerVisit: number;
+  visits: number;
+};
+
+export type ResultByFile = {
+  name: string;
+  time: number;
+  plugins: Visit[];
+};
+
+export type ResultByPlugin = {
+  name: string;
+  time: number;
+  files: Visit[];
+};
+
 export type OptionsWithDefaults = Required<Options>;
