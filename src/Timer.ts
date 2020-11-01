@@ -11,7 +11,7 @@ type PluginResult = {
   visits: number;
 };
 
-type Result = {
+export type Result = {
   name: string;
   time: number;
   plugins: PluginResult[];

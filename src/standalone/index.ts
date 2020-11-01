@@ -9,7 +9,7 @@ import render from '../render';
 import { Options, OptionsWithDefaults } from '../types';
 
 export default async function babelTiming(
-  filePatterns = [],
+  filePatterns: string[] = [],
   {
     babelConfig = false,
     followImports = false,

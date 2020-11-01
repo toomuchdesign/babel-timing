@@ -1,14 +1,17 @@
 #!/usr/bin/env node
-// @ts-nocheck
 
 import { readFileSync } from 'fs';
 import program from 'commander';
 import { babelTiming, render } from './index';
 import pkg from '../package.json';
+import { Result } from './Timer';
+import { Options } from './types';
 
 function list(val: string) {
   return val.split(',');
 }
+
+type CLIOnlyOptions = { readResults?: string };
 
 program
   .version(pkg.version)
@@ -53,34 +56,17 @@ program
   )
   .parse(process.argv);
 
-if (program.readResults && typeof program.readResults === 'string') {
-  const path: string = program.readResults;
-  const results = JSON.parse(readFileSync(path).toString());
-  const rendered = render(
-    results,
-    // @ts-ignore
-    ({ output, outputPath, aggregateBy, paginationSize } = program)
-  );
-
+// @NOTE Since cli tests are disables, unsure program.opts() returns expected props
+const programOptions: Options & CLIOnlyOptions = program.opts();
+const { readResults } = programOptions;
+if (readResults) {
+  const resultsPath = readResults;
+  const results: Result[] = JSON.parse(readFileSync(resultsPath).toString());
+  const rendered = render(results, programOptions);
   // @ts-ignore
   return rendered;
 }
 
-const rendered = babelTiming(
-  program.args,
-  ({
-    babelConfig,
-    followImports,
-    include,
-    exclude,
-    resolveMainFields,
-    resolveExtensions,
-    expandPackages,
-    output,
-    outputPath,
-    aggregateBy,
-    paginationSize,
-  } = program)
-);
+const rendered = babelTiming(program.args, programOptions);
 // @ts-ignore
 return rendered;
