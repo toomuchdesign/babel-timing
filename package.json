@@ -2,8 +2,8 @@
   "name": "babel-timing",
   "version": "0.8.0",
   "description": "Measure Babel compilation time",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist",
     "webpack",
@@ -13,7 +13,7 @@
     "!__fixtures__",
     "!__utils__"
   ],
-  "bin": "./dist/cli.js",
+  "bin": "./dist/src/cli.js",
   "scripts": {
     "clean": "rm -rf dist",
     "compile": "npm run clean && tsc",
@@ -40,12 +40,6 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.12.3",
-    "@types/find-cache-dir": "^3.2.0",
-    "@types/lodash.chunk": "^4.2.6",
-    "@types/lodash.defaults": "^4.2.6",
-    "@types/lodash.mergewith": "^4.6.6",
-    "@types/rimraf": "^3.0.0",
-    "@types/webpack": "^4.41.24",
     "ansi-diff-stream": "^1.2.1",
     "babel-loader": "^8.1.0",
     "cli-table3": "^0.6.0",
@@ -65,8 +59,14 @@
   "devDependencies": {
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
-    "babel-jest": "^26.6.1",
+    "@types/find-cache-dir": "^3.2.0",
     "@types/jest": "^26.0.15",
+    "@types/lodash.chunk": "^4.2.6",
+    "@types/lodash.defaults": "^4.2.6",
+    "@types/lodash.mergewith": "^4.6.6",
+    "@types/rimraf": "^3.0.0",
+    "@types/webpack": "^4.41.24",
+    "babel-jest": "^26.6.1",
     "husky": "^4.3.0",
     "jest": "^26.6.1",
     "lint-staged": "^9.5.0",

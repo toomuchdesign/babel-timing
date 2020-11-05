@@ -80,7 +80,8 @@ export default async function babelTiming(
     return timer.getResults();
   });
 
-  return render(results, {
+  return render({
+    results,
     expandPackages,
     output,
     outputPath,

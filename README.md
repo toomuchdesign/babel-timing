@@ -39,10 +39,10 @@ const results = await babelTiming(['path/to/file.js'], options);
 
 Profile Babel during the **actual Webpack bundling process**.
 
-1. Import `babel-timing/dist/webpack/plugin` to Webpack configuration:
+1. Import `babel-timing/webpack/plugin` to Webpack configuration:
 
 ```js
-const BabelTimingPlugin = require('babel-timing/dist/webpack/plugin');
+const BabelTimingPlugin = require('babel-timing/webpack/plugin');
 ```
 
 2. Add `customize` option to the existing [`babel-loader`](https://github.com/babel/babel-loader#options) configuration:
@@ -56,7 +56,7 @@ module: {
         loader: 'babel-loader',
         options: {
           customize: require.resolve(
-            'babel-timing/dist/webpack/babel-loader-customize'
+            'babel-timing/webpack/babel-loader-customize'
           ),
         },
       },
@@ -65,7 +65,7 @@ module: {
 }
 ```
 
-3. Add `babel-timing/dist/webpack/plugin` plugin _(accepts the [render options][render-options])_:
+3. Add `babel-timing/webpack/plugin` plugin _(accepts the [render options][render-options])_:
 
 ```js
 plugins: [new BabelTimingPlugin()];
@@ -92,11 +92,11 @@ Profile Babel while running your **actual Jest tests**.
 ```js
 {
   transform: {
-    '^.+\\.jsx?$': 'babel-timing/dist/jest/transformer'
+    '^.+\\.jsx?$': 'babel-timing/jest/transformer'
   },
   reporters: [
     'default',
-    'babel-timing/dist/jest/reporter'
+    'babel-timing/jest/reporter'
   ]
 }
 ```
@@ -108,7 +108,7 @@ Profile Babel while running your **actual Jest tests**.
   reporters: [
     'default',
     [
-      'babel-timing/dist/jest/reporter',
+      'babel-timing/jest/reporter',
       { output: 'json', outputPath: './results.json' },
     ],
   ];

@@ -4,8 +4,7 @@ import { readFileSync } from 'fs';
 import program from 'commander';
 import { babelTiming, render } from './index';
 import pkg from '../package.json';
-import { Result } from './Timer';
-import { Options } from './types';
+import { ResultByFile, Options } from './types';
 
 function list(val: string) {
   return val.split(',');
@@ -61,8 +60,10 @@ const programOptions: Options & CLIOnlyOptions = program.opts();
 const { readResults } = programOptions;
 if (readResults) {
   const resultsPath = readResults;
-  const results: Result[] = JSON.parse(readFileSync(resultsPath).toString());
-  const rendered = render(results, programOptions);
+  const results: ResultByFile[] = JSON.parse(
+    readFileSync(resultsPath).toString()
+  );
+  const rendered = render({ results, ...programOptions });
   // @ts-ignore
   return rendered;
 }

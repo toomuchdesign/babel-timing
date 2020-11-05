@@ -4,25 +4,19 @@ import cliRenderer from './cliRenderer';
 import aggregateByPlugins from './aggregateByPlugins/index';
 import joinFileResultsFromSameModule from './joinFileResultsFromSameModule';
 import { sortByProperty } from '../utils';
-import { ResultByFile, ResultByPlugin, OptionsWithDefaults } from '../types';
+import { ResultByFile, ResultByPlugin, Options } from '../types';
 
-export default function render(
-  results: ResultByFile[],
-  {
-    expandPackages,
-    output = 'return',
-    outputPath = './babel-timing-results.json',
-    aggregateBy = 'files',
-    paginationSize,
-  }: Pick<
-    OptionsWithDefaults,
-    | 'expandPackages'
-    | 'output'
-    | 'outputPath'
-    | 'aggregateBy'
-    | 'paginationSize'
-  >
-) {
+export default function render({
+  results = [],
+  expandPackages,
+  output = 'return',
+  outputPath = './babel-timing-results.json',
+  aggregateBy = 'files',
+  paginationSize = 10,
+}: { results: ResultByFile[] } & Pick<
+  Options,
+  'expandPackages' | 'output' | 'outputPath' | 'aggregateBy' | 'paginationSize'
+>) {
   if (!expandPackages) {
     results = joinFileResultsFromSameModule(results);
   }
