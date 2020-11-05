@@ -18,7 +18,7 @@ type TableProps<Entry> = {
   onRender?: (output: string) => void;
 };
 
-export class Table<Entry> {
+export default class Table<Entry> {
   props: Required<TableProps<Entry>>;
   pagination: Pagination<string | number>;
   tableHead: string[];

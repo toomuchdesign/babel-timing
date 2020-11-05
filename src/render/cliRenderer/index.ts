@@ -1,8 +1,19 @@
-var differ = require('ansi-diff-stream');
-const Table = require('./Table');
-const { enableKeyPressEvent } = require('./utils.ts');
+import differ from 'ansi-diff-stream';
+import Table from './Table';
+import { enableKeyPressEvent } from './utils';
+import { ResultByFile, ResultByPlugin } from '../../types';
 
-function renderFileList({ results, selected = 0, diff, paginationSize } = {}) {
+function renderFileList({
+  results,
+  selected,
+  diff,
+  paginationSize,
+}: {
+  results: ResultByFile[];
+  selected: number;
+  diff: ReturnType<typeof differ>;
+  paginationSize: number;
+}) {
   const output = new Table({
     title: 'Babel timing - trasformed files',
     entries: results,
@@ -35,7 +46,12 @@ function renderFileDetails({
   resultIndex,
   diff,
   paginationSize,
-} = {}) {
+}: {
+  results: ResultByFile[];
+  resultIndex: number;
+  diff: ReturnType<typeof differ>;
+  paginationSize: number;
+}) {
   const fileResult = results[resultIndex];
   const output = new Table({
     title: `Babel timing - info for file: ${fileResult.name}`,
@@ -64,7 +80,12 @@ function renderPluginList({
   selected = 0,
   diff,
   paginationSize,
-} = {}) {
+}: {
+  results: ResultByPlugin[];
+  selected: number;
+  diff: ReturnType<typeof differ>;
+  paginationSize: number;
+}) {
   const output = new Table({
     title: 'Babel timing - plugins called',
     entries: results,
@@ -97,7 +118,12 @@ function renderPluginDetails({
   resultIndex,
   diff,
   paginationSize,
-} = {}) {
+}: {
+  results: ResultByPlugin[];
+  resultIndex: number;
+  diff: ReturnType<typeof differ>;
+  paginationSize: number;
+}) {
   const pluginResult = results[resultIndex];
   const output = new Table({
     title: `Babel timing - info for plugin: ${pluginResult.name}`,
@@ -126,22 +152,37 @@ function renderPluginDetails({
   });
 }
 
-function renderer(results = [], { paginationSize } = {}) {
-  // Duck type results to tell if data is aggregated by files or plugins.
-  // @TODO Find a better way to adjust renderer on data type
-  isFileList = results[0].hasOwnProperty('plugins');
+// Duck type results to tell if data is aggregated by files or plugins.
+// @TODO Find a better way to adjust renderer on data type
+function isResultsByFile(
+  results: ResultByFile[] | ResultByPlugin[]
+): results is ResultByFile[] {
+  return results[0].hasOwnProperty('plugins');
+}
+
+export default function renderer(
+  results: ResultByFile[] | ResultByPlugin[] = [],
+  { paginationSize }: { paginationSize: number }
+) {
   enableKeyPressEvent();
 
   // Init ansi-diff-stream
   const diff = differ();
   diff.pipe(process.stdout);
 
-  const renderer = isFileList ? renderFileList : renderPluginList;
-  renderer({
-    results,
-    diff,
-    paginationSize,
-  });
+  if (isResultsByFile(results)) {
+    renderFileList({
+      results,
+      selected: 0,
+      diff,
+      paginationSize,
+    });
+  } else {
+    renderPluginList({
+      results,
+      selected: 0,
+      diff,
+      paginationSize,
+    });
+  }
 }
-
-module.exports = renderer;
