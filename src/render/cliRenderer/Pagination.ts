@@ -1,16 +1,16 @@
 import chunkArray from 'lodash.chunk';
 
-export default class Pagination {
-  items: any[];
+export default class Pagination<Item> {
+  items: Item[][];
   itemsPerPage: number;
-  pagedItems: any[][];
+  pagedItems: Item[][][];
   currentPage: number;
 
   constructor({
     items = [],
     itemsPerPage = 10,
   }: {
-    items: any[];
+    items: Item[][];
     itemsPerPage: number;
   }) {
     this.items = items;
