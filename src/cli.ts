@@ -63,7 +63,7 @@ if (readResults) {
   const results: ResultByFile[] = JSON.parse(
     readFileSync(resultsPath).toString()
   );
-  const rendered = render({ results, ...programOptions });
+  const rendered = render(results, programOptions);
   // @ts-ignore
   return rendered;
 }

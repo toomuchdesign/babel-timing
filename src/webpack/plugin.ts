@@ -1,7 +1,7 @@
 import { render, timersCollection } from '../index';
 import { Plugin, Compiler } from 'webpack';
 
-type Options = Parameters<typeof render>[0];
+type Options = Parameters<typeof render>[1];
 
 // https://webpack.js.org/api/plugins/
 export default class BabelTimingPlugin implements Plugin {
@@ -22,16 +22,10 @@ export default class BabelTimingPlugin implements Plugin {
 
       if (this._options.output === 'console') {
         setImmediate(() => {
-          render({
-            ...this._options,
-            results,
-          });
+          render(results, this._options);
         });
       } else {
-        render({
-          ...this._options,
-          results,
-        });
+        render(results, this._options);
       }
     });
   }
