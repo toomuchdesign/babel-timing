@@ -7,7 +7,6 @@ export default function aggregateByPlugins(
 ): ResultByPlugin[] {
   const results = [] as ResultByPlugin[];
   const pluginsMap = new Map();
-
   // Extract "results.plugins" entries and group them by plugin name
   resultByFile.forEach(fileResult => {
     const fileName = fileResult.name;
