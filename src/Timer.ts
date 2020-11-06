@@ -6,16 +6,16 @@ import { ResultByFile, Visit } from './types';
 type HRTime = ReturnType<NodeJS.HRTime>;
 
 export default class Timer {
-  _events: {
+  private _events: {
     [pluginAlias: string]: HRTime[];
   };
-  _results: {
+  private _results: {
     [pluginAlias: string]: {
       time: number;
       visits: number;
     };
   };
-  _file: string;
+  private _file: string;
   wrapPluginVisitorMethod: TransformOptions['wrapPluginVisitorMethod'];
 
   constructor(file: string) {

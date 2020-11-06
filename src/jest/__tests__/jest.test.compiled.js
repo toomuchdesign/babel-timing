@@ -10,8 +10,7 @@ function getFileList(results) {
 
 jest.setTimeout(10000);
 
-// @NOTE Temporarily disabled because cli command needs transpilation
-describe.skip('Jest integration', () => {
+describe('Jest integration', () => {
   it('return expected results as JSON', async () => {
     const testFile = path.join(__dirname, '__fixtures__/test.js');
     const jestConfig = path.join(__dirname, '__fixtures__/jest.config.js');
@@ -19,12 +18,11 @@ describe.skip('Jest integration', () => {
       __dirname,
       '__fixtures__/results.temp.json'
     );
-
     await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
 
     const results = JSON.parse(fs.readFileSync(expectedResultsPath));
     const files = getFileList(results);
-
+    expect(2).toBe(2);
     rimraf.sync(expectedResultsPath);
 
     expect(files.length).toBe(3);
