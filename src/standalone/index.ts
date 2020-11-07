@@ -42,7 +42,7 @@ export default async function babelTiming(
   // Follow and recursively resolve all relative imports
   if (followImports) {
     const rawImportedFiles = await Promise.all(
-      files.map(file => getImports(file, options))
+      files.map((file) => getImports(file, options))
     );
 
     const importedFiles = rawImportedFiles.flat().filter(onlyUnique);
@@ -50,18 +50,18 @@ export default async function babelTiming(
   }
 
   // All file paths absolute
-  files = files.map(file => path.resolve(file));
+  files = files.map((file) => path.resolve(file));
 
   if (Array.isArray(include)) {
     files = multimatch(files, include);
   }
 
   if (Array.isArray(exclude)) {
-    const negatedExclude = exclude.map(pattern => `!${pattern}`);
+    const negatedExclude = exclude.map((pattern) => `!${pattern}`);
     files = multimatch(files, ['**', ...negatedExclude]);
   }
 
-  let results = files.map(file => {
+  let results = files.map((file) => {
     const timer = new Timer(file);
 
     /*

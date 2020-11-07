@@ -24,7 +24,7 @@ export default class Timer {
     this._file = file;
     this.wrapPluginVisitorMethod = (pluginAlias, visitorType, callback) => {
       const self = this;
-      return function(...args: unknown[]) {
+      return function (...args: unknown[]) {
         self._push(pluginAlias);
         // @ts-ignore
         callback.apply(this, args);
@@ -56,7 +56,7 @@ export default class Timer {
 
   getResults(): ResultByFile {
     const plugins = Object.keys(this._results)
-      .map(pluginAlias => {
+      .map((pluginAlias) => {
         const entry = this._results[pluginAlias];
         return {
           name: pluginAlias,
@@ -105,11 +105,11 @@ export default class Timer {
     return (
       results
         // Get list of plugin names
-        .map(entry => entry.name)
+        .map((entry) => entry.name)
         .filter(onlyUnique)
         // Merge data entries with same plugin name
-        .map(pluginName => {
-          const samePlugin = results.filter(data => data.name === pluginName);
+        .map((pluginName) => {
+          const samePlugin = results.filter((data) => data.name === pluginName);
           return mergeWith({}, ...samePlugin, mergeStrategy);
         })
         .map(Timer.addTimePerVisitProperty)

@@ -18,12 +18,12 @@ function renderFileList({
     title: 'Babel timing - trasformed files',
     entries: results,
     entriesMap: [
-      ['File', entry => entry.name],
-      ['Total time(ms)', entry => entry.time.toFixed(3)],
+      ['File', (entry) => entry.name],
+      ['Total time(ms)', (entry) => entry.time.toFixed(3)],
     ],
     selectable: true,
     selected,
-    onSelected: selected => {
+    onSelected: (selected) => {
       diff.clear();
       output.unmount();
       renderFileDetails({
@@ -35,7 +35,7 @@ function renderFileList({
     },
     onSelectedCommandInfo: 'show file detail',
     paginationSize,
-    onRender: output => {
+    onRender: (output) => {
       diff.write(output);
     },
   });
@@ -57,10 +57,10 @@ function renderFileDetails({
     title: `Babel timing - info for file: ${fileResult.name}`,
     entries: fileResult.plugins,
     entriesMap: [
-      ['pluginAlias', entry => entry.name],
-      ['time(ms)', entry => entry.time.toFixed(3)],
-      ['visits', entry => entry.visits],
-      ['time/visit(ms)', entry => entry.timePerVisit.toFixed(3)],
+      ['pluginAlias', (entry) => entry.name],
+      ['time(ms)', (entry) => entry.time.toFixed(3)],
+      ['visits', (entry) => entry.visits],
+      ['time/visit(ms)', (entry) => entry.timePerVisit.toFixed(3)],
     ],
     onEscape: () => {
       diff.clear();
@@ -69,7 +69,7 @@ function renderFileDetails({
     },
     onEscapeCommandInfo: 'back to results list',
     paginationSize,
-    onRender: output => {
+    onRender: (output) => {
       diff.write(output);
     },
   });
@@ -90,12 +90,12 @@ function renderPluginList({
     title: 'Babel timing - plugins called',
     entries: results,
     entriesMap: [
-      ['Plugin', entry => entry.name],
-      ['Total time(ms)', entry => entry.time.toFixed(3)],
+      ['Plugin', (entry) => entry.name],
+      ['Total time(ms)', (entry) => entry.time.toFixed(3)],
     ],
     selectable: true,
     selected,
-    onSelected: selected => {
+    onSelected: (selected) => {
       diff.clear();
       output.unmount();
       renderPluginDetails({
@@ -107,7 +107,7 @@ function renderPluginList({
     },
     onSelectedCommandInfo: 'show plugin detail',
     paginationSize,
-    onRender: output => {
+    onRender: (output) => {
       diff.write(output);
     },
   });
@@ -129,10 +129,10 @@ function renderPluginDetails({
     title: `Babel timing - info for plugin: ${pluginResult.name}`,
     entries: pluginResult.files,
     entriesMap: [
-      ['file', entry => entry.name],
-      ['time(ms)', entry => entry.time.toFixed(3)],
-      ['visits', entry => entry.visits],
-      ['time/visit(ms)', entry => entry.timePerVisit.toFixed(3)],
+      ['file', (entry) => entry.name],
+      ['time(ms)', (entry) => entry.time.toFixed(3)],
+      ['visits', (entry) => entry.visits],
+      ['time/visit(ms)', (entry) => entry.timePerVisit.toFixed(3)],
     ],
     onEscape: () => {
       diff.clear();
@@ -146,7 +146,7 @@ function renderPluginDetails({
     },
     onEscapeCommandInfo: 'back to results list',
     paginationSize,
-    onRender: output => {
+    onRender: (output) => {
       diff.write(output);
     },
   });

@@ -11,7 +11,7 @@ const {
 } = require('../../__utils__/expectations');
 
 function getFileList(results) {
-  return results.map(entry => entry.name);
+  return results.map((entry) => entry.name);
 }
 
 describe('babelTiming', () => {
@@ -29,7 +29,7 @@ describe('babelTiming', () => {
     const results = await babelTiming([path.join(FIXTURES, 'file-*.js*')]);
     let previous = Infinity;
 
-    results.forEach(entry => {
+    results.forEach((entry) => {
       expect(previous >= entry.time).toBe(true);
       previous = entry.time;
     });
@@ -40,7 +40,7 @@ describe('babelTiming', () => {
     const resultsEntry = results[0];
     let previous = Infinity;
 
-    resultsEntry.plugins.forEach(entry => {
+    resultsEntry.plugins.forEach((entry) => {
       expect(previous >= entry.time).toBe(true);
       previous = entry.time;
     });

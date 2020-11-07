@@ -36,7 +36,7 @@ function mergeStrategy(
 export default function joinFileResultsFromSameModule(
   results: ResultByFile[]
 ): ResultByFile[] {
-  const normalizedResults = results.map(result => ({
+  const normalizedResults = results.map((result) => ({
     ...result,
     name: normalizeResultName(result.name),
   }));
@@ -44,12 +44,12 @@ export default function joinFileResultsFromSameModule(
   return (
     normalizedResults
       // Get list of all name-normalized entries
-      .map(result => result.name)
+      .map((result) => result.name)
       .filter(onlyUnique)
       // Merge results with same name
-      .map(name => {
+      .map((name) => {
         const sameName = normalizedResults.filter(
-          result => result.name === name
+          (result) => result.name === name
         );
         return mergeWith({}, ...sameName, mergeStrategy);
       })

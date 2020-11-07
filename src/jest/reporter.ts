@@ -15,7 +15,9 @@ export default class BabelTimingReporter implements Reporter {
   }
 
   onRunComplete() {
-    const results = timersCollection.getAll().map(timer => timer.getResults());
+    const results = timersCollection
+      .getAll()
+      .map((timer) => timer.getResults());
     timersCollection.clear();
 
     // Render output after Jest's pending async operations check

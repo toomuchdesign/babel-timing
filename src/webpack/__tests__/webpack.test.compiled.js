@@ -5,7 +5,7 @@ const path = require('path');
 const rimraf = require('rimraf');
 
 function getFileList(results) {
-  return results.map(entry => entry.name);
+  return results.map((entry) => entry.name);
 }
 
 describe('Webpack integration', () => {

@@ -14,10 +14,10 @@ export default class BabelTimingPlugin implements Plugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.done.tap('Babel timing Plugin', stats => {
+    compiler.hooks.done.tap('Babel timing Plugin', (stats) => {
       const results = timersCollection
         .getAll()
-        .map(timer => timer.getResults());
+        .map((timer) => timer.getResults());
       timersCollection.clear();
 
       if (this._options.output === 'console') {

@@ -3,7 +3,7 @@ import Timer from './Timer';
 let timers = new Map<string, Timer>();
 
 export function getAll() {
-  return [...timers.entries()].map(entry => entry[1]);
+  return [...timers.entries()].map((entry) => entry[1]);
 }
 
 export function clear() {
