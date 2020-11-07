@@ -47,7 +47,7 @@
 
 ### New Features
 
- - Provide Jest integration `babel-timing/jest/transformer` and `babel-timing/jest/reporter`
+- Provide Jest integration `babel-timing/jest/transformer` and `babel-timing/jest/reporter`
 
 ### Bugfixes
 
@@ -58,8 +58,8 @@
 
 ### New Features
 
- - Provide Webpack integration with `babel-timing/webpack/plugin` and `babel-timing/webpack/babel-loader-customize`
- - Add `outputPath` option
+- Provide Webpack integration with `babel-timing/webpack/plugin` and `babel-timing/webpack/babel-loader-customize`
+- Add `outputPath` option
 
 ## 0.2.1
 

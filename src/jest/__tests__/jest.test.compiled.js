@@ -9,6 +9,7 @@ function getFileList(results) {
 }
 
 jest.setTimeout(10000);
+
 describe('Jest integration', () => {
   it('return expected results as JSON', async () => {
     const testFile = path.join(__dirname, '__fixtures__/test.js');
@@ -17,12 +18,11 @@ describe('Jest integration', () => {
       __dirname,
       '__fixtures__/results.temp.json'
     );
-
     await exec(`jest ${testFile} --config=${jestConfig} --no-cache`);
 
     const results = JSON.parse(fs.readFileSync(expectedResultsPath));
     const files = getFileList(results);
-
+    expect(2).toBe(2);
     rimraf.sync(expectedResultsPath);
 
     expect(files.length).toBe(3);

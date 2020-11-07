@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2019",
+    "lib": ["dom", "es2020", "esnext.array"],
+    "strict": true,
+    "esModuleInterop": true,
+    "noErrorTruncation": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "declaration": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"],
+  "exclude": ["**/__*__"]
+}

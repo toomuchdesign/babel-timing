@@ -1,5 +1,5 @@
 const path = require('path');
-const BabelTimingPlugin = require('../../plugin');
+const BabelTimingPlugin = require('../../../../webpack/plugin');
 
 module.exports = {
   module: {
@@ -9,7 +9,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            customize: require.resolve('../../babel-loader-customize'),
+            customize: require.resolve(
+              '../../../../webpack/babel-loader-customize'
+            ),
           },
         },
       },

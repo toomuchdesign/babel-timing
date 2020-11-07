@@ -2,26 +2,25 @@
   "name": "babel-timing",
   "version": "0.8.0",
   "description": "Measure Babel compilation time",
-  "main": "src/index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
-    "src",
+    "dist",
     "webpack",
-    "jest",
-    "cli.js",
-    "!__tests__",
-    "!__mocks__",
-    "!__fixtures__",
-    "!__utils__"
+    "jest"
   ],
-  "bin": "./cli.js",
+  "bin": "./dist/src/cli.js",
   "scripts": {
-    "test": "jest",
-    "start": "node cli.js __fixtures__/entry.js --follow-imports",
+    "clean": "rm -rf dist",
+    "compile": "npm run clean && tsc",
+    "test": "jest test.{j,t}s",
+    "test:compiled": "jest test.compiled.{j,t}s",
+    "start": "node ./dist/src/cli.js __fixtures__/entry.js --follow-imports",
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm t",
-    "format": "prettier --write \"**/*.{js,json,md}\""
+    "prepublish": "npm run compile && jest",
+    "format": "prettier --write \"**/*.{js,ts,json,md}\""
   },
   "keywords": [
     "babel",
@@ -51,21 +50,30 @@
     "lodash.mergewith": "^4.6.2",
     "minimatch": "^3.0.4",
     "multimatch": "^4.0.0",
-    "reduce-flatten": "^3.0.0",
     "rimraf": "^3.0.2",
     "webpack": "^4.43.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
+    "@types/find-cache-dir": "^3.2.0",
+    "@types/jest": "^26.0.15",
+    "@types/lodash.chunk": "^4.2.6",
+    "@types/lodash.defaults": "^4.2.6",
+    "@types/lodash.mergewith": "^4.6.6",
+    "@types/rimraf": "^3.0.0",
+    "@types/webpack": "^4.41.24",
     "babel-jest": "^26.6.1",
     "husky": "^4.3.0",
     "jest": "^26.6.1",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "ts-jest": "^26.4.2",
+    "typescript": "^4.0.3",
     "webpack-cli": "^3.3.12"
   },
   "jest": {
+    "preset": "ts-jest/presets/js-with-ts",
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "__fixtures__",
@@ -77,11 +85,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run compile && lint-staged"
     }
   },
   "lint-staged": {
-    "**/*.{js,json}": [
+    "**/*.{js,ts,json}": [
       "prettier --write",
       "npm t -- .",
       "git add"
@@ -92,6 +100,6 @@
     ]
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=11.0"
   }
 }

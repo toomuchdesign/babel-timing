@@ -1,7 +1,18 @@
-var chunkArray = require('lodash.chunk');
+import chunkArray from 'lodash.chunk';
 
-class Pagination {
-  constructor({items = [], itemsPerPage = 10} = {}) {
+export default class Pagination<Item> {
+  items: Item[][];
+  itemsPerPage: number;
+  pagedItems: Item[][][];
+  currentPage: number;
+
+  constructor({
+    items = [],
+    itemsPerPage = 10,
+  }: {
+    items: Item[][];
+    itemsPerPage: number;
+  }) {
     this.items = items;
     this.itemsPerPage = itemsPerPage;
     this.pagedItems = chunkArray(items, itemsPerPage);
@@ -16,11 +27,11 @@ class Pagination {
     return this.pagedItems.length;
   }
 
-  getTotalEntriesInPage(pageNumber) {
+  getTotalEntriesInPage(pageNumber: number) {
     return this.pagedItems[pageNumber].length;
   }
 
-  countItemsInPage(pageNumber) {
+  countItemsInPage(pageNumber: number) {
     return this.pagedItems[pageNumber].length;
   }
 
@@ -60,7 +71,7 @@ class Pagination {
     }
   }
 
-  goToItemPage(itemIndex = -1) {
+  goToItemPage(itemIndex: number = -1) {
     if (itemIndex < 0 || itemIndex > this.items.length) {
       return;
     }
@@ -68,5 +79,3 @@ class Pagination {
     this.currentPage = Math.floor(itemIndex / this.itemsPerPage);
   }
 }
-
-module.exports = Pagination;

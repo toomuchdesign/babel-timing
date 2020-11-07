@@ -1,10 +1,8 @@
-const readline = require('readline');
+import readline from 'readline';
 
-function enableKeyPressEvent() {
+export function enableKeyPressEvent(): void {
   // Make `process.stdin` begin emitting "keypress" events
   readline.emitKeypressEvents(process.stdin);
   process.stdin.setRawMode(true);
   process.stdin.resume();
 }
-
-exports.enableKeyPressEvent = enableKeyPressEvent;

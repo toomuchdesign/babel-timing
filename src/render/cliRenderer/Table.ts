@@ -1,11 +1,30 @@
-const CliTable = require('cli-table3');
-const colors = require('colors/safe');
-const defaults = require('lodash.defaults');
-const Pagination = require('./Pagination');
-const {valueInRange} = require('../../utils');
+import CliTable from 'cli-table3';
+import colors from 'colors/safe';
+import defaults from 'lodash.defaults';
+import Pagination from './Pagination';
+import { valueInRange } from '../../utils';
 
-class Table {
-  constructor(props = {}) {
+type TableProps<Entry> = {
+  title?: string;
+  entries?: Entry[];
+  entriesMap?: [string, (entry: Entry) => string | number][];
+  selectable?: boolean;
+  selected?: number;
+  paginationSize?: number;
+  onSelected?: (index: number) => void;
+  onSelectedCommandInfo?: string;
+  onEscape?: () => void;
+  onEscapeCommandInfo?: string;
+  onRender?: (output: string) => void;
+};
+
+export default class Table<Entry> {
+  props: Required<TableProps<Entry>>;
+  pagination: Pagination<string | number>;
+  tableHead: string[];
+  selectedInCurrentPage: number;
+
+  constructor(props: TableProps<Entry> = {}) {
     this.props = defaults({}, props, {
       title: '',
       entries: [],
@@ -25,9 +44,10 @@ class Table {
     this.onKeyPress = this.onKeyPress.bind(this);
 
     // Prepare data for rendering
-    this.tableHead = ['', ...this.props.entriesMap.map(entry => entry[0])].map(
-      entry => colors.yellow(entry)
-    );
+    this.tableHead = [
+      '',
+      ...this.props.entriesMap.map(entry => entry[0]),
+    ].map(entry => colors.yellow(entry));
 
     const pagedEntries = this.props.entries.map((result, index) => [
       index + 1,
@@ -49,7 +69,13 @@ class Table {
     return this.props.paginationSize * currentPage + this.selectedInCurrentPage;
   }
 
-  onKeyPress(ch, key) {
+  onKeyPress(
+    ch: unknown,
+    key: {
+      name: string;
+      ctrl: boolean;
+    }
+  ) {
     if (!key) {
       return;
     }
@@ -139,6 +165,7 @@ class Table {
     if (this.props.selectable) {
       items = items.map((row, index) => {
         if (index === this.selectedInCurrentPage) {
+          // @ts-ignore
           return row.map(entry => colors.yellow.underline(entry));
         }
         return row;
@@ -164,5 +191,3 @@ class Table {
     this.props.onRender(output);
   }
 }
-
-module.exports = Table;

@@ -31,7 +31,7 @@ babel-timing path/to/entrypoint.js --follow-imports
 ### As standalone library via Node
 
 ```js
-const {babelTiming} = require('babel-timing');
+const { babelTiming } = require('babel-timing');
 const results = await babelTiming(['path/to/file.js'], options);
 ```
 
@@ -54,29 +54,29 @@ module: {
       test: /\.m?js$/,
       use: {
         loader: 'babel-loader',
-          options: {
-            customize: require.resolve('babel-timing/webpack/babel-loader-customize')
-         },
-      }
-    }
-  ]
+        options: {
+          customize: require.resolve(
+            'babel-timing/webpack/babel-loader-customize'
+          ),
+        },
+      },
+    },
+  ];
 }
 ```
 
 3. Add `babel-timing/webpack/plugin` plugin _(accepts the [render options][render-options])_:
 
 ```js
-plugins: [
-   new BabelTimingPlugin(),
-]
+plugins: [new BabelTimingPlugin()];
 ```
 
 ...with **options** _(accepts `output` and `outputPath` options)_:
 
 ```js
 plugins: [
-   new BabelTimingPlugin({output: "json", outputPath: "./results.json"}),
-]
+  new BabelTimingPlugin({ output: 'json', outputPath: './results.json' }),
+];
 ```
 
 4. Delete `babel-loader` cache at `./node_modules/.cache/babel-loader/`
@@ -109,9 +109,9 @@ Profile Babel while running your **actual Jest tests**.
     'default',
     [
       'babel-timing/jest/reporter',
-      {output: 'json', outputPath: './results.json'}
-    ]
-  ]
+      { output: 'json', outputPath: './results.json' },
+    ],
+  ];
 }
 ```
 
@@ -126,7 +126,7 @@ Profile Babel while running your **actual Jest tests**.
 #### `babelConfig` / `--babel-config`
 
 Type: `string | false`<br />
-Default: `undefined`
+Default: `false`
 
 Path to a custom [babel configuration file](https://babeljs.io/docs/en/options#configfile). By default Babel will try to load any existing valid configuration file.
 
@@ -194,12 +194,14 @@ Default: `"./babel-timing-results.json"`
 Path of output file in case `output` option is set to `"json"`.
 
 #### `paginationSize` / `--pagination-size`
+
 Type: `number`<br />
 Default: `10`
 
 Number of entries displayed in a page when rendering `"console"` output.
 
 #### `aggregateBy` / `--aggregate-by`
+
 Type: `string`<br />
 Default: `"files"`<br />
 Options: `"files"`, `"plugins"`
@@ -223,8 +225,9 @@ Compile files with **Babel 7** and get **collect compilation info** through [`wr
 
 ```typescript
 type ResultList = {
-  name: string;
-  time: number;
+  name: string; // file name
+  time: number; // total compilation time
+  // compilation info by babel plugin
   plugins: {
     name: string;
     time: number;
@@ -260,7 +263,7 @@ These API's are meant to integrate `babel-timing` with any bundler/tool using Ba
 `Timer` class returns timer instances used to hook Babel's [`wrapPluginVisitorMethod`][wrappluginvisitormethod-docs], keep track of transform times and return a [`ResultList`][resultlist] entry object for a given file.
 
 ```js
-const {Timer} = require('babel-timing');
+const { Timer } = require('babel-timing');
 const timer = new Timer(fileName);
 
 // This is the function to be provided to Babel's "wrapPluginVisitorMethod" option
@@ -275,7 +278,7 @@ timer.getResults();
 Utility function meant to temporarily store `Timer` instances into a Node module while Babel compiles.
 
 ```js
-const {timersCollection} = require('babel-timing');
+const { timersCollection } = require('babel-timing');
 
 // Returns Timer instance for given file. Creates a new `Timer` instance if no timer for given file is found
 timersCollection.getFile(fileName);
@@ -291,8 +294,8 @@ timersCollection.clear();
 Accepts a `ResultList` array and renders an interactive CLI visualisation or outputs a JSON file of it.
 
 ```js
-const {render} = require('babel-timing');
-render(babelTimingResults, {options});
+const { render } = require('babel-timing');
+render(babelTimingResults, { options });
 ```
 
 Accepts the [render options][render-options].
