@@ -8,23 +8,32 @@
   "major": {
     "automerge": false
   },
+  "masterIssue": true,
   "postUpdateOptions": ["npmDedupe"],
   "packageRules": [
     {
-      "packagePatterns": ["^@babel/"],
+      "packagePatterns": ["^@babel/", "find-babel-config"],
       "groupName": "Update babel monorepo packages"
     },
     {
-      "packageNames": ["jest", "babel-jest"],
+      "packageNames": ["jest", "@types/jest", "ts-jest", "babel-jest"],
       "groupName": "Update jest packages"
     },
     {
-      "packagePatterns": ["^lodash"],
+      "packagePatterns": ["^lodash", "^@types/lodash"],
       "groupName": "Update lodash packages"
     },
     {
-      "packagePatterns": ["^webpack"],
+      "packagePatterns": ["^webpack", "@types/webpack"],
       "groupName": "Update webpack packages"
+    },
+    {
+      "packageNames": ["rimraf", "@types/rimraf"],
+      "groupName": "Update rimraf packages"
+    },
+    {
+      "packageNames": ["find-cache-dir", "@types/find-cache-dir"],
+      "groupName": "Update find-cache-dir packages"
     }
   ]
 }
