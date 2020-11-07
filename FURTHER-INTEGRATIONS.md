@@ -7,13 +7,13 @@
 ```js
 // mixin.core.js
 const { Mixin } = require('hops');
-const BabelTimingPlugin = require('babel-timing/dist/webpack/plugin');
+const BabelTimingPlugin = require('babel-timing/webpack/plugin');
 
 class BabelTimingMixin extends Mixin {
   configureBuild(webpackConfig, loaderConfigs, target) {
     if (target === 'build') {
       loaderConfigs.jsLoaderConfig.options.customize = require.resolve(
-        'babel-timing/dist/webpack/babel-loader-customize'
+        'babel-timing/webpack/babel-loader-customize'
       );
       webpackConfig.plugins.push(new BabelTimingPlugin());
     }

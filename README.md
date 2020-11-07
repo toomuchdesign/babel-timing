@@ -225,8 +225,9 @@ Compile files with **Babel 7** and get **collect compilation info** through [`wr
 
 ```typescript
 type ResultList = {
-  name: string;
-  time: number;
+  name: string; // file name
+  time: number; // total compilation time
+  // compilation info by babel plugin
   plugins: {
     name: string;
     time: number;
