@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0
+
+### New Features
+
+- Migrate to TypeScript
+- Expose TypeScript types
+
 ## 0.8.0
 
 ### Breaking Changes
