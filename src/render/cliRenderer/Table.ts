@@ -46,12 +46,12 @@ export default class Table<Entry> {
     // Prepare data for rendering
     this.tableHead = [
       '',
-      ...this.props.entriesMap.map(entry => entry[0]),
-    ].map(entry => colors.yellow(entry));
+      ...this.props.entriesMap.map((entry) => entry[0]),
+    ].map((entry) => colors.yellow(entry));
 
     const pagedEntries = this.props.entries.map((result, index) => [
       index + 1,
-      ...this.props.entriesMap.map(entry => entry[1](result)),
+      ...this.props.entriesMap.map((entry) => entry[1](result)),
     ]);
 
     this.pagination = new Pagination({
@@ -150,7 +150,7 @@ export default class Table<Entry> {
         `↑↓ ${this.props.onSelectedCommandInfo}`,
       this.props.onEscapeCommandInfo && `ESC ${this.props.onEscapeCommandInfo}`,
     ]
-      .filter(entry => Boolean(entry))
+      .filter((entry) => Boolean(entry))
       .join(' | ');
   }
 
@@ -166,7 +166,7 @@ export default class Table<Entry> {
       items = items.map((row, index) => {
         if (index === this.selectedInCurrentPage) {
           // @ts-ignore
-          return row.map(entry => colors.yellow.underline(entry));
+          return row.map((entry) => colors.yellow.underline(entry));
         }
         return row;
       });

@@ -57,15 +57,15 @@ export default async function getImports(
   // https://webpack.js.org/api/stats/#root
   const importedModules = stats.toJson('normal').modules || [];
   const imports: string[] = importedModules
-    .map(module => {
+    .map((module) => {
       if (module.modules) {
-        return module.modules.map(module => module.identifier);
+        return module.modules.map((module) => module.identifier);
       } else {
         return [module.identifier];
       }
     })
     .flat()
-    .filter(identifier => identifier.startsWith('/'))
+    .filter((identifier) => identifier.startsWith('/'))
     .map(extractPathFromIdentifier)
     .filter(onlyUnique);
 
@@ -99,8 +99,8 @@ function getConfig(
       rules: [
         {
           test: BABEL_TIMING_FILE_EXTENSIONS_REGEX,
-          include: options.include.map(path => minimatch.makeRe(path)),
-          exclude: options.exclude.map(path => minimatch.makeRe(path)),
+          include: options.include.map((path) => minimatch.makeRe(path)),
+          exclude: options.exclude.map((path) => minimatch.makeRe(path)),
           use: {
             loader: require.resolve('babel-loader', { paths: [__dirname] }),
             options: {

@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 
 export function globPatternsToPaths(patterns: string[]): string[] {
   const paths = [] as string[];
-  patterns.forEach(pattern => {
+  patterns.forEach((pattern) => {
     if (glob.hasMagic(pattern)) {
       paths.push(...glob.sync(pattern));
     } else if (existsSync(pattern)) {
