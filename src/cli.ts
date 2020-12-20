@@ -3,7 +3,6 @@
 import { readFileSync } from 'fs';
 import program from 'commander';
 import { babelTiming, render } from './index';
-import pkg from '../package.json';
 import { ResultByFile, Options } from './types';
 
 function list(val: string) {
@@ -13,7 +12,6 @@ function list(val: string) {
 type CLIOnlyOptions = { readResults?: string };
 
 program
-  .version(pkg.version)
   .usage('<list-of-files>')
   .option('--babel-config <path>', 'babel configuration file')
   .option('--follow-imports', 'follow and compile imported files')

@@ -1,2 +1,2 @@
-const reporter = require('../dist/src/jest/reporter').default;
+const reporter = require('../dist/jest/reporter').default;
 module.exports = reporter;
