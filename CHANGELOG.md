@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1
+
+### Bugfixes
+
+- Fix `dist` folder not being fully copied into package's tarball
+
 ## 0.9.0
 
 ### New Features
