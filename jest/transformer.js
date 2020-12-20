@@ -1,2 +1,2 @@
-const transformer = require('../dist/src/jest/transformer').default;
+const transformer = require('../dist/jest/transformer').default;
 module.exports = transformer;
