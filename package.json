@@ -57,7 +57,7 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@types/find-cache-dir": "^3.2.0",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.19",
     "@types/lodash.chunk": "^4.2.6",
     "@types/lodash.defaults": "^4.2.6",
     "@types/lodash.mergewith": "^4.6.6",
