@@ -19,7 +19,7 @@
     "preversion": "npm run prepublish",
     "version": "git add package.json",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run compile && jest",
+    "prepare": "npm run compile && jest",
     "format": "prettier --write \"**/*.{js,ts,json,md}\""
   },
   "keywords": [
