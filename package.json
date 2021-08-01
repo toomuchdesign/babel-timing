@@ -56,7 +56,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
-    "@types/find-cache-dir": "^3.2.0",
+    "@types/find-cache-dir": "^3.2.1",
     "@types/jest": "^26.0.23",
     "@types/lodash.chunk": "^4.2.6",
     "@types/lodash.defaults": "^4.2.6",
