@@ -5,6 +5,8 @@
 
 Measure **[Babel](https://babeljs.io/) compilation time** **file by file**, **plugin by plugin**.
 
+**Note: this project might be soon archived.**.
+
 [![asciicast](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh.svg)](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh)
 
 Profile Babel when your application or your tests take ages to build.
