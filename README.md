@@ -5,7 +5,7 @@
 
 Measure **[Babel](https://babeljs.io/) compilation time** **file by file**, **plugin by plugin**.
 
-**Note: this project might be soon archived.**.
+**Note: this project might be [soon archived](https://github.com/toomuchdesign/babel-timing/issues/75)**.
 
 [![asciicast](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh.svg)](https://asciinema.org/a/GANbL8RdBHqThWzujdhqZeeNh)
 
